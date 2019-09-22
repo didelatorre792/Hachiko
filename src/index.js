@@ -1,8 +1,8 @@
 /*global Phaser, window*/
 import BootScene from './scenes/BootScene.js';
 import Config from './config/config.js';
-import Scene0 from './config/Scene0';
-import Scene1 from './config/Scene1';
+import Scene0 from './scenes/Scene0.js';
+import Scene1 from './scenes/Scene1.js';
 
 class Game extends Phaser.Game {
   constructor () {
