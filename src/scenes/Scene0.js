@@ -4,23 +4,37 @@ export default class Scene0 extends Phaser.Scene {
   }
 
 
+
   preload(){
   this.centerX = this.cameras.main.width / 2;
   this.centerY = this.cameras.main.height / 2;
+
+  this.load.image('logo', 'assets/logo.png');
+
+  var iter = 0;
+  //var scrollCam;
+  var picture;
+
+  this.load.image("dessert", "./assets/images/background.png");
   }
 
   create(){
 
+    this.scrollCam = this.cameras.main.setBounds(0,0, 3000, 960);
+    this.scrollCam.scrollX = 25;
+    //this.scrollCam.setSize(0,0, 3000, 960);
     //this.background = this.add.sprite(400, 300, "sky");
-    this.cameras.main.setBackgroundColor(0x008080);//for now it's a rando color
-    this.cameras.main.setBounds(0,0, 1280, 960);
+    this.picture = this.add.sprite(1280/2, 960/2,"dessert");
 
-    var lengthBackground = 3000 - this.cameras.main.width;// total - camera.width
+    this.physics.world.setBounds(0, 0, 3000, 960);
 
-    for(var i = 0; i < lengthBackground; i++){
-      this.cameras.x +=1;
-    }
 
+
+  }
+
+  update(){
+
+    this.scrollCam.scrollX += 1;
   }
 
   }
