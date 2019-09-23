@@ -27,7 +27,7 @@ export default class Scene1 extends Phaser.Scene {
     //Add player sprite with arcade physics and boundaries
     this.player = this.physics.add.sprite(100, 800, "alien");
     this.player.setCollideWorldBounds(true);
-    this.physics.world.setBounds(0, 750, 1280, 210);
+    this.physics.world.setBounds(0, 0, 1280, 960);
     //Create annimations from spriteSheet
     this.anims.create({
       key: "walk",
