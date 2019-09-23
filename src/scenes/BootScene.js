@@ -2,7 +2,6 @@ export default class BootScene extends Phaser.Scene {
 
   preload () {
     // Preload assets
-    this.load.image('logo', './assets/logo.png');
     this.load.image("background", "./assets/images/background.png");
     this.load.image("car1", "./assets/images/car1.png");
     this.load.image("car2", "./assets/images/car2.png");
@@ -17,7 +16,10 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("dogBone", "./assets/images/bone.png");
     this.load.image("dogBowl", "./assets/images/dogBowl.png");
     this.load.image("dogCollar", "./assets/images/dogCollar.png");
+    this.load.image("dogToy", "./assets/images/dogToy.png");
+    this.load.image("dogPicture", "./assets/images/dogPicture.png");
     this.load.image("thug", "./assets/images/thug.png");
+    this.load.image("hachiko", "./assets/images/hachiko.png");
 
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
@@ -31,7 +33,7 @@ export default class BootScene extends Phaser.Scene {
     // whole scene shows
     //this.background = this.add.image(400, 294, "background");
     //this.background.setScale(0.34);
-    this.cameras.main.setBounds(4000, 0);
+    this.cameras.main.setBounds(4200, 0);
     this.background = this.add.image(2400, 300, "background");
     this.background.setScale(2)
 
@@ -76,6 +78,26 @@ export default class BootScene extends Phaser.Scene {
     this.thug2.setScale(.1);
     this.thug2 = this.add.image(3250, 505, "thug");
     this.thug2.setScale(.11);
+    this.trashcan4 = this.add.image(3450, 540, "trashcan");
+    this.trashcan4.setScale(.3);
+    this.dogToy = this.add.image(3320, 350, "dogToy");
+    this.dogToy.setScale(.04);
+
+    // park
+    this.dogPicture = this.add.image(3660, 250, "dogPicture");
+    this.dogPicture.setScale(.07);
+    this.lamppost3 = this.add.image(3800, 463, "lamppost");
+    this.lamppost3.setScale(1.2);
+    this.bench = this.add.image(4000, 520, "bench");
+    this.bench.setScale(.8);
+    this.tree = this.add.image(4300, 400, "tree");
+    this.tree.setScale(1.7);
+
+    // boss
+    this.bigThug = this.add.image(4740, 470, "thug");
+    this.bigThug.setScale(.2);
+    this.hachiko = this.add.image(4690, 550, "hachiko");
+    this.hachiko.setScale(.14);
 
 
 
