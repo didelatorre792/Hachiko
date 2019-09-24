@@ -92,22 +92,58 @@ export default class BootScene extends Phaser.Scene {
     this.bench.setScale(.8);
     this.tree = this.add.image(4300, 400, "tree");
     this.tree.setScale(1.7);
-
     // boss
     this.bigThug = this.add.image(4740, 470, "thug");
     this.bigThug.setScale(.2);
     this.hachiko = this.add.image(4690, 550, "hachiko");
     this.hachiko.setScale(.14);
 
-
-
-
-
-
+    //< NEED TO MAKE THIS.PLAYER >
+    // make dog items collectable
+    this.physics.add.overlap(
+      this.player,
+      this.dogBone,
+      this.collectDogItem,
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.dogBowl,
+      this.collectDogItem,
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.dogCollar,
+      this.collectDogItem,
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.dogToy,
+      this.collectDogItem,
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.player,
+      this.dogPicture,
+      this.collectDogItem,
+      null,
+      this
+    );
 
   }
 
   update (time, delta) {
 
+  }
+
+  // make item dissapear when collecting it
+  collectDogItem(player, dogItem) {
+    dogItem.disableBody(true, true);
   }
 }
