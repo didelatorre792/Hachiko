@@ -21,6 +21,11 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("thug", "./assets/images/thug.png");
     this.load.image("hachiko", "./assets/images/hachiko.png");
 
+    this.load.spritesheet("alien", "./assets/spritesheet/player.png", {
+      frameWidth: 65,
+      frameHeight: 95
+    });
+
     // Declare variables for center of the scene
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
@@ -100,7 +105,18 @@ export default class BootScene extends Phaser.Scene {
     this.hachiko.setScale(.14);
 
 
-
+    this.anims.create({
+      key: "walk",
+      frames: this.anims.generateFrameNumbers("alien", { start: 0, end: 5 }),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "idle",
+      frames: this.anims.generateFrameNumbers("alien", { start: 0, end: 0 }),
+      frameRate: 10,
+      repeat: -1
+    });
 
 
 
