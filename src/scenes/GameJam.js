@@ -11,6 +11,10 @@ export default class GameJam extends Phaser.Scene {
   create(){
     //camera
     this.cameras.main.setBounds(0, 0);
+    this.scrollCam = this.cameras.main.setBounds(0,0, 2400, 300);
+    this.scrollCam.scrollX = 25;
+
+
 
     //background
     this.background = this.add.image(2400, 300, "background");
@@ -78,6 +82,16 @@ export default class GameJam extends Phaser.Scene {
     this.bigThug.setScale(.2);
     this.hachiko = this.add.image(4690, 550, "hachiko");
     this.hachiko.setScale(.14);
+
+
+
+    
+    //player
+    this.player = this.physics.add.sprite(100, 550, "alien");
+    this.player.setCollideWorldBounds(true);
+
+    this.nerf = this.add.sprite(140,560, "nerf");
+    this.nerf.setScale(.1);
   }
 
 

@@ -13,13 +13,15 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("sign2", "./assets/images/sign2.png");
     this.load.image("bench", "./assets/images/bench.png");
     this.load.image("tree", "./assets/images/tree.png");
-    this.load.image("dogBone", "./assets/images/bone.png");
+    this.load.image("dogBone", "./assets/images/dogBone.png");
     this.load.image("dogBowl", "./assets/images/dogBowl.png");
     this.load.image("dogCollar", "./assets/images/dogCollar.png");
     this.load.image("dogToy", "./assets/images/dogToy.png");
     this.load.image("dogPicture", "./assets/images/dogPicture.png");
     this.load.image("thug", "./assets/images/thug.png");
     this.load.image("hachiko", "./assets/images/hachiko.png");
+    this.load.image("nerf", "./assets/images/nerf.png");
+    this.load.image("bullet", "./assets/images/bullet.jpg");
 
     this.load.spritesheet("alien", "./assets/spritesheet/player.png", {
       frameWidth: 65,
