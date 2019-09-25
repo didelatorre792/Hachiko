@@ -56,6 +56,7 @@ export default class BootScene extends Phaser.Scene {
     this.scene.start('GameJam');
 
 
+
   }
 
   update (time, delta) {
