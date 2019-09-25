@@ -73,7 +73,7 @@ export default class BootScene extends Phaser.Scene {
     this.hachiko = this.add.image(4690, 550, "hachiko").setScale(.14);
 
     //< NEED TO MAKE THIS.PLAYER >
-    this.player = this.physics.add.sprite(200, 200, "player");
+    this.player = this.physics.add.sprite(50, 550, "player");
     this.player.setCollideWorldBounds(true);
 
     // make platform and player collid
