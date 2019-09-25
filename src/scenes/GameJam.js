@@ -42,9 +42,9 @@ export default class GameJam extends Phaser.Scene {
     this.dumpster = this.platforms.create(2200, 480, "dumpster").setScale();
     this.trashcan3 = this.platforms.create(2450, 540, "trashcan").setScale(.3);
     this.sign2 = this.platforms.create(2630, 420, "sign2").setScale(.4);
-    this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
-    this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
-    this.thug2 = this.platforms.create(3250, 505, "thug").setScale(.11);
+    //this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
+    //this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
+    //this.thug2 = this.platforms.create(3250, 505, "thug").setScale(.11);
     this.trashcan4 = this.platforms.create(3450, 540, "trashcan").setScale(.3);
     this.dogToy = this.collectables.create(3320, 350, "dogToy").setScale(.04);
     // park
@@ -54,7 +54,8 @@ export default class GameJam extends Phaser.Scene {
     this.bench = this.platforms.create(4000, 520, "bench").setScale(.8);
     this.tree = this.platforms.create(4300, 400, "tree").setScale(1.7);
     // boss
-    this.bigThug = this.add.image(4740, 470, "thug").setScale(.2);
+    this.bigThug = this.physics.add.sprite(4540, 470, "thug").setScale(.2);
+    this.bigThug.setCollideWorldBounds(true);
     this.hachiko = this.physics.add.image(4690, 550, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
 
@@ -88,9 +89,20 @@ export default class GameJam extends Phaser.Scene {
     //if hachiko and player touch
     this.physics.add.overlap(this.player, this.hachiko, this.gotHachiko, null, this);
 
+    //if bullets and enemy touch
+    this.physics.add.overlap(this.bullets, this.bigThug, this.enemyDead, null, this);
 
     //collectables
     this.itemsCollected = 0;
+
+    //if bullets hit enemy
+    this.physics.add.overlap(
+      this.bullets,
+      this.bigThug,
+      this.enemyDead,
+      null,
+      this
+    );
 
     // make dog items collectable
     this.physics.add.overlap(
@@ -205,6 +217,12 @@ export default class GameJam extends Phaser.Scene {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
   console.log(this.itemsCollected);
+  }
+
+  //make enemy dissapear
+  enemyDead(bullets, bigThug) {
+  bigThug.setActive(false).setVisible(false);
+  console.log(this.enemyDead);
   }
 
   gotHachiko(player, hachiko){
