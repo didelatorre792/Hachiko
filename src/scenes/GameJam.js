@@ -11,7 +11,7 @@ export default class GameJam extends Phaser.Scene {
   create(){
     //camera
     this.cameras.main.setBounds(0, 0);
-    this.scrollCam = this.cameras.main.setBounds(0,0, 3000, 300);
+    this.scrollCam = this.cameras.main.setBounds(1000,0, 3000, 300);
     this.scrollCam.scrollX = 25;
 
     this.physics.world.setBounds(0, 0, 3000, 550);
@@ -23,54 +23,62 @@ export default class GameJam extends Phaser.Scene {
     //building the scene
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
+
     // neighborhood
-    this.car1 = this.platforms.create(240, 540, "car1").setScale(2);
-    this.car2 = this.platforms.create(800, 540, "car2").setScale(.4);
-    this.mailbox1 = this.platforms.create(450, 485, "mailbox").setScale(.15);
-    this.lamppost1 = this.platforms.create(550, 395, "lamppost").setScale(1.2);
-    this.mailbox2 = this.platforms.create(1070, 485, "mailbox").setScale(.15);
-    this.lamppost2 = this.platforms.create(1240, 395, "lamppost").setScale(1.2);
-    this.dogBone = this.collectables.create(1350, 200, "dogBone").setScale(.2);
-    this.mailbox3 = this.platforms.create(1520, 485, "mailbox").setScale(.15);
+    this.car1 = this.add.image(240, 540, "car1").setScale(2);
+    this.box1 = this.platforms.create(220, 530, "box"); this.box1.alpha = 0;
+    this.mailbox1 = this.add.image(445, 475, "mailbox").setScale(.2);
+    this.box2 = this.platforms.create(437, 440, "box").setSize(40,10); this.box2.alpha = 0;
+    this.lamppost1 = this.add.image(550, 408, "lamppost").setScale(1.1);
+    this.box3 = this.platforms.create(514, 295, "box").setSize(10,10); this.box3.alpha = 0;
+    this.box4 = this.platforms.create(580, 300, "box").setSize(40, 10); this.box4.alpha = 0;
+    this.car2 = this.add.image(800, 540, "car2").setScale(.4);
+    this.box5 = this.platforms.create(840, 504, "box").setSize(135); this.box5.alpha = 0;
+    this.mailbox2 = this.add.image(1070, 475, "mailbox").setScale(.2);
+    this.box6 = this.platforms.create(1062, 440, "box").setSize(40, 10); this.box6.alpha = 0;
+    this.lamppost2 = this.add.image(1240, 408, "lamppost").setScale(1.1);
+    this.box7 = this.platforms.create(1204, 298, "box").setSize(10,10); this.box7.alpha = 0;
+    this.box8 = this.platforms.create(1270, 300, "box").setSize(40, 10); this.box8.alpha = 0;
+    this.collectables.create(1350, 200, "dogBone").setScale(.2);
+    this.mailbox3 = this.add.image(1520, 485, "mailbox").setScale(.15);
+    this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
-    this.trashcan1 = this.platforms.create(1650, 540, "trashcan").setScale(.3);
-    this.trashcan2 = this.platforms.create(1720, 520, "trashcan").setScale(.5);
-    this.sign1 = this.platforms.create(1850, 350, "sign1").setScale(.4);
-    this.dogBowl = this.collectables.create(1950, 270, "dogBowl").setScale(.2);
-    this.dogCollar = this.collectables.create(2050, 550, "dogCollar").setScale(.25);
-    this.dumpster = this.platforms.create(2200, 480, "dumpster").setScale();
-    this.trashcan3 = this.platforms.create(2450, 540, "trashcan").setScale(.3);
-    this.sign2 = this.platforms.create(2630, 420, "sign2").setScale(.4);
+    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.3);
+    this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.5);
+    this.sign1 = this.add.image(1850, 350, "sign1").setScale(.4);
+    this.collectables.create(1950, 270, "dogBowl").setScale(.2);
+    this.collectables.create(2050, 550, "dogCollar").setScale(.25);
+    this.dumpster = this.add.image(2200, 480, "dumpster").setScale();
+    this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.3);
+    this.sign2 = this.add.image(2630, 420, "sign2").setScale(.4);
     this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
     this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
-    this.thug2 = this.platforms.create(3250, 505, "thug").setScale(.11);
-    this.trashcan4 = this.platforms.create(3450, 540, "trashcan").setScale(.3);
-    this.dogToy = this.collectables.create(3320, 350, "dogToy").setScale(.04);
+    this.thug3 = this.platforms.create(3250, 505, "thug").setScale(.11);
+    this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.3);
+    this.collectables.create(3320, 350, "dogToy").setScale(.04);
     // park
-    this.dogPicture = this.collectables.create(3660, 250, "dogPicture").setScale(.07);
-    this.trashcan4 = this.platforms.create(3650, 545, "trashcan").setScale(.5);
-    this.lamppost3 = this.platforms.create(3800, 463, "lamppost").setScale(1.2);
-    this.bench = this.platforms.create(4000, 520, "bench").setScale(.8);
-    this.tree = this.platforms.create(4300, 400, "tree").setScale(1.7);
+    this.collectables.create(3660, 250, "dogPicture").setScale(.07);
+    this.trashcan4 = this.add.image(3650, 545, "trashcan").setScale(.5);
+    this.lamppost3 = this.add.image(3800, 463, "lamppost").setScale(1.2);
+    this.bench = this.add.image(4000, 520, "bench").setScale(.8);
+    this.tree = this.add.image(4300, 400, "tree").setScale(1.7);
     // boss
-    this.bigThug = this.add.image(4740, 470, "thug").setScale(.2);
+    this.bigThug = this.platforms.create(4740, 470, "thug").setScale(.2);
     this.hachiko = this.physics.add.image(4690, 550, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
-
-
 
 
     //player
     this.player = this.physics.add.sprite(50, 550, "alien");
     this.player.setCollideWorldBounds(true);
 
+    // nerf gun
     this.nerf = this.add.sprite(90,520, "nerf");
     this.nerf.setScale(.1);
 
     //Gun and Bullets
     var bullets;
-
     this.nextFire = 0;
     this.fireRate = 200;
     this.speed = 1000;
@@ -82,12 +90,11 @@ export default class GameJam extends Phaser.Scene {
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
 
-    // make platform and player collid
+    // make platform and player collide
     this.physics.add.collider(this.player, this.platforms);
 
     //if hachiko and player touch
     this.physics.add.overlap(this.player, this.hachiko, this.gotHachiko, null, this);
-
 
     //collectables
     this.itemsCollected = 0;
@@ -95,35 +102,7 @@ export default class GameJam extends Phaser.Scene {
     // make dog items collectable
     this.physics.add.overlap(
       this.player,
-      this.dogBone,
-      this.collectDogItem,
-      null,
-      this
-    );
-    this.physics.add.overlap(
-      this.player,
-      this.dogBowl,
-      this.collectDogItem,
-      null,
-      this
-    );
-    this.physics.add.overlap(
-      this.player,
-      this.dogCollar,
-      this.collectDogItem,
-      null,
-      this
-    );
-    this.physics.add.overlap(
-      this.player,
-      this.dogToy,
-      this.collectDogItem,
-      null,
-      this
-    );
-    this.physics.add.overlap(
-      this.player,
-      this.dogPicture,
+      this.collectables,
       this.collectDogItem,
       null,
       this
@@ -135,7 +114,7 @@ export default class GameJam extends Phaser.Scene {
       this.shoot();
     }
 
-    this.scrollCam.scrollX += .75;
+    //this.scrollCam.scrollX += .75;
 
     var speed = 6;
 

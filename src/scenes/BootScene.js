@@ -22,6 +22,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("hachiko", "./assets/images/hachiko.png");
     this.load.image("nerf", "./assets/images/nerf.png");
     this.load.image("bullet", "./assets/images/bullet.jpg");
+    this.load.image("box", "./assets/sprites/box.png");
 
     this.load.spritesheet("alien", "./assets/spritesheet/player.png", {
       frameWidth: 65,
