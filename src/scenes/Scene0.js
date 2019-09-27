@@ -1,4 +1,4 @@
-export default class Scene0 extends Phaser.Scene {
+/*export default class Scene0 extends Phaser.Scene {
   constructor () {
     super('Scene0');
   }
@@ -194,3 +194,4 @@ export default class Scene0 extends Phaser.Scene {
   }
 
   }
+*/

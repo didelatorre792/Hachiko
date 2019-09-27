@@ -11,10 +11,10 @@ export default class GameJam extends Phaser.Scene {
   create(){
     //camera
     this.cameras.main.setBounds(0, 0);
-    this.scrollCam = this.cameras.main.setBounds(1000,0, 3000, 300);
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 4750, 300);
     this.scrollCam.scrollX = 25;
 
-    this.physics.world.setBounds(0, 0, 3000, 550);
+    this.physics.world.setBounds(0, 0, 4750, 590);
 
     //background
     this.background = this.add.image(2400, 300, "background");
@@ -45,32 +45,45 @@ export default class GameJam extends Phaser.Scene {
 
     // alley
     this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.3);
+    this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
     this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.5);
+    this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
     this.sign1 = this.add.image(1850, 350, "sign1").setScale(.4);
+    this.box12 = this.platforms.create(1850, 358, "box").setSize(70, 42); this.box12.alpha = 0;
     this.collectables.create(1950, 270, "dogBowl").setScale(.2);
     this.collectables.create(2050, 550, "dogCollar").setScale(.25);
-    this.dumpster = this.add.image(2200, 480, "dumpster").setScale();
+    this.dumpster = this.add.image(2200, 480, "dumpster");
+    this.box13 = this.platforms.create(2200, 520, "box").setSize(150, 110); this.box13.alpha = 0;
+    this.box14 = this.platforms.create(2200, 417, "box").setSize(110, 60); this.box14.alpha = 0;
     this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.3);
+    this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 420, "sign2").setScale(.4);
+    this.box16 = this.platforms.create(2630, 430, "box").setSize(40, 30); this.box16.alpha = 0;
     this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
     this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
     this.thug3 = this.platforms.create(3250, 505, "thug").setScale(.11);
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.3);
+    this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
     this.collectables.create(3320, 350, "dogToy").setScale(.04);
     // park
     this.collectables.create(3660, 250, "dogPicture").setScale(.07);
     this.trashcan4 = this.add.image(3650, 545, "trashcan").setScale(.5);
+    this.box17 = this.platforms.create(3650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
     this.lamppost3 = this.add.image(3800, 463, "lamppost").setScale(1.2);
+    this.box18 = this.platforms.create(3760, 342, "box").setSize(10,10); this.box18.alpha = 0;
+    this.box19 = this.platforms.create(3830, 345, "box").setSize(40, 10); this.box19.alpha = 0;
     this.bench = this.add.image(4000, 520, "bench").setScale(.8);
+    this.box20 = this.platforms.create(3996, 490, "box").setSize(189, 5); this.box20.alpha = 0;
     this.tree = this.add.image(4300, 400, "tree").setScale(1.7);
+    this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
     this.bigThug = this.platforms.create(4740, 470, "thug").setScale(.2);
-    this.hachiko = this.physics.add.image(4690, 550, "hachiko").setScale(.14);
+    this.hachiko = this.physics.add.image(4700, 590, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
 
 
     //player
-    this.player = this.physics.add.sprite(50, 550, "alien");
+    this.player = this.physics.add.sprite(0, 400, "alien");
     this.player.setCollideWorldBounds(true);
 
     // nerf gun
@@ -98,15 +111,7 @@ export default class GameJam extends Phaser.Scene {
 
     //collectables
     this.itemsCollected = 0;
-
-    // make dog items collectable
-    this.physics.add.overlap(
-      this.player,
-      this.collectables,
-      this.collectDogItem,
-      null,
-      this
-    );
+    this.physics.add.overlap(this.player, this.collectables, this.collectDogItem, null, this);
   }
 
   update (time, delta) {
@@ -114,7 +119,7 @@ export default class GameJam extends Phaser.Scene {
       this.shoot();
     }
 
-    //this.scrollCam.scrollX += .75;
+    this.scrollCam.scrollX += 1;
 
     var speed = 6;
 

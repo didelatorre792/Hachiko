@@ -36,7 +36,6 @@ export default class BootScene extends Phaser.Scene {
 
   create (data) {
     //Create the scene
-    var logo = this.add.image(this.centerX, this.centerY, 'logo');
     // whole scene shows
     //this.background = this.add.image(400, 294, "background");
     //this.background.setScale(0.34);
