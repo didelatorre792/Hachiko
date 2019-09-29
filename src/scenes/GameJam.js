@@ -10,11 +10,13 @@ export default class GameJam extends Phaser.Scene {
 
   create(){
     //camera
-    this.cameras.main.setBounds(0, 0);
+    //this.cameras.main.setBounds(0, 0);
     this.scrollCam = this.cameras.main.setBounds(0,0, 3000, 300);
-    this.scrollCam.scrollX = 25;
+    this.scrollCam.scrollX = 0;
+    //this.scrollCam.setBoundsCollision();
 
-    this.physics.world.setBounds(0, 0, 3000, 550);
+    // this.physics.world.setBounds(this.scrollCam.worldView.x, this.scrollCam.worldView.y, this.scrollCam.worldView.x + 800, this.scrollCam.worldView.y + 550);
+    // console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
 
     //background
     this.background = this.add.image(2400, 300, "background");
@@ -62,10 +64,12 @@ export default class GameJam extends Phaser.Scene {
 
 
     //player
-    this.player = this.physics.add.sprite(50, 550, "alien");
+    this.player = this.physics.add.sprite(60, 550, "alien");
     this.player.setCollideWorldBounds(true);
+    //this.player.onWorldBounds = true;
+    //this.player.setBounds(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
 
-    this.nerf = this.add.sprite(90,520, "nerf");
+    this.nerf = this.add.sprite(100,520, "nerf");
     this.nerf.setScale(.1);
 
     //Gun and Bullets
@@ -79,6 +83,10 @@ export default class GameJam extends Phaser.Scene {
       defaultKey:"bullet",
       maxSize: 10
     });
+    // this.bullets.children.iterate((child) => {
+    //   child.setScale(.5);
+    // });
+    
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
 
@@ -128,14 +136,26 @@ export default class GameJam extends Phaser.Scene {
       null,
       this
     );
+
+    var condition;
+    var gunDir;
   }
 
   update (time, delta) {
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      this.shoot();
+      this.shoot(this.gunDir);
     }
 
-    this.scrollCam.scrollX += .75;
+    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
+    console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
+
+    //this.scrollCam.scrollX += .75;
+
+    //If player is off screen
+    if(this.player.x < this.scrollCam.worldView.x - 75){
+      this.condition = 'Lose';
+      this.scene.start('EndScene', {condition: this.condition});
+    }
 
     var speed = 6;
 
@@ -148,12 +168,14 @@ export default class GameJam extends Phaser.Scene {
       this.player.anims.play("walk", true);
       this.player.flipX = true;
       this.nerf.flipX = true;
+      this.gunDir = "Flip";
     } else if (cursors.right.isDown) {
       this.player.x += speed;
       this.nerf.x += speed;
       this.player.anims.play("walk", true);
       this.player.flipX = false;
       this.nerf.flipX = false;
+      this.gunDir = "Reg";
     } else {
       this.player.anims.play("idle", true);
     }
@@ -164,6 +186,19 @@ export default class GameJam extends Phaser.Scene {
       this.player.y += speed;
       this.nerf.y = this.player.y;
     }
+    if (cursors.up.isUp) {
+      this.nerf.y = this.player.y;
+    }
+    if (this.nerf.x < this.scrollCam.worldView.x - 5){
+      this.nerf.x = this.player.x + 10;
+    }
+    // if (this.player.x - 30 == this.scrollCam.worldView.x){
+    //   this.nerf.x == this.player.x + 40;
+    //   console.log("YYYEEEEPPP");
+    // }
+    //
+    // console.log(this.player.x);
+
 
     //shooting
     this.bullets.children.each(
@@ -191,12 +226,20 @@ export default class GameJam extends Phaser.Scene {
 
   }
 
-  shoot(){
+  shoot(direction){
     var velocity = new Phaser.Math.Vector2();
     var bullet = this.bullets.get();
-    bullet//get nerf direction and + or - 1000
-      .enableBody(true, this.nerf.x, this.nerf.y, true, true)
-      .setVelocity(velocity.x + 1000, velocity.y);
+    if (direction == 'Flip'){
+      bullet//get nerf direction and + or - 1000
+        .enableBody(true, this.nerf.x, this.nerf.y, true, true)
+        .setVelocity(velocity.x - 1000, velocity.y);
+    }else if (direction == 'Reg') {
+      bullet//get nerf direction and + or - 1000
+        .enableBody(true, this.nerf.x, this.nerf.y, true, true)
+        .setVelocity(velocity.x + 1000, velocity.y);
+    }
+
+    // this.bullet.angle = this.bullet.body.angle;
   }
 
 
@@ -208,7 +251,8 @@ export default class GameJam extends Phaser.Scene {
   }
 
   gotHachiko(player, hachiko){
-    this.scene.start('EndScene');
+    this.condition = 'Win';
+    this.scene.start('EndScene', {condition: this.condition});
   }
 
 
