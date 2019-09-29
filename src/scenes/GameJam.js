@@ -39,7 +39,7 @@ export default class GameJam extends Phaser.Scene {
     this.lamppost2 = this.add.image(1240, 408, "lamppost").setScale(1.1);
     this.box7 = this.platforms.create(1204, 298, "box").setSize(10,10); this.box7.alpha = 0;
     this.box8 = this.platforms.create(1270, 300, "box").setSize(40, 10); this.box8.alpha = 0;
-    this.collectables.create(1350, 200, "dogBone").setScale(.2);
+    this.collectables.create(1436, 188, "dogBone").setScale(.2).setSize(42, 15).setPosition(1350, 150);
     this.mailbox3 = this.add.image(1520, 485, "mailbox").setScale(.15);
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
@@ -50,8 +50,8 @@ export default class GameJam extends Phaser.Scene {
     this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
     this.sign1 = this.add.image(1850, 350, "sign1").setScale(.4);
     this.box12 = this.platforms.create(1850, 358, "box").setSize(70, 42); this.box12.alpha = 0;
-    this.collectables.create(1950, 270, "dogBowl").setScale(.2);
-    this.collectables.create(2050, 550, "dogCollar").setScale(.25);
+    this.collectables.create(1700, 250, "dogBowl").setScale(.2).setSize(35, 25).setPosition(1610, 160);
+    this.collectables.create(2095, 245, "dogCollar").setScale(.25).setSize(35, 25).setPosition(2010, 160);
     this.dumpster = this.add.image(2200, 480, "dumpster");
     this.box13 = this.platforms.create(2200, 520, "box").setSize(150, 110); this.box13.alpha = 0;
     this.box14 = this.platforms.create(2200, 417, "box").setSize(110, 60); this.box14.alpha = 0;
@@ -64,9 +64,9 @@ export default class GameJam extends Phaser.Scene {
     this.thug3 = this.platforms.create(3250, 505, "thug").setScale(.11);
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.3);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
-    this.collectables.create(3320, 350, "dogToy").setScale(.04);
+    this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
     // park
-    this.collectables.create(3660, 250, "dogPicture").setScale(.07);
+    this.collectables.create(3997, 575, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(3660, 100);
     this.trashcan4 = this.add.image(3650, 545, "trashcan").setScale(.5);
     this.box17 = this.platforms.create(3650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
     this.lamppost3 = this.add.image(3800, 463, "lamppost").setScale(1.2);
@@ -119,7 +119,7 @@ export default class GameJam extends Phaser.Scene {
       this.shoot();
     }
 
-    this.scrollCam.scrollX += 1;
+    this.scrollCam.scrollX += 1.3;
 
     var speed = 6;
 
