@@ -83,10 +83,8 @@ export default class GameJam extends Phaser.Scene {
       defaultKey:"bullet",
       maxSize: 10
     });
-    // this.bullets.children.iterate((child) => {
-    //   child.setScale(.5);
-    // });
-    
+
+
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
 
@@ -149,7 +147,7 @@ export default class GameJam extends Phaser.Scene {
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
     console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
 
-    //this.scrollCam.scrollX += .75;
+    this.scrollCam.scrollX += .75;
 
     //If player is off screen
     if(this.player.x < this.scrollCam.worldView.x - 75){
