@@ -192,7 +192,7 @@ export default class GameJam extends Phaser.Scene {
   }
 
   gotHachiko(player, hachiko){
-    this.scene.start('EndScene');
+    this.scene.start("EndScene", { itemsCollected: this.itemsCollected });
   }
 
 
