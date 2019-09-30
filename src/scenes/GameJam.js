@@ -44,9 +44,9 @@ export default class GameJam extends Phaser.Scene {
     this.dumpster = this.platforms.create(2200, 480, "dumpster").setScale();
     this.trashcan3 = this.platforms.create(2450, 540, "trashcan").setScale(.3);
     this.sign2 = this.platforms.create(2630, 420, "sign2").setScale(.4);
-    this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
-    this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
-    this.thug2 = this.platforms.create(3250, 505, "thug").setScale(.11);
+    //this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
+    //this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
+    //this.thug2 = this.platforms.create(3250, 505, "thug").setScale(.11);
     this.trashcan4 = this.platforms.create(3450, 540, "trashcan").setScale(.3);
     this.dogToy = this.collectables.create(3320, 350, "dogToy").setScale(.04);
     // park
@@ -56,7 +56,19 @@ export default class GameJam extends Phaser.Scene {
     this.bench = this.platforms.create(4000, 520, "bench").setScale(.8);
     this.tree = this.platforms.create(4300, 400, "tree").setScale(1.7);
     // boss
-    this.bigThug = this.add.image(4740, 470, "thug").setScale(.2);
+    this.bigThug = this.physics.add.sprite(4300, 470, "thug").setScale(.15);
+    this.bigThug.setCollideWorldBounds(true);
+    var bigThug = this.bigThug
+    this.tweens.add({
+      targets: bigThug,
+      x: 4300,
+      y: 470,
+      ease: "Linear",
+      delay: 400,
+      duration: 2000,
+      yoyo: true,
+      repeat: -1
+    });
     this.hachiko = this.physics.add.image(4690, 550, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
 
@@ -71,6 +83,29 @@ export default class GameJam extends Phaser.Scene {
 
     this.nerf = this.add.sprite(100,520, "nerf");
     this.nerf.setScale(.1);
+
+    //big thug
+    //Create large enemy
+    //Automate adding multiple enemies to a group
+    //this.enemyGroup = this.physics.add.group({
+    //  key: "thug",
+    //  repeat: 3,
+    //  setXY: {
+    //    x: 4700,
+      //  y: 470,
+    //    stepX: 400,
+      //  stepY: 0
+    //  }
+    //});
+
+    //this.enemyGroup.children.iterate(function(child) {
+      //child.setScale(0.1);
+    //});
+
+    //this.bigThug = this.physics.add.sprite(700, 300, 'thug');
+    //this.bigThug.flipX = true;
+    //this.bigThug.setScale(0.5);
+    //this.enemyGroup.add(this.bigThug);
 
     //Gun and Bullets
     var bullets;
@@ -94,9 +129,18 @@ export default class GameJam extends Phaser.Scene {
     //if hachiko and player touch
     this.physics.add.overlap(this.player, this.hachiko, this.gotHachiko, null, this);
 
+    //if thug and bullet touch
+    /**this.physics.add.overlap(
+      this.bullets,
+      this.bigThug,
+      this.hitEnemy,
+       null,
+       this
+     );  **/
 
     //collectables
     this.itemsCollected = 0;
+    this.enemyhits = 0;
 
     // make dog items collectable
     this.physics.add.overlap(
@@ -204,7 +248,7 @@ export default class GameJam extends Phaser.Scene {
         if (b.active){
           this.physics.add.overlap(
             b,
-            this.enemyGroup,
+            this.bigThug,
             this.hitEnemy,
             null,
             this
@@ -253,5 +297,14 @@ export default class GameJam extends Phaser.Scene {
     this.scene.start('EndScene', {condition: this.condition});
   }
 
-
+  hitEnemy (bullet, enemy) {
+      console.log(this.enemyhits);
+      if (this.enemyhits = 5) {
+        enemy.disableBody(true, true);
+        bullet.disableBody(true, true);
+        console.log("shot");}
+      else if (this.enemyhits < 5) {
+        this.enemyhits += 1;
+    }
+  }
 }
