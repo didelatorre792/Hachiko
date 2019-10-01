@@ -7,12 +7,12 @@ export default class GameJam extends Phaser.Scene {
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
   }
-
   create(){
     //camera
+    this.player; this.platforms;
     this.cameras.main.setBounds(0, 0);
     this.scrollCam = this.cameras.main.setBounds(0, 0, 4750, 300);
-    this.scrollCam.scrollX = 25;
+    this.scrollCam.scrollX = 0;
 
     this.physics.world.setBounds(0, 0, 4750, 590);
 
@@ -27,6 +27,7 @@ export default class GameJam extends Phaser.Scene {
     // neighborhood
     this.car1 = this.add.image(240, 540, "car1").setScale(2);
     this.box1 = this.platforms.create(220, 530, "box"); this.box1.alpha = 0;
+
     this.mailbox1 = this.add.image(445, 475, "mailbox").setScale(.2);
     this.box2 = this.platforms.create(437, 440, "box").setSize(40,10); this.box2.alpha = 0;
     this.lamppost1 = this.add.image(550, 408, "lamppost").setScale(1.1);
@@ -81,13 +82,12 @@ export default class GameJam extends Phaser.Scene {
     this.hachiko = this.physics.add.image(4700, 590, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
 
-
     //player
     this.player = this.physics.add.sprite(0, 400, "alien");
     this.player.setCollideWorldBounds(true);
 
     // nerf gun
-    this.nerf = this.add.sprite(90,520, "nerf");
+    this.nerf = this.add.sprite(90, 520, "nerf");
     this.nerf.setScale(.1);
 
     //Gun and Bullets
@@ -101,7 +101,6 @@ export default class GameJam extends Phaser.Scene {
       maxSize: 10
     });
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
 
     // make platform and player collide
     this.physics.add.collider(this.player, this.platforms);
@@ -119,35 +118,35 @@ export default class GameJam extends Phaser.Scene {
       this.shoot();
     }
 
-    this.scrollCam.scrollX += 1.3;
+    this.scrollCam.scrollX += 1.5;
 
-    var speed = 6;
-
+    var speed = 3;
+    var velocity = 250;
     //Create cursor keys and assign events
     var cursors = this.input.keyboard.createCursorKeys();
-
     if (cursors.left.isDown) {
-      this.player.x -= speed;
-      this.nerf.x -= speed;
+      this.player.setVelocityX(-velocity);
+      this.nerf.x = this.player.x - 40;
       this.player.anims.play("walk", true);
       this.player.flipX = true;
       this.nerf.flipX = true;
     } else if (cursors.right.isDown) {
-      this.player.x += speed;
-      this.nerf.x += speed;
+      this.player.setVelocityX(velocity);
+      this.nerf.x = this.player.x + 40;
       this.player.anims.play("walk", true);
       this.player.flipX = false;
       this.nerf.flipX = false;
     } else {
       this.player.anims.play("idle", true);
+      this.player.setVelocityX(0);
     }
     if (cursors.up.isDown) {
-      this.player.y -= speed;
-      this.nerf.y = this.player.y;//do if the button is let go
+      this.player.setVelocityY(-velocity);
     } else if (cursors.down.isDown) {
-      this.player.y += speed;
-      this.nerf.y = this.player.y;
+      this.player.setVelocityY(velocity);
     }
+    //Always move nerf to player's y position
+    this.nerf.y = this.player.y + 10;
 
     //shooting
     this.bullets.children.each(
@@ -182,7 +181,6 @@ export default class GameJam extends Phaser.Scene {
       .enableBody(true, this.nerf.x, this.nerf.y, true, true)
       .setVelocity(velocity.x + 1000, velocity.y);
   }
-
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {

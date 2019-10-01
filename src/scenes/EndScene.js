@@ -15,15 +15,15 @@ export default class EndScene extends Phaser.Scene {
   }
 
   create(){
-    this.add.text(this.centerX - 160, this.centerY - 40, "Congratulations! You found Hachiko", 40);
+    this.add.text(this.centerX - 160, this.centerY - 40, "Congratulations! You found Hachiko.", 40);
     if (this.itemsCollected == 0) {
       this.cameras.main.setBackgroundColor(0x9F2B30);
       this.add.text(this.centerX - 305, this.centerY, "But, you didn't get any of his things, so he doesn't remember you")
       this.add.text(this.centerX - 220, this.centerY + 80, "TRY AGAIN TO GET HACHIKO TO COME HOME WITH YOU")
     } else if (this.itemsCollected == 5) {
       this.cameras.main.setBackgroundColor(0xECCE00);
-      this.add.text(this.centerX - 165, this.centerY, "You collected all of Hachiko's things!", 40);
-      this.add.text(this.centerX - 220, this.centerY + 80, "You got an A+ and Hachiko is coming home with you!");
+      this.add.text(this.centerX - 175, this.centerY, "You collected all of Hachiko's things!", 40);
+      this.add.text(this.centerX - 230, this.centerY + 80, "You got an A+ and Hachiko is coming home with you!");
     } else {
       this.cameras.main.setBackgroundColor(0xEC9284);
       this.add.text(this.centerX - 170, this.centerY, "You collected "+this.itemsCollected+" of Hachiko's things!", 40);

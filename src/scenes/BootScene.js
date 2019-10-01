@@ -35,11 +35,6 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create (data) {
-    //Create the scene
-    // whole scene shows
-    //this.background = this.add.image(400, 294, "background");
-    //this.background.setScale(0.34);
-
     this.anims.create({
       key: "walk",
       frames: this.anims.generateFrameNumbers("alien", { start: 0, end: 5 }),
@@ -54,8 +49,6 @@ export default class BootScene extends Phaser.Scene {
     });
 
     this.scene.start('GameJam');
-
-
 
   }
 
