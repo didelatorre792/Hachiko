@@ -11,7 +11,7 @@ export default class GameJam extends Phaser.Scene {
     //camera
     this.player; this.platforms;
     this.cameras.main.setBounds(0, 0);
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 4750, 300);
+    this.scrollCam = this.cameras.main.setBounds(2000, 0, 4750, 400);
     this.scrollCam.scrollX = 0;
 
     this.physics.world.setBounds(0, 0, 4750, 590);
@@ -23,6 +23,11 @@ export default class GameJam extends Phaser.Scene {
     //building the scene
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
+
+    //player
+    this.player = this.physics.add.sprite(2000, 300, "alien");
+    this.player.setCollideWorldBounds(true);
+    this.player.setActive(true);
 
     // neighborhood
     this.car1 = this.add.image(240, 540, "car1").setScale(2);
@@ -51,8 +56,8 @@ export default class GameJam extends Phaser.Scene {
     this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
     this.sign1 = this.add.image(1850, 350, "sign1").setScale(.4);
     this.box12 = this.platforms.create(1850, 358, "box").setSize(70, 42); this.box12.alpha = 0;
-    this.collectables.create(1700, 250, "dogBowl").setScale(.2).setSize(35, 25).setPosition(1610, 160);
-    this.collectables.create(2095, 245, "dogCollar").setScale(.25).setSize(35, 25).setPosition(2010, 160);
+    this.collectables.create(1700, 250, "dogBowl").setScale(.2).setSize(42, 25).setPosition(1610, 160);
+    this.collectables.create(2092, 244, "dogCollar").setScale(.25).setSize(35, 30).setPosition(2010, 160);
     this.dumpster = this.add.image(2200, 480, "dumpster");
     this.box13 = this.platforms.create(2200, 520, "box").setSize(150, 110); this.box13.alpha = 0;
     this.box14 = this.platforms.create(2200, 417, "box").setSize(110, 60); this.box14.alpha = 0;
@@ -81,10 +86,6 @@ export default class GameJam extends Phaser.Scene {
     this.bigThug = this.platforms.create(4740, 470, "thug").setScale(.2);
     this.hachiko = this.physics.add.image(4700, 590, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
-
-    //player
-    this.player = this.physics.add.sprite(0, 400, "alien");
-    this.player.setCollideWorldBounds(true);
 
     // nerf gun
     this.nerf = this.add.sprite(90, 520, "nerf");
@@ -118,20 +119,19 @@ export default class GameJam extends Phaser.Scene {
       this.shoot();
     }
 
-    this.scrollCam.scrollX += 1.5;
+    //this.scrollCam.scrollX += 1.5;
 
-    var speed = 3;
-    var velocity = 250;
+    var velocity = 400;
     //Create cursor keys and assign events
-    var cursors = this.input.keyboard.createCursorKeys();
-    if (cursors.left.isDown) {
-      this.player.setVelocityX(-velocity);
+    this.cursors = this.input.keyboard.createCursorKeys();
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-200);
       this.nerf.x = this.player.x - 40;
       this.player.anims.play("walk", true);
       this.player.flipX = true;
       this.nerf.flipX = true;
-    } else if (cursors.right.isDown) {
-      this.player.setVelocityX(velocity);
+    } else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(200);
       this.nerf.x = this.player.x + 40;
       this.player.anims.play("walk", true);
       this.player.flipX = false;
@@ -140,9 +140,9 @@ export default class GameJam extends Phaser.Scene {
       this.player.anims.play("idle", true);
       this.player.setVelocityX(0);
     }
-    if (cursors.up.isDown) {
+    if (this.cursors.up.isDown && this.player.body.onFloor())  {
       this.player.setVelocityY(-velocity);
-    } else if (cursors.down.isDown) {
+    } else if (this.cursors.down.isDown) {
       this.player.setVelocityY(velocity);
     }
     //Always move nerf to player's y position
