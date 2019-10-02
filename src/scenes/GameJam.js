@@ -11,7 +11,7 @@ export default class GameJam extends Phaser.Scene {
     //camera
     this.player; this.platforms;
     this.cameras.main.setBounds(0, 0);
-    this.scrollCam = this.cameras.main.setBounds(2000, 0, 4750, 400);
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 4750, 400);
     this.scrollCam.scrollX = 0;
 
     this.physics.world.setBounds(0, 0, 4750, 590);
@@ -25,7 +25,7 @@ export default class GameJam extends Phaser.Scene {
     this.collectables = this.physics.add.staticGroup();
 
     //player
-    this.player = this.physics.add.sprite(2000, 300, "alien");
+    this.player = this.physics.add.sprite(0, 300, "player");
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
 
@@ -65,9 +65,9 @@ export default class GameJam extends Phaser.Scene {
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 420, "sign2").setScale(.4);
     this.box16 = this.platforms.create(2630, 430, "box").setSize(40, 30); this.box16.alpha = 0;
-    this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
-    this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
-    this.thug3 = this.platforms.create(3250, 505, "thug").setScale(.11);
+    // this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
+    //this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
+    //this.thug3 = this.platforms.create(3250, 505, "thug").setScale(.11);
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.3);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
     this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
@@ -83,7 +83,7 @@ export default class GameJam extends Phaser.Scene {
     this.tree = this.add.image(4300, 400, "tree").setScale(1.7);
     this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
-    this.bigThug = this.platforms.create(4740, 470, "thug").setScale(.2);
+    //this.bigThug = this.platforms.create(4740, 470, "thug").setScale(.2);
     this.hachiko = this.physics.add.image(4700, 590, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
 
@@ -119,7 +119,7 @@ export default class GameJam extends Phaser.Scene {
       this.shoot();
     }
 
-    //this.scrollCam.scrollX += 1.5;
+    this.scrollCam.scrollX += 1.5;
 
     var velocity = 400;
     //Create cursor keys and assign events

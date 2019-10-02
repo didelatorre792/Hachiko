@@ -24,7 +24,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("bullet", "./assets/images/bullet.jpg");
     this.load.image("box", "./assets/sprites/box.png");
 
-    this.load.spritesheet("alien", "./assets/spritesheet/player.png", {
+    this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheet1.png", {
       frameWidth: 65,
       frameHeight: 95
     });
@@ -37,13 +37,13 @@ export default class BootScene extends Phaser.Scene {
   create (data) {
     this.anims.create({
       key: "walk",
-      frames: this.anims.generateFrameNumbers("alien", { start: 0, end: 5 }),
+      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 5 }),
       frameRate: 10,
       repeat: -1
     });
     this.anims.create({
       key: "idle",
-      frames: this.anims.generateFrameNumbers("alien", { start: 0, end: 0 }),
+      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 0 }),
       frameRate: 10,
       repeat: -1
     });
