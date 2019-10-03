@@ -55,20 +55,51 @@ export default class GameJam extends Phaser.Scene {
     this.lamppost3 = this.platforms.create(3800, 463, "lamppost").setScale(1.2);
     this.bench = this.platforms.create(4000, 520, "bench").setScale(.8);
     this.tree = this.platforms.create(4300, 400, "tree").setScale(1.7);
+
     // boss
-    this.bigThug = this.physics.add.sprite(4300, 470, "thug").setScale(.15);
+    this.bigThug = this.physics.add.sprite(2900, 470, "thug").setScale(.15);
     this.bigThug.setCollideWorldBounds(true);
     var bigThug = this.bigThug
+
     this.tweens.add({
       targets: bigThug,
-      x: 4300,
+      x: 2750,
       y: 470,
       ease: "Linear",
-      delay: 400,
+      delay: 1000,
       duration: 2000,
       yoyo: true,
       repeat: -1
     });
+    // enemy stuff
+    this.enemyNerf = this.add.sprite(100,520, "nerf");
+    this.enemyNerf.setScale(.1);
+
+    var enemyBullets;
+
+    this.enextFire = 0;
+    this.efireRate = 200;
+    this.espeed = 1000;
+
+    this.enemyBullets = this.physics.add.group({
+      defaultKey:"bullet",
+      maxSize: 10
+    });
+
+
+    //Gun and Bullets
+    var bullets;
+
+    this.nextFire = 0;
+    this.fireRate = 200;
+    this.speed = 1000;
+
+    this.bullets = this.physics.add.group({
+      defaultKey:"bullet",
+      maxSize: 10
+    });
+
+
     this.hachiko = this.physics.add.image(4690, 550, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
 
@@ -84,28 +115,6 @@ export default class GameJam extends Phaser.Scene {
     this.nerf = this.add.sprite(100,520, "nerf");
     this.nerf.setScale(.1);
 
-    //big thug
-    //Create large enemy
-    //Automate adding multiple enemies to a group
-    //this.enemyGroup = this.physics.add.group({
-    //  key: "thug",
-    //  repeat: 3,
-    //  setXY: {
-    //    x: 4700,
-      //  y: 470,
-    //    stepX: 400,
-      //  stepY: 0
-    //  }
-    //});
-
-    //this.enemyGroup.children.iterate(function(child) {
-      //child.setScale(0.1);
-    //});
-
-    //this.bigThug = this.physics.add.sprite(700, 300, 'thug');
-    //this.bigThug.flipX = true;
-    //this.bigThug.setScale(0.5);
-    //this.enemyGroup.add(this.bigThug);
 
     //Gun and Bullets
     var bullets;
@@ -122,25 +131,18 @@ export default class GameJam extends Phaser.Scene {
 
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-
     // make platform and player collid
     this.physics.add.collider(this.player, this.platforms);
 
     //if hachiko and player touch
     this.physics.add.overlap(this.player, this.hachiko, this.gotHachiko, null, this);
 
-    //if thug and bullet touch
-    /**this.physics.add.overlap(
-      this.bullets,
-      this.bigThug,
-      this.hitEnemy,
-       null,
-       this
-     );  **/
+
 
     //collectables
     this.itemsCollected = 0;
-    this.enemyhits = 0;
+    this.enemyHP = 5;
+    this.playerHP = 5;
 
     // make dog items collectable
     this.physics.add.overlap(
@@ -178,18 +180,27 @@ export default class GameJam extends Phaser.Scene {
       null,
       this
     );
-
+    var enemyCondition;
+    var enemyGunDir;
     var condition;
     var gunDir;
   }
 
+
   update (time, delta) {
+
+    //when enemy is at end, shoot
+
+
+    this.enemyShoot(this.enemyGunDir)
+
+
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
     }
 
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
+    //console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
 
     this.scrollCam.scrollX += .75;
 
@@ -241,12 +252,36 @@ export default class GameJam extends Phaser.Scene {
     //
     // console.log(this.player.x);
 
+    // do collision instead of overlap
+    //enemy shooting
+    this.enemyBullets.children.each(
+      function(b){
+        if (b.active){
+          this.physics.add.collider(
+            b,
+            this.player,
+            this.hitPlayer,
+            null,
+            this
+          );
+          if (b.y < 0){
+            b.setActive(false);
+          }else if (b.y > this.cameras.main.height) {
+            b.setActive(false);
+          }else if(b.x <0){
+            b.setActive(false);
+          }else if (b.x > this.cameras.main.width) {
+            b.setActive(false);
+          }
+        }
+      }.bind(this)//for can't read property 'physics' of undefined
+    );
 
     //shooting
     this.bullets.children.each(
       function(b){
         if (b.active){
-          this.physics.add.overlap(
+          this.physics.add.collider(
             b,
             this.bigThug,
             this.hitEnemy,
@@ -280,6 +315,20 @@ export default class GameJam extends Phaser.Scene {
         .enableBody(true, this.nerf.x, this.nerf.y, true, true)
         .setVelocity(velocity.x + 1000, velocity.y);
     }
+  }
+
+    enemyShoot(direction){
+      var velocity = new Phaser.Math.Vector2();
+      var enemyBullet = this.enemyBullets.get();
+      if (direction == 'Flip'){
+        enemyBullet//get nerf direction and + or - 1000
+          .enableBody(true, this.enemyNerf.x, this.enemyNerf.y, true, true)
+          .setVelocity(velocity.x - 1000, velocity.y);
+      }else if (direction == 'Reg') {
+        enemyBullet//get nerf direction and + or - 1000
+          .enableBody(true, this.enemyNerf.x, this.enemyNerf.y, true, true)
+          .setVelocity(velocity.x + 1000, velocity.y);
+      }
 
     // this.bullet.angle = this.bullet.body.angle;
   }
@@ -298,13 +347,19 @@ export default class GameJam extends Phaser.Scene {
   }
 
   hitEnemy (bullet, enemy) {
-      console.log(this.enemyhits);
-      if (this.enemyhits = 5) {
+      console.log(this.enemyHP);
+      this.enemyHP -= 1;
+      if (this.enemyHP == 0) {
         enemy.disableBody(true, true);
         bullet.disableBody(true, true);
-        console.log("shot");}
-      else if (this.enemyhits < 5) {
-        this.enemyhits += 1;
+        console.log("enemy died");}
+      }
+  hitPlayer(enemyBullet, player) {
+    console.log(this.playerHP)
+    if (this.playerHP == 0) {
+      player.disableBody(true, true);
+      enemyBullet.disableBody(true, true);
+      console.log("player died");
+  }
     }
   }
-}
