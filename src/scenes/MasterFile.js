@@ -1,6 +1,6 @@
-export default class GameJam extends Phaser.Scene {
+export default class MasterFile extends Phaser.Scene {
   constructor () {
-    super('GameJam');
+    super('MasterFile');
   }
 
   preload(){

@@ -53,7 +53,7 @@ export default class BootScene extends Phaser.Scene {
       repeat: -1
     });
 
-    this.scene.start('GameJam');
+    this.scene.start('MasterFile');
 
 
 
