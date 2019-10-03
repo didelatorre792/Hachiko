@@ -147,7 +147,7 @@ export default class GameJam extends Phaser.Scene {
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
     console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
 
-    this.scrollCam.scrollX += .75;
+    this.scrollCam.scrollX += .5;
 
     //If player is off screen
     if(this.player.x < this.scrollCam.worldView.x - 75){
@@ -155,7 +155,7 @@ export default class GameJam extends Phaser.Scene {
       this.scene.start('EndScene', {condition: this.condition});
     }
 
-    var speed = 6;
+    var speed = 4;
 
     //Create cursor keys and assign events
     var cursors = this.input.keyboard.createCursorKeys();
