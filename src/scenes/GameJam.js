@@ -26,38 +26,61 @@ export default class GameJam extends Phaser.Scene {
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
     // neighborhood
-    this.car1 = this.platforms.create(240, 540, "car1").setScale(2);
-    this.car2 = this.platforms.create(800, 540, "car2").setScale(.4);
-    this.mailbox1 = this.platforms.create(450, 485, "mailbox").setScale(.15);
-    this.lamppost1 = this.platforms.create(550, 395, "lamppost").setScale(1.2);
-    this.mailbox2 = this.platforms.create(1070, 485, "mailbox").setScale(.15);
-    this.lamppost2 = this.platforms.create(1240, 395, "lamppost").setScale(1.2);
-    this.dogBone = this.collectables.create(1350, 200, "dogBone").setScale(.2);
-    this.mailbox3 = this.platforms.create(1520, 485, "mailbox").setScale(.15);
+    this.car1 = this.add.image(240, 540, "car1").setScale(2);
+    this.box1 = this.platforms.create(220, 530, "box"); this.box1.alpha = 0;
+    this.mailbox1 = this.add.image(445, 475, "mailbox").setScale(.2);
+    this.box2 = this.platforms.create(437, 440, "box").setSize(40,10); this.box2.alpha = 0;
+    this.lamppost1 = this.add.image(550, 408, "lamppost").setScale(1.1);
+    this.box3 = this.platforms.create(514, 295, "box").setSize(10,10); this.box3.alpha = 0;
+    this.box4 = this.platforms.create(580, 300, "box").setSize(40, 10); this.box4.alpha = 0;
+    this.car2 = this.add.image(800, 540, "car2").setScale(.4);
+    this.box5 = this.platforms.create(840, 504, "box").setSize(135); this.box5.alpha = 0;
+    this.mailbox2 = this.add.image(1070, 475, "mailbox").setScale(.2);
+    this.box6 = this.platforms.create(1062, 440, "box").setSize(40, 10); this.box6.alpha = 0;
+    this.lamppost2 = this.add.image(1240, 408, "lamppost").setScale(1.1);
+    this.box7 = this.platforms.create(1204, 298, "box").setSize(10,10); this.box7.alpha = 0;
+    this.box8 = this.platforms.create(1270, 300, "box").setSize(40, 10); this.box8.alpha = 0;
+    this.collectables.create(1436, 188, "dogBone").setScale(.2).setSize(42, 15).setPosition(1350, 150);
+    this.mailbox3 = this.add.image(1520, 485, "mailbox").setScale(.15);
+    this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
-    this.trashcan1 = this.platforms.create(1650, 540, "trashcan").setScale(.3);
-    this.trashcan2 = this.platforms.create(1720, 520, "trashcan").setScale(.5);
-    this.sign1 = this.platforms.create(1850, 350, "sign1").setScale(.4);
-    this.dogBowl = this.collectables.create(1950, 270, "dogBowl").setScale(.2);
-    this.dogCollar = this.collectables.create(2050, 550, "dogCollar").setScale(.25);
-    this.dumpster = this.platforms.create(2200, 480, "dumpster").setScale();
-    this.trashcan3 = this.platforms.create(2450, 540, "trashcan").setScale(.3);
-    this.sign2 = this.platforms.create(2630, 420, "sign2").setScale(.4);
-    this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
-    this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
-    this.thug2 = this.platforms.create(3250, 505, "thug").setScale(.11);
-    this.trashcan4 = this.platforms.create(3450, 540, "trashcan").setScale(.3);
-    this.dogToy = this.collectables.create(3320, 350, "dogToy").setScale(.04);
+    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.3);
+    this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
+    this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.5);
+    this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
+    this.sign1 = this.add.image(1850, 350, "sign1").setScale(.4);
+    this.box12 = this.platforms.create(1850, 358, "box").setSize(70, 42); this.box12.alpha = 0;
+    this.collectables.create(1700, 250, "dogBowl").setScale(.2).setSize(42, 25).setPosition(1610, 160);
+    this.collectables.create(2092, 244, "dogCollar").setScale(.25).setSize(35, 30).setPosition(2010, 160);
+    this.dumpster = this.add.image(2200, 480, "dumpster");
+    this.box13 = this.platforms.create(2200, 520, "box").setSize(150, 110); this.box13.alpha = 0;
+    this.box14 = this.platforms.create(2200, 417, "box").setSize(110, 60); this.box14.alpha = 0;
+    this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.3);
+    this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
+    this.sign2 = this.add.image(2630, 420, "sign2").setScale(.4);
+    this.box16 = this.platforms.create(2630, 430, "box").setSize(40, 30); this.box16.alpha = 0;
+    // this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
+    //this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
+    //this.thug3 = this.platforms.create(3250, 505, "thug").setScale(.11);
+    this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.3);
+    this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
+    this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
+
     // park
-    this.dogPicture = this.collectables.create(3660, 250, "dogPicture").setScale(.07);
-    this.trashcan4 = this.platforms.create(3650, 545, "trashcan").setScale(.5);
-    this.lamppost3 = this.platforms.create(3800, 463, "lamppost").setScale(1.2);
-    this.bench = this.platforms.create(4000, 520, "bench").setScale(.8);
-    this.tree = this.platforms.create(4300, 400, "tree").setScale(1.7);
+    this.dogPicture =     this.collectables.create(3997, 575, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(3660, 100);
+    this.trashcan4 = this.add.image(3650, 545, "trashcan").setScale(.5);
+    this.box17 = this.platforms.create(3650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
+    this.lamppost3 = this.add.image(3800, 463, "lamppost").setScale(1.2);
+    this.box18 = this.platforms.create(3760, 342, "box").setSize(10,10); this.box18.alpha = 0;
+    this.box19 = this.platforms.create(3830, 345, "box").setSize(40, 10); this.box19.alpha = 0;
+    this.bench = this.add.image(4000, 520, "bench").setScale(.8);
+    this.box20 = this.platforms.create(3996, 490, "box").setSize(189, 5); this.box20.alpha = 0;
+    this.tree = this.add.image(4300, 400, "tree").setScale(1.7);
+    this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
-    this.bigThug = this.add.image(4740, 470, "thug").setScale(.2);
-    this.hachiko = this.physics.add.image(4690, 550, "hachiko").setScale(.14);
+    //this.bigThug = this.platforms.create(4740, 470, "thug").setScale(.2);
+    this.hachiko = this.physics.add.image(4700, 590, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
 
 
@@ -97,43 +120,8 @@ export default class GameJam extends Phaser.Scene {
 
     //collectables
     this.itemsCollected = 0;
+    this.physics.add.overlap(this.player, this.collectables, this.collectDogItem, null, this);
 
-    // make dog items collectable
-    this.physics.add.overlap(
-      this.player,
-      this.dogBone,
-      this.collectDogItem,
-      null,
-      this
-    );
-    this.physics.add.overlap(
-      this.player,
-      this.dogBowl,
-      this.collectDogItem,
-      null,
-      this
-    );
-    this.physics.add.overlap(
-      this.player,
-      this.dogCollar,
-      this.collectDogItem,
-      null,
-      this
-    );
-    this.physics.add.overlap(
-      this.player,
-      this.dogToy,
-      this.collectDogItem,
-      null,
-      this
-    );
-    this.physics.add.overlap(
-      this.player,
-      this.dogPicture,
-      this.collectDogItem,
-      null,
-      this
-    );
 
     var condition;
     var gunDir;
@@ -145,7 +133,7 @@ export default class GameJam extends Phaser.Scene {
     }
 
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
+    //console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
 
     this.scrollCam.scrollX += .5;
 
@@ -160,42 +148,79 @@ export default class GameJam extends Phaser.Scene {
     //Create cursor keys and assign events
     var cursors = this.input.keyboard.createCursorKeys();
 
+    var velocity = -400;
+    var stopped = 0;
+    //Create cursor keys and assign events
+
     if (cursors.left.isDown) {
-      this.player.x -= speed;
-      this.nerf.x -= speed;
+      this.player.setVelocityX(-200);
+      this.nerf.x = this.player.x - 40;
       this.player.anims.play("walk", true);
       this.player.flipX = true;
       this.nerf.flipX = true;
       this.gunDir = "Flip";
     } else if (cursors.right.isDown) {
-      this.player.x += speed;
-      this.nerf.x += speed;
+      this.player.setVelocityX(200);
+      this.nerf.x = this.player.x + 40;
       this.player.anims.play("walk", true);
       this.player.flipX = false;
       this.nerf.flipX = false;
       this.gunDir = "Reg";
     } else {
       this.player.anims.play("idle", true);
+      this.player.setVelocityX(0);
     }
-    if (cursors.up.isDown) {
-      this.player.y -= speed;
-      this.nerf.y = this.player.y;//do if the button is let go
-    } else if (cursors.down.isDown) {
-      this.player.y += speed;
+    if (cursors.up.isDown){
       this.nerf.y = this.player.y;
     }
+    if (cursors.up.isDown && this.player.body.onFloor())  {
+      this.player.setVelocityY(-400);
+
+      //this.player.setVelocityY(400);
+
+      this.nerf.y = this.player.y;
+    } else if (cursors.down.isDown) {
+      this.player.setVelocityY(400);
+      this.nerf.y = this.player.y;
+    }
+    //Always move nerf to player's y position
     if (cursors.up.isUp) {
       this.nerf.y = this.player.y;
     }
     if (this.nerf.x < this.scrollCam.worldView.x - 5){
       this.nerf.x = this.player.x + 10;
     }
-    // if (this.player.x - 30 == this.scrollCam.worldView.x){
-    //   this.nerf.x == this.player.x + 40;
-    //   console.log("YYYEEEEPPP");
+
+    // if (cursors.left.isDown) {
+    //   this.player.x -= speed;
+    //   this.nerf.x -= speed;
+    //   this.player.anims.play("walk", true);
+    //   this.player.flipX = true;
+    //   this.nerf.flipX = true;
+    //   this.gunDir = "Flip";
+    // } else if (cursors.right.isDown) {
+    //   this.player.x += speed;
+    //   this.nerf.x += speed;
+    //   this.player.anims.play("walk", true);
+    //   this.player.flipX = false;
+    //   this.nerf.flipX = false;
+    //   this.gunDir = "Reg";
+    // } else {
+    //   this.player.anims.play("idle", true);
     // }
-    //
-    // console.log(this.player.x);
+    // if (cursors.up.isDown) {
+    //   this.player.y -= speed;
+    //   this.nerf.y = this.player.y;//do if the button is let go
+    // } else if (cursors.down.isDown) {
+    //   this.player.y += speed;
+    //   this.nerf.y = this.player.y;
+    // }
+    // if (cursors.up.isUp) {
+    //   this.nerf.y = this.player.y;
+    // }
+    // if (this.nerf.x < this.scrollCam.worldView.x - 5){
+    //   this.nerf.x = this.player.x + 10;
+    // }
 
 
     //shooting
