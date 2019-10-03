@@ -10,21 +10,19 @@ export default class GameJam extends Phaser.Scene {
 
   create(){
     //camera
-    //this.cameras.main.setBounds(0, 0);
     this.scrollCam = this.cameras.main.setBounds(0,0, 3000, 300);
     this.scrollCam.scrollX = 0;
-    //this.scrollCam.setBoundsCollision();
-
-    // this.physics.world.setBounds(this.scrollCam.worldView.x, this.scrollCam.worldView.y, this.scrollCam.worldView.x + 800, this.scrollCam.worldView.y + 550);
-    // console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
 
     //background
     this.background = this.add.image(2400, 300, "background");
     this.background.setScale(2)
 
+
     //building the scene
+    //groups
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
+    this.enemyGroup = this.physics.add.group();
     // neighborhood
     this.car1 = this.add.image(240, 540, "car1").setScale(2);
     this.box1 = this.platforms.create(220, 530, "box"); this.box1.alpha = 0;
@@ -60,9 +58,9 @@ export default class GameJam extends Phaser.Scene {
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 420, "sign2").setScale(.4);
     this.box16 = this.platforms.create(2630, 430, "box").setSize(40, 30); this.box16.alpha = 0;
-    // this.thug1 = this.platforms.create(2640, 525, "thug").setScale(.08);
-    //this.thug2 = this.platforms.create(3100, 510, "thug").setScale(.1);
-    //this.thug3 = this.platforms.create(3250, 505, "thug").setScale(.11);
+    this.makeEnemy(2440, 525, "thug", .08);
+    this.makeEnemy(2100, 510, "thug", .1);
+    this.makeEnemy(2850, 505, "thug", .11);
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.3);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
     this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
@@ -79,21 +77,20 @@ export default class GameJam extends Phaser.Scene {
     this.tree = this.add.image(4300, 400, "tree").setScale(1.7);
     this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
-    //this.bigThug = this.platforms.create(4740, 470, "thug").setScale(.2);
+    this.makeEnemy(4740, 470, "thug", .2);
     this.hachiko = this.physics.add.image(4700, 590, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
-
 
 
 
     //player
     this.player = this.physics.add.sprite(60, 550, "alien");
     this.player.setCollideWorldBounds(true);
-    //this.player.onWorldBounds = true;
-    //this.player.setBounds(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
-
+    //gun
     this.nerf = this.add.sprite(100,520, "nerf");
     this.nerf.setScale(.1);
+
+
 
     //Gun and Bullets
     var bullets;
@@ -107,7 +104,7 @@ export default class GameJam extends Phaser.Scene {
       maxSize: 10
     });
 
-
+    //to shoot
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
 
@@ -117,41 +114,44 @@ export default class GameJam extends Phaser.Scene {
     //if hachiko and player touch
     this.physics.add.overlap(this.player, this.hachiko, this.gotHachiko, null, this);
 
-
     //collectables
     this.itemsCollected = 0;
     this.physics.add.overlap(this.player, this.collectables, this.collectDogItem, null, this);
 
-
+    //conditions and health variables
     var condition;
     var gunDir;
+    this.health = 500;
   }
 
   update (time, delta) {
+    //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
     }
 
+    //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    //console.log(this.scrollCam.worldView.x, this.scrollCam.worldView.y);
-
     this.scrollCam.scrollX += .5;
 
-    //If player is off screen
+    //If player is off screen. LOSE condition
     if(this.player.x < this.scrollCam.worldView.x - 75){
       this.condition = 'Lose';
       this.scene.start('EndScene', {condition: this.condition});
     }
 
-    var speed = 4;
+    //If player has below 0 health. LOSE condition
+    if (this.health < 0){
+      this.condition = 'Lose';
+      this.scene.start('EndScene', {condition: this.condition});
+    }
 
     //Create cursor keys and assign events
     var cursors = this.input.keyboard.createCursorKeys();
-
     var velocity = -400;
     var stopped = 0;
-    //Create cursor keys and assign events
 
+    //moving with velocity and the gun
     if (cursors.left.isDown) {
       this.player.setVelocityX(-200);
       this.nerf.x = this.player.x - 40;
@@ -175,15 +175,11 @@ export default class GameJam extends Phaser.Scene {
     }
     if (cursors.up.isDown && this.player.body.onFloor())  {
       this.player.setVelocityY(-400);
-
-      //this.player.setVelocityY(400);
-
       this.nerf.y = this.player.y;
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
       this.nerf.y = this.player.y;
     }
-    //Always move nerf to player's y position
     if (cursors.up.isUp) {
       this.nerf.y = this.player.y;
     }
@@ -191,39 +187,23 @@ export default class GameJam extends Phaser.Scene {
       this.nerf.x = this.player.x + 10;
     }
 
-    // if (cursors.left.isDown) {
-    //   this.player.x -= speed;
-    //   this.nerf.x -= speed;
-    //   this.player.anims.play("walk", true);
-    //   this.player.flipX = true;
-    //   this.nerf.flipX = true;
-    //   this.gunDir = "Flip";
-    // } else if (cursors.right.isDown) {
-    //   this.player.x += speed;
-    //   this.nerf.x += speed;
-    //   this.player.anims.play("walk", true);
-    //   this.player.flipX = false;
-    //   this.nerf.flipX = false;
-    //   this.gunDir = "Reg";
-    // } else {
-    //   this.player.anims.play("idle", true);
-    // }
-    // if (cursors.up.isDown) {
-    //   this.player.y -= speed;
-    //   this.nerf.y = this.player.y;//do if the button is let go
-    // } else if (cursors.down.isDown) {
-    //   this.player.y += speed;
-    //   this.nerf.y = this.player.y;
-    // }
-    // if (cursors.up.isUp) {
-    //   this.nerf.y = this.player.y;
-    // }
-    // if (this.nerf.x < this.scrollCam.worldView.x - 5){
-    //   this.nerf.x = this.player.x + 10;
-    // }
+    //enemy detection again player
+    this.enemyGroup.children.each(
+      function(e){
+        if (e.active){
+          this.physics.add.collider(
+            e,
+            this.player,
+            this.takeDamage,
+            null,
+            this
+          );
+        }
+      }.bind(this)//for can't read property 'physics' of undefined
+    );
 
 
-    //shooting
+    //bullets detection
     this.bullets.children.each(
       function(b){
         if (b.active){
@@ -249,22 +229,32 @@ export default class GameJam extends Phaser.Scene {
 
   }
 
+  //shooting the gun
   shoot(direction){
     var velocity = new Phaser.Math.Vector2();
     var bullet = this.bullets.get();
     if (direction == 'Flip'){
-      bullet//get nerf direction and + or - 1000
+      bullet//right
         .enableBody(true, this.nerf.x, this.nerf.y, true, true)
         .setVelocity(velocity.x - 1000, velocity.y);
     }else if (direction == 'Reg') {
-      bullet//get nerf direction and + or - 1000
+      bullet//left
         .enableBody(true, this.nerf.x, this.nerf.y, true, true)
         .setVelocity(velocity.x + 1000, velocity.y);
     }
-
-    // this.bullet.angle = this.bullet.body.angle;
   }
 
+  //when hit by an enemy
+  takeDamage(bullet, player){
+    this.health -= 5;
+    console.log(this.health, "health");
+    //add a red tint later to indicate damage
+  }
+
+  //creating thugs
+  makeEnemy(x, y, image, scale){
+    this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+  }
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {
@@ -273,9 +263,18 @@ export default class GameJam extends Phaser.Scene {
   console.log(this.itemsCollected);
   }
 
+  //winning condition
   gotHachiko(player, hachiko){
     this.condition = 'Win';
     this.scene.start('EndScene', {condition: this.condition});
+  }
+
+  //damaging the enemy
+  hitEnemy (bullet, enemy) {
+    //switch to health later
+    console.log('hit');
+    enemy.disableBody(true, true);
+    bullet.disableBody(true, true);
   }
 
 
