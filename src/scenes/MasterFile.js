@@ -125,6 +125,9 @@ export default class MasterFile extends Phaser.Scene {
   }
 
   update (time, delta) {
+
+    // if player is on screen, enemy shoot
+
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
@@ -132,7 +135,7 @@ export default class MasterFile extends Phaser.Scene {
 
     //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    this.scrollCam.scrollX += .5;
+    this.scrollCam.scrollX += 1.5;
 
     //If player is off screen. LOSE condition
     if(this.player.x < this.scrollCam.worldView.x - 75){
@@ -201,6 +204,8 @@ export default class MasterFile extends Phaser.Scene {
         }
       }.bind(this)//for can't read property 'physics' of undefined
     );
+// for each enemy, if alive
+
 
 
     //bullets detection
@@ -227,27 +232,38 @@ export default class MasterFile extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
     );
 
-  }
+    // this.enemyGroup.children.each(
+    //   function(e){
+    //     if (e.active){
+    //       if (Phaser.Math.distance(e.x,e.y,this.player.x,this.player.y) < 300){
+    //         console.log("woo");
+    //       }
+    //     }
+    //   }.bind(this)//for can't read property 'physics' of undefined
+    //
+    // );
 
   //shooting the gun
-  shoot(direction){
-    var velocity = new Phaser.Math.Vector2();
-    var bullet = this.bullets.get();
-    if (direction == 'Flip'){
-      bullet//right
-        .enableBody(true, this.nerf.x, this.nerf.y, true, true)
-        .setVelocity(velocity.x - 1000, velocity.y);
-    }else if (direction == 'Reg') {
-      bullet//left
-        .enableBody(true, this.nerf.x, this.nerf.y, true, true)
-        .setVelocity(velocity.x + 1000, velocity.y);
-    }
-  }
+  // shoot(direction){
+  //   var velocity = new Phaser.Math.Vector2();
+  //   var bullet = this.bullets.get();
+  //   if (direction == 'Flip'){
+  //     bullet//right
+  //       .enableBody(true, this.nerf.x, this.nerf.y, true, true)
+  //       .setVelocity(velocity.x - 1000, velocity.y);
+  //   }else if (direction == 'Reg') {
+  //     bullet//left
+  //       .enableBody(true, this.nerf.x, this.nerf.y, true, true)
+  //       .setVelocity(velocity.x + 1000, velocity.y);
+  //   }
+  // }
 
   //when hit by an enemy
-  takeDamage(bullet, player){
+  takeDamage(enemy, player){
     this.health -= 5;
     console.log(this.health, "health");
+    enemy.setImmovable();
+    //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
   }
 
@@ -276,6 +292,5 @@ export default class MasterFile extends Phaser.Scene {
     enemy.disableBody(true, true);
     bullet.disableBody(true, true);
   }
-
 
 }
