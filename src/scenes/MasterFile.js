@@ -94,12 +94,18 @@ export default class MasterFile extends Phaser.Scene {
 
     //Gun and Bullets
     var bullets;
+    var enemyBullets;
 
     this.nextFire = 0;
     this.fireRate = 200;
     this.speed = 1000;
 
     this.bullets = this.physics.add.group({
+      defaultKey:"bullet",
+      maxSize: 10
+    });
+
+    this.enemyBullets = this.physics.add.group({
       defaultKey:"bullet",
       maxSize: 10
     });
@@ -125,6 +131,9 @@ export default class MasterFile extends Phaser.Scene {
   }
 
   update (time, delta) {
+
+    // if player is on screen, enemy shoot
+
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
@@ -201,6 +210,8 @@ export default class MasterFile extends Phaser.Scene {
         }
       }.bind(this)//for can't read property 'physics' of undefined
     );
+// for each enemy, if alive
+
 
 
     //bullets detection
@@ -227,6 +238,54 @@ export default class MasterFile extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
     );
 
+    this.enemyBullets.children.each(
+      function(b){
+        if (b.active){
+          this.physics.add.overlap(
+            b,
+            this.player,
+            this.takeDamage,
+            null,
+            this
+          );
+          if (b.y < 0){
+            b.setActive(false);
+          }else if (b.y > this.cameras.main.height) {
+            b.setActive(false);
+          }else if(b.x <0){
+            b.setActive(false);
+          }else if (b.x > this.cameras.main.width) {
+            b.setActive(false);
+          }
+        }
+      }.bind(this)//for can't read property 'physics' of undefined
+    );
+
+    this.enemyGroup.children.each(
+      function(e){
+        if (e.active){
+          if (Phaser.Math.Distance.Between(e.x,e.y,this.player.x,this.player.y) < 300){
+            console.log("woo");
+            this.enemyShoot(this.player.x, this.player.y, e);
+          }
+        }
+      }.bind(this)//for can't read property 'physics' of undefined
+
+    );
+  }
+
+  enemyShoot(playerX, playerY, e){
+    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
+    var angle = betweenPoints(this.player, e);
+    var velocityFromRotation = this.physics.velocityFromRotation;
+    var velocity = new Phaser.Math.Vector2();
+    velocityFromRotation(angle, 400, velocity);
+    var bullet = this.enemyBullets.get();
+    bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
+    //if (direction == 'Flip'){
+    bullet//right
+      .enableBody(true, e.x, e.y, true, true)
+      .setVelocity(velocity.x, velocity.y);
   }
 
   //shooting the gun
@@ -245,9 +304,11 @@ export default class MasterFile extends Phaser.Scene {
   }
 
   //when hit by an enemy
-  takeDamage(bullet, player){
+  takeDamage(enemy, player){
     this.health -= 5;
     console.log(this.health, "health");
+    //enemy.setImmovable();
+    //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
   }
 
@@ -276,6 +337,5 @@ export default class MasterFile extends Phaser.Scene {
     enemy.disableBody(true, true);
     bullet.disableBody(true, true);
   }
-
 
 }
