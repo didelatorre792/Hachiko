@@ -106,7 +106,7 @@ export default class MasterFile extends Phaser.Scene {
     });
 
     this.enemyBullets = this.physics.add.group({
-      defaultKey:"enemyBullets",
+      defaultKey:"bullet",
       maxSize: 10
     });
 
