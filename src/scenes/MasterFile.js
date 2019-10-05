@@ -242,6 +242,7 @@ export default class MasterFile extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
+
   }
 
   //shooting the gun
