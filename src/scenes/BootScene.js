@@ -25,8 +25,8 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("box", "./assets/sprites/box.png");
 
     this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheet1.png", {
-      frameWidth: 65,
-      frameHeight: 95
+      frameWidth:554/3,
+      frameHeight: 527/2
     });
 
     // Declare variables for center of the scene
@@ -38,13 +38,13 @@ export default class BootScene extends Phaser.Scene {
     this.anims.create({
       key: "walk",
       frames: this.anims.generateFrameNumbers("player", { start: 0, end: 5 }),
-      frameRate: 10,
+      frameRate: 20,
       repeat: -1
     });
     this.anims.create({
       key: "idle",
       frames: this.anims.generateFrameNumbers("player", { start: 0, end: 0 }),
-      frameRate: 10,
+      frameRate: 20,
       repeat: -1
     });
 
