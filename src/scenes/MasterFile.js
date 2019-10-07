@@ -46,11 +46,7 @@ export default class MasterFile extends Phaser.Scene {
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
-<<<<<<< HEAD
-    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.001);
-=======
     this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.08);
->>>>>>> 3c5eb4645f2bdd25ae4d344741f99850a7e8d5e3
     this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
     this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.12);
     this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
@@ -58,10 +54,10 @@ export default class MasterFile extends Phaser.Scene {
     this.sign1 = this.add.image(1850, 350, "sign1").setScale(.1);
     this.box12 = this.platforms.create(1850, 364, "box").setSize(70, 30); this.box12.alpha = 0;
     this.collectables.create(1700, 250, "dogBowl").setScale(.2).setSize(42, 25).setPosition(1610, 160);
-    this.collectables.create(2092, 244, "dogCollar").setScale(.1).setSize(45, 30).setPosition(2010, 160);
+    this.collectables.create(2282, 404, "dogCollar").setScale(.05).setSize(30, 25).setPosition(2010, 160);
     this.dumpster = this.add.image(2200, 480, "dumpster").setScale(.26);
-    this.box13 = this.platforms.create(2200, 520, "box").setSize(150, 110); this.box13.alpha = 0;
-    this.box14 = this.platforms.create(2200, 417, "box").setSize(110, 60); this.box14.alpha = 0;
+    this.box13 = this.platforms.create(2200, 520, "box").setSize(155, 110); this.box13.alpha = 0;
+    this.box14 = this.platforms.create(2200, 417, "box").setSize(120, 50); this.box14.alpha = 0;
     this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.08);
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
@@ -112,7 +108,7 @@ export default class MasterFile extends Phaser.Scene {
     //this.player = this.physics.add.sprite(60, 550, "alien");
     //this.player.setCollideWorldBounds(true);
     //gun
-    this.nerf = this.add.sprite(100,520, "nerf");
+    this.nerf = this.add.sprite(100 ,520, "nerf");
     this.nerf.setScale(.03);
     //Gun and Bullets
     var bullets;
