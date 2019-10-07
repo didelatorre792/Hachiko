@@ -61,7 +61,7 @@ export default class MasterFile extends Phaser.Scene {
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
-    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.3);
+    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.15);
     this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
     this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.5);
     this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
@@ -114,7 +114,7 @@ export default class MasterFile extends Phaser.Scene {
     this.hachiko.setCollideWorldBounds(true);
 
     //player
-    this.player = this.physics.add.sprite(0, 300, "player").setScale(.3);
+    this.player = this.physics.add.sprite(0, 500, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
 
@@ -129,7 +129,7 @@ export default class MasterFile extends Phaser.Scene {
     //this.player.setCollideWorldBounds(true);
     //gun
     this.nerf = this.add.sprite(100,520, "nerf");
-    this.nerf.setScale(.1);
+    this.nerf.setScale(.03);
     //Gun and Bullets
     var bullets;
     var enemyBullets;
@@ -180,7 +180,7 @@ export default class MasterFile extends Phaser.Scene {
     //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4700, 550);
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    this.scrollCam.scrollX += .5;
+    this.scrollCam.scrollX += .75;
 
     //If player is off screen. LOSE condition
     if(this.player.x < this.scrollCam.worldView.x - 75){
@@ -253,7 +253,6 @@ export default class MasterFile extends Phaser.Scene {
         }
       }.bind(this)//for can't read property 'physics' of undefined
     );
-// for each enemy, if alive
 
 
 
