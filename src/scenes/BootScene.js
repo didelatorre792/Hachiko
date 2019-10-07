@@ -22,10 +22,10 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("hachiko", "./assets/images/hachiko.png");
     this.load.image("nerf", "./assets/images/nerf.png");
     this.load.image("bullet", "./assets/images/bullet.png");
-
-    this.load.spritesheet("alien", "./assets/spritesheet/player.png", {
-      frameWidth: 65,
-      frameHeight: 95
+    this.load.image("box", "./assets/sprites/box.png");
+    this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheet1.png", {
+      frameWidth:554/3,
+      frameHeight: 527/2
     });
 
     // Declare variables for center of the scene
@@ -34,28 +34,20 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create (data) {
-    //Create the scene
-    var logo = this.add.image(this.centerX, this.centerY, 'logo');
-    // whole scene shows
-    //this.background = this.add.image(400, 294, "background");
-    //this.background.setScale(0.34);
-
     this.anims.create({
       key: "walk",
-      frames: this.anims.generateFrameNumbers("alien", { start: 0, end: 5 }),
-      frameRate: 10,
+      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 5 }),
+      frameRate: 20,
       repeat: -1
     });
     this.anims.create({
       key: "idle",
-      frames: this.anims.generateFrameNumbers("alien", { start: 0, end: 0 }),
-      frameRate: 10,
+      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 0 }),
+      frameRate: 20,
       repeat: -1
     });
 
     this.scene.start('MasterFile');
-
-
 
   }
 

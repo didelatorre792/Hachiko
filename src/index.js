@@ -1,6 +1,7 @@
 /*global Phaser, window*/
 import BootScene from './scenes/BootScene.js';
 import Config from './config/config.js';
+
 import Scene0 from './scenes/Scene0.js';
 import Scene1 from './scenes/Scene1.js';
 import MasterFile from './scenes/MasterFile.js';
