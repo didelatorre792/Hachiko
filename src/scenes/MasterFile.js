@@ -276,7 +276,7 @@ export default class MasterFile extends Phaser.Scene {
 
   enemyShoot(playerX, playerY, e){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-    var angle = betweenPoints(this.player, e);
+    var angle = betweenPoints(e,this.player);
     var velocityFromRotation = this.physics.velocityFromRotation;
     var velocity = new Phaser.Math.Vector2();
     velocityFromRotation(angle, 400, velocity);
