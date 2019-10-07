@@ -138,12 +138,15 @@ export default class MasterFile extends Phaser.Scene {
     var gunDir;
     this.health = 500;
     var scoreFormated = this.zeroPad(this.health, 6);
+    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
+    this.healthLabel.setScrollFactor(0);
 
 
   }
 
   update (time, delta) {
-    this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
+    //this.healthLabel.fixedToCamera = true;
+    //this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
     // if player is on screen, enemy shoot
 
@@ -155,7 +158,7 @@ export default class MasterFile extends Phaser.Scene {
     //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    this.scrollCam.scrollX += 1.25;
+    this.scrollCam.scrollX += .5;
 
     //If player is off screen. LOSE condition
     if(this.player.x < this.scrollCam.worldView.x - 75){
@@ -214,14 +217,14 @@ export default class MasterFile extends Phaser.Scene {
       this.nerf.x = this.player.x + 10;
     }
 
-    //enemy detection again player
+    //enemy damaging playerr
     this.enemyGroup.children.each(
       function(e){
         if (e.active){
           this.physics.add.collider(
             e,
             this.player,
-            this.takeDamage,
+            this.takeDamageFromEnemy,
             null,
             this
           );
@@ -231,7 +234,7 @@ export default class MasterFile extends Phaser.Scene {
 
 
 
-    //bullets detection
+    //bullets hitting enemies
     this.bullets.children.each(
       function(b){
         if (b.active){
@@ -261,7 +264,7 @@ export default class MasterFile extends Phaser.Scene {
           this.physics.add.collider(
             b,
             this.player,
-            this.takeDamage,
+            this.takeDamageFromEnemyBullets,
             null,
             this
           );
@@ -323,12 +326,19 @@ export default class MasterFile extends Phaser.Scene {
   }
 
   //when hit by an enemy
-  takeDamage(enemy, player){
+  takeDamageFromEnemy(enemy, player){
     this.health -= 5;
+    var scoreFormated = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "SCORE " + scoreFormated;
     console.log(this.health, "health");
-    //enemy.setImmovable();
-    //enemy.setVelocity = -(player.velocity);
-    //add a red tint later to indicate damage
+  }
+
+  takeDamageFromEnemyBullets(bullet, player){
+    this.health -= 10;
+    bullet.disableBody(true, true);
+    var scoreFormated = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "SCORE " + scoreFormated;
+    console.log(this.health, "health");
   }
 
   //creating thugs
