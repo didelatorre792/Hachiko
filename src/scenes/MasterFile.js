@@ -11,7 +11,7 @@ export default class MasterFile extends Phaser.Scene {
   create(){
     //camera
 
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 3700, 300);
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 4700, 300);
 
     //this.scrollCam = this.cameras.main.setBounds(0,0, 3000, 300);
     this.scrollCam.scrollX = 0;
@@ -61,9 +61,9 @@ export default class MasterFile extends Phaser.Scene {
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
-    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.15);
+    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.08);
     this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
-    this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.5);
+    this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.12);
     this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
 
     this.sign1 = this.add.image(1850, 350, "sign1").setScale(.1);
@@ -71,11 +71,11 @@ export default class MasterFile extends Phaser.Scene {
     //this.sign1 = this.add.image(1850, 350, "sign1").setScale(.4);
     //this.box12 = this.platforms.create(1850, 358, "box").setSize(70, 42); this.box12.alpha = 0;
     this.collectables.create(1700, 250, "dogBowl").setScale(.2).setSize(42, 25).setPosition(1610, 160);
-    this.collectables.create(2092, 244, "dogCollar").setScale(.25).setSize(35, 30).setPosition(2010, 160);
-    this.dumpster = this.add.image(2200, 480, "dumpster");
+    this.collectables.create(2092, 244, "dogCollar").setScale(.1).setSize(45, 30).setPosition(2010, 160);
+    this.dumpster = this.add.image(2200, 480, "dumpster").setScale(.26);
     this.box13 = this.platforms.create(2200, 520, "box").setSize(150, 110); this.box13.alpha = 0;
     this.box14 = this.platforms.create(2200, 417, "box").setSize(110, 60); this.box14.alpha = 0;
-    this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.3);
+    this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.08);
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
 
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
@@ -85,14 +85,14 @@ export default class MasterFile extends Phaser.Scene {
     this.makeEnemy(2440, 525, "thug", .08);
     this.makeEnemy(2100, 510, "thug", .1);
     this.makeEnemy(2850, 505, "thug", .11);
-    this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.3);
+    this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.08);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
     this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
 
     // park
 
     this.collectables.create(3997, 575, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(3660, 100);
-    this.trashcan4 = this.add.image(3650, 545, "trashcan").setScale(.5);
+    this.trashcan4 = this.add.image(3650, 545, "trashcan").setScale(.12);
     this.box17 = this.platforms.create(3650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
     this.lamppost3 = this.add.image(3800, 463, "lamppost").setScale(.097);
     this.box18 = this.platforms.create(3733, 340, "box").setSize(22, 9); this.box18.alpha = 0;
@@ -105,7 +105,7 @@ export default class MasterFile extends Phaser.Scene {
     //this.box19 = this.platforms.create(3830, 345, "box").setSize(40, 10); this.box19.alpha = 0;
     this.bench = this.add.image(4000, 520, "bench").setScale(.8);
     this.box20 = this.platforms.create(3996, 490, "box").setSize(189, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(4300, 400, "tree").setScale(1.7);
+    this.tree = this.add.image(4300, 400, "tree").setScale(.5);
     this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
     this.makeEnemy(4740, 470, "thug", .2);
@@ -180,7 +180,7 @@ export default class MasterFile extends Phaser.Scene {
     //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4700, 550);
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    this.scrollCam.scrollX += .75;
+    this.scrollCam.scrollX += 1;
 
     //If player is off screen. LOSE condition
     if(this.player.x < this.scrollCam.worldView.x - 75){
@@ -260,7 +260,7 @@ export default class MasterFile extends Phaser.Scene {
     this.bullets.children.each(
       function(b){
         if (b.active){
-          this.physics.add.overlap(
+          this.physics.add.collider(
             b,
             this.enemyGroup,
             this.hitEnemy,
@@ -283,7 +283,7 @@ export default class MasterFile extends Phaser.Scene {
     this.enemyBullets.children.each(
       function(b){
         if (b.active){
-          this.physics.add.overlap(
+          this.physics.add.collider(
             b,
             this.player,
             this.takeDamage,
@@ -323,7 +323,7 @@ export default class MasterFile extends Phaser.Scene {
 
     var velocityFromRotation = this.physics.velocityFromRotation;
     var velocity = new Phaser.Math.Vector2();
-    velocityFromRotation(angle, 400, velocity);
+    velocityFromRotation(angle, -400, velocity);
     var bullet = this.enemyBullets.get();
     bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
     //if (direction == 'Flip'){
