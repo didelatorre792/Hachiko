@@ -7,11 +7,13 @@ export default class EndScene extends Phaser.Scene {
     // Initialization code goes here
     // Pass parameters between scenes - get data from another scene
     this.itemsCollected = data.itemsCollected;
+    this.condition = data.condition;
   }
 
   preload(){
     this.centerX = this.cameras.main.width / 2;
     this.centerY = this.cameras.main.height / 2;
+
   }
 
   create(){
@@ -30,6 +32,13 @@ export default class EndScene extends Phaser.Scene {
       var scoreArray = ["F", "D", "C", "B", "A", "A+"];
       this.add.text(this.centerX - 115, this.centerY + 80, "You got a "+scoreArray[this.itemsCollected]+". TRY AGAIN!");
     };
+   // console.log(this.condition);
+    
+    //if (this.condition == 'Win'){
+      //var text = this.add.text(this.centerX - 75, this.centerY, "You got Hachiko!", 40);
+    //}else if (this.condition == 'Lose') {
+      //var text = this.add.text(this.centerX - 75, this.centerY, "You Died!", 40);
+    //}
 
   }
 
