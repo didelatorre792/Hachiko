@@ -11,7 +11,7 @@ export default class MasterFile extends Phaser.Scene {
   create(){
     //camera
 
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 3700, 300);
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 5250, 300);
 
     //this.scrollCam = this.cameras.main.setBounds(0,0, 3000, 300);
     this.scrollCam.scrollX = 0;
@@ -61,7 +61,7 @@ export default class MasterFile extends Phaser.Scene {
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
-    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.15);
+    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.001);
     this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
     this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.5);
     this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
@@ -75,16 +75,16 @@ export default class MasterFile extends Phaser.Scene {
     this.dumpster = this.add.image(2200, 480, "dumpster");
     this.box13 = this.platforms.create(2200, 520, "box").setSize(150, 110); this.box13.alpha = 0;
     this.box14 = this.platforms.create(2200, 417, "box").setSize(110, 60); this.box14.alpha = 0;
-    this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.3);
+    this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.01);
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
 
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
     this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
     //this.sign2 = this.add.image(2630, 420, "sign2").setScale(.4);
     //this.box16 = this.platforms.create(2630, 430, "box").setSize(40, 30); this.box16.alpha = 0;
-    this.makeEnemy(2440, 525, "thug", .08);
-    this.makeEnemy(2100, 510, "thug", .1);
-    this.makeEnemy(2850, 505, "thug", .11);
+    this.makeEnemy(2440, 525, "thug", .5);
+    this.makeEnemy(2100, 510, "thug", .75);
+    this.makeEnemy(2850, 505, "thug", 1);
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.3);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
     this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
@@ -105,7 +105,7 @@ export default class MasterFile extends Phaser.Scene {
     //this.box19 = this.platforms.create(3830, 345, "box").setSize(40, 10); this.box19.alpha = 0;
     this.bench = this.add.image(4000, 520, "bench").setScale(.8);
     this.box20 = this.platforms.create(3996, 490, "box").setSize(189, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(4300, 400, "tree").setScale(1.7);
+    this.tree = this.add.image(4300, 400, "tree").setScale(1);
     this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
     this.makeEnemy(4740, 470, "thug", .2);
@@ -180,7 +180,7 @@ export default class MasterFile extends Phaser.Scene {
     //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4700, 550);
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    this.scrollCam.scrollX += .75;
+    this.scrollCam.scrollX += 1.25;
 
     //If player is off screen. LOSE condition
     if(this.player.x < this.scrollCam.worldView.x - 75){
@@ -318,7 +318,7 @@ export default class MasterFile extends Phaser.Scene {
 
   enemyShoot(playerX, playerY, e){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-    var angle = betweenPoints(this.player, e);
+    var angle = betweenPoints(e, this.player);
     //var angle = betweenPoints(e,this.player);
 
     var velocityFromRotation = this.physics.velocityFromRotation;
