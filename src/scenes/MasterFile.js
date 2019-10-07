@@ -11,7 +11,7 @@ export default class MasterFile extends Phaser.Scene {
   create(){
     //camera
 
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 3700, 300);
+    this.scrollCam = this.cameras.main.setBounds(500, 0, 3700, 300);
 
     //this.scrollCam = this.cameras.main.setBounds(0,0, 3000, 300);
     this.scrollCam.scrollX = 0;
@@ -27,37 +27,22 @@ export default class MasterFile extends Phaser.Scene {
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.group();
     // neighborhood
-
+    //this.car1 = this.add.image(240, 540, "car1").setScale(2);
+    //this.box1 = this.platforms.create(220, 530, "box"); this.box1.alpha = 0;
     this.mailbox1 = this.add.image(442, 475, "mailbox").setScale(.08);
     this.box2 = this.platforms.create(437, 440, "box").setSize(40,10); this.box2.alpha = 0;
     this.lamppost1 = this.add.image(550, 408, "lamppost").setScale(.085);
     this.box3 = this.platforms.create(492, 300, "box").setSize(18, 8); this.box3.alpha = 0;
     this.box4 = this.platforms.create(610, 300, "box").setSize(18, 8); this.box4.alpha = 0;
-    this.car2 = this.add.image(800, 540, "car2").setScale(.4);
-    this.box5 = this.platforms.create(840, 504, "box").setSize(135); this.box5.alpha = 0;
+    this.car2 = this.add.image(900, 530, "car2").setScale(.4);
+    this.box5 = this.platforms.create(940, 494, "box").setSize(135); this.box5.alpha = 0;
     this.mailbox2 = this.add.image(1067, 475, "mailbox").setScale(.08);
     this.box6 = this.platforms.create(1062, 440, "box").setSize(40, 10); this.box6.alpha = 0;
-    this.lamppost2 = this.add.image(1240, 408, "lamppost").setScale(.085);
-    this.box7 = this.platforms.create(1182, 300, "box").setSize(18, 8); this.box7.alpha = 0;
-    this.box8 = this.platforms.create(1300, 300, "box").setSize(18, 8); this.box8.alpha = 0;
+    this.lamppost2 = this.add.image(1400, 408, "lamppost").setScale(.085);
+    this.box7 = this.platforms.create(1342, 300, "box").setSize(18, 8); this.box7.alpha = 0;
+    this.box8 = this.platforms.create(1460, 300, "box").setSize(18, 8); this.box8.alpha = 0;
     this.collectables.create(1436, 188, "dogBone").setScale(.2).setSize(42, 15).setPosition(1350, 150);
     this.mailbox3 = this.add.image(1517, 485, "mailbox").setScale(.062);
-    //this.car1 = this.add.image(240, 540, "car1").setScale(2);
-    //this.box1 = this.platforms.create(220, 530, "box"); this.box1.alpha = 0;
-    //this.mailbox1 = this.add.image(445, 475, "mailbox").setScale(.2);
-    //this.box2 = this.platforms.create(437, 440, "box").setSize(40,10); this.box2.alpha = 0;
-    //this.lamppost1 = this.add.image(550, 408, "lamppost").setScale(1.1);
-    //this.box3 = this.platforms.create(514, 295, "box").setSize(10,10); this.box3.alpha = 0;
-    //this.box4 = this.platforms.create(580, 300, "box").setSize(40, 10); this.box4.alpha = 0;
-    //this.car2 = this.add.image(800, 540, "car2").setScale(.4);
-    //this.box5 = this.platforms.create(840, 504, "box").setSize(135); this.box5.alpha = 0;
-    //this.mailbox2 = this.add.image(1070, 475, "mailbox").setScale(.2);
-    //this.box6 = this.platforms.create(1062, 440, "box").setSize(40, 10); this.box6.alpha = 0;
-    //this.lamppost2 = this.add.image(1240, 408, "lamppost").setScale(1.1);
-    //this.box7 = this.platforms.create(1204, 298, "box").setSize(10,10); this.box7.alpha = 0;
-    //this.box8 = this.platforms.create(1270, 300, "box").setSize(40, 10); this.box8.alpha = 0;
-    //this.collectables.create(1436, 188, "dogBone").setScale(.2).setSize(42, 15).setPosition(1350, 150);
-    //this.mailbox3 = this.add.image(1520, 485, "mailbox").setScale(.15);
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
@@ -68,8 +53,6 @@ export default class MasterFile extends Phaser.Scene {
 
     this.sign1 = this.add.image(1850, 350, "sign1").setScale(.1);
     this.box12 = this.platforms.create(1850, 364, "box").setSize(70, 30); this.box12.alpha = 0;
-    //this.sign1 = this.add.image(1850, 350, "sign1").setScale(.4);
-    //this.box12 = this.platforms.create(1850, 358, "box").setSize(70, 42); this.box12.alpha = 0;
     this.collectables.create(1700, 250, "dogBowl").setScale(.2).setSize(42, 25).setPosition(1610, 160);
     this.collectables.create(2092, 244, "dogCollar").setScale(.25).setSize(35, 30).setPosition(2010, 160);
     this.dumpster = this.add.image(2200, 480, "dumpster");
@@ -77,11 +60,8 @@ export default class MasterFile extends Phaser.Scene {
     this.box14 = this.platforms.create(2200, 417, "box").setSize(110, 60); this.box14.alpha = 0;
     this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.3);
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
-
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
     this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    //this.sign2 = this.add.image(2630, 420, "sign2").setScale(.4);
-    //this.box16 = this.platforms.create(2630, 430, "box").setSize(40, 30); this.box16.alpha = 0;
     this.makeEnemy(2440, 525, "thug", .08);
     this.makeEnemy(2100, 510, "thug", .1);
     this.makeEnemy(2850, 505, "thug", .11);
@@ -114,7 +94,7 @@ export default class MasterFile extends Phaser.Scene {
     this.hachiko.setCollideWorldBounds(true);
 
     //player
-    this.player = this.physics.add.sprite(0, 300, "player").setScale(.3);
+    this.player = this.physics.add.sprite(500, 300, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
 
@@ -180,7 +160,7 @@ export default class MasterFile extends Phaser.Scene {
     //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4700, 550);
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    this.scrollCam.scrollX += .5;
+    //this.scrollCam.scrollX += .5;
 
     //If player is off screen. LOSE condition
     if(this.player.x < this.scrollCam.worldView.x - 75){
