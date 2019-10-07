@@ -137,8 +137,7 @@ export default class MasterFile extends Phaser.Scene {
     var condition;
     var gunDir;
     this.health = 500;
-    var scoreFormated = "";
-    scoreFormated = this.zeroPad(this.health, 6);
+    var scoreFormated = this.zeroPad(this.health, 6);
 
 
   }
@@ -299,7 +298,7 @@ export default class MasterFile extends Phaser.Scene {
 
     var velocityFromRotation = this.physics.velocityFromRotation;
     var velocity = new Phaser.Math.Vector2();
-    velocityFromRotation(angle, -400, velocity);
+    velocityFromRotation(angle, 400, velocity);
     var bullet = this.enemyBullets.get();
     bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
     //if (direction == 'Flip'){
