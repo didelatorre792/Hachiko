@@ -11,7 +11,7 @@ export default class MasterFile extends Phaser.Scene {
   create(){
     //camera
 
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 4700, 300);
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 4800, 300);
 
     //this.scrollCam = this.cameras.main.setBounds(0,0, 3000, 300);
     this.scrollCam.scrollX = 0;
@@ -62,9 +62,9 @@ export default class MasterFile extends Phaser.Scene {
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
     this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.makeEnemy(2440, 525, "thug", .08);
-    this.makeEnemy(2100, 510, "thug", .1);
-    this.makeEnemy(2850, 505, "thug", .11);
+    this.makeEnemy(2100, 530, "thug", .3);
+    this.makeEnemy(2390, 525, "thug", .3);
+    this.makeEnemy(2850, 505, "thug", .3);
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.08);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
     this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
@@ -88,7 +88,7 @@ export default class MasterFile extends Phaser.Scene {
     this.tree = this.add.image(4300, 400, "tree").setScale(.5);
     this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
-    this.makeEnemy(4740, 470, "thug", .2);
+    this.makeEnemy(4750, 470, "thug", .7);
 
     this.hachiko = this.physics.add.image(4700, 600, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
@@ -98,15 +98,6 @@ export default class MasterFile extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
 
-
-    //this.hachiko = this.physics.add.image(4700, 590, "hachiko").setScale(.14);
-    //this.hachiko.setCollideWorldBounds(true);
-
-
-
-    //player
-    //this.player = this.physics.add.sprite(60, 550, "alien");
-    //this.player.setCollideWorldBounds(true);
     //gun
     this.nerf = this.add.sprite(100 ,520, "nerf");
     this.nerf.setScale(.03);
@@ -146,13 +137,13 @@ export default class MasterFile extends Phaser.Scene {
     var condition;
     var gunDir;
     this.health = 500;
-    var scoreFormated = this.zeroPad(this.health, 6);
+    var scoreFormated = "";
+    scoreFormated = this.zeroPad(this.health, 6);
 
 
   }
 
   update (time, delta) {
-
     this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
     // if player is on screen, enemy shoot
@@ -163,7 +154,7 @@ export default class MasterFile extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4700, 550);
+    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
     this.scrollCam.scrollX += 1.25;
 
