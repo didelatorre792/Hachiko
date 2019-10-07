@@ -94,7 +94,7 @@ export default class MasterFile extends Phaser.Scene {
     this.hachiko.setCollideWorldBounds(true);
 
     //player
-    this.player = this.physics.add.sprite(500, 300, "player").setScale(.3);
+    this.player = this.physics.add.sprite(50, 500, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
 
@@ -146,9 +146,14 @@ export default class MasterFile extends Phaser.Scene {
     var condition;
     var gunDir;
     this.health = 500;
+    var scoreFormated = this.zeroPad(this.health, 6);
+
+
   }
 
   update (time, delta) {
+
+    this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
     // if player is on screen, enemy shoot
 
@@ -361,6 +366,14 @@ export default class MasterFile extends Phaser.Scene {
     console.log('hit');
     enemy.disableBody(true, true);
     bullet.disableBody(true, true);
+  }
+
+  zeroPad(number, size){
+    var stringNumber = String(number);
+    while(stringNumber.length < (size || 2)){
+      stringNumber = "0" + stringNumber;
+    }
+    return stringNumber;
   }
 
 }
