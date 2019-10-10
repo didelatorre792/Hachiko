@@ -27,10 +27,6 @@ export default class BootScene extends Phaser.Scene {
       frameWidth:554/3,
       frameHeight: 527/2
     });
-
-    // Declare variables for center of the scene
-
-
   }
 
   create (data) {
@@ -47,11 +43,7 @@ export default class BootScene extends Phaser.Scene {
       repeat: -1
     });
 
-    this.scene.start('MasterFile');
-
-  }
-
-  update (time, delta) {
+    this.scene.start('NeighborhoodScene');
 
   }
 }
