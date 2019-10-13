@@ -10,16 +10,10 @@ export default class AlleyScene extends Phaser.Scene {
     this.scoreFormated = data.scoreFormated;
   }
 
-  preload(){
-
-    this.centerX = this.cameras.main.width / 2;
-    this.centerY = this.cameras.main.height / 2;
-  }
-
   create(){
     //camera
     this.scrollCam = this.cameras.main.setBounds(1550, 0, 2700, 300);
-    this.scrollCam.scrollX = 1550;
+    this.scrollCam.scrollX = 0;
 
     //background
     this.background = this.add.image(2400, 300, "background");
@@ -59,12 +53,13 @@ export default class AlleyScene extends Phaser.Scene {
     this.hachiko.setCollideWorldBounds(true);
 
     //player
-    this.player = this.physics.add.sprite(2100, 500, "player").setScale(.3);
+    this.player = this.physics.add.sprite(1600, 500, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
+    this.player.setDepth(1);
 
     //gun
-    this.nerf = this.add.sprite(100, 520, "nerf");
+    this.nerf = this.add.sprite(1700, 520, "nerf");
     this.nerf.setScale(.03);
     //Gun and Bullets
     var bullets;
@@ -115,12 +110,12 @@ export default class AlleyScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
+    this.physics.world.setBounds(1550, 0, 4800, 550);
     this.scrollCam.scrollX += 1.25;
 
     //If player is off screen. LOSE condition
     if(this.player.x < this.scrollCam.worldView.x - 75){
-      console.log("this", this.scrollCam.worldView.x, this.player.x);
+      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
       this.condition = 'Lose';
       this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
     }
@@ -128,6 +123,7 @@ export default class AlleyScene extends Phaser.Scene {
     //If player has below 0 health. LOSE condition
     if (this.health < 0){
       this.condition = 'Lose';
+      console.log("Negative health");
       this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
     }
 

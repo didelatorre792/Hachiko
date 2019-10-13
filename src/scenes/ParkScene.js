@@ -16,10 +16,14 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   create(){
-    //camera
+    //player
+    this.player = this.physics.add.sprite(3080, 500, "player").setScale(.3);
+    this.player.setCollideWorldBounds(true);
+    this.player.setActive(true);
 
-    this.scrollCam = this.cameras.main.setBounds(2700, 0, 3400, 300);
-    this.scrollCam.scrollX = 2700;
+    //camera
+    this.scrollCam = this.cameras.main.setBounds(3050, 0, 4000, 300);
+    this.scrollCam.scrollX = 0;
 
     //background
     this.background = this.add.image(2400, 300, "background");
@@ -47,11 +51,6 @@ export default class ParkScene extends Phaser.Scene {
 
     this.hachiko = this.physics.add.image(4700, 600, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
-
-    //player
-    this.player = this.physics.add.sprite(2750, 500, "player").setScale(.3);
-    this.player.setCollideWorldBounds(true);
-    this.player.setActive(true);
 
     //gun
     this.nerf = this.add.sprite(100 ,520, "nerf");
@@ -94,6 +93,7 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   update (time, delta) {
+    this.player.setDepth(1);
     this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
     //Space bar to shoot
@@ -109,6 +109,7 @@ export default class ParkScene extends Phaser.Scene {
     //If player is off screen. LOSE condition
     if(this.player.x < this.scrollCam.worldView.x - 75){
       this.condition = 'Lose';
+      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
       this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
       //this.scene.start('EndScene', {condition: this.condition});
     }

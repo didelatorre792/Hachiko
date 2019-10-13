@@ -82,8 +82,10 @@ export default class NeighborhoodScene extends Phaser.Scene {
   }
 
   update (time, delta) {
+    console.log(this.player.x);
     if (this.player.x >= 1545) {
       this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated});
+      return;
     };
 
     this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
