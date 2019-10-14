@@ -46,11 +46,7 @@ export default class MasterFile extends Phaser.Scene {
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
-<<<<<<< HEAD
-    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.001);
-=======
     this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.08);
->>>>>>> 3c5eb4645f2bdd25ae4d344741f99850a7e8d5e3
     this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
     this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.12);
     this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
@@ -66,9 +62,9 @@ export default class MasterFile extends Phaser.Scene {
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
     this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.makeEnemy(2440, 525, "thug", .08);
-    this.makeEnemy(2100, 510, "thug", .1);
-    this.makeEnemy(2850, 505, "thug", .11);
+    e1 = this.makeEnemy(2440, 525, "thug", .08);
+    e2 = this.makeEnemy(2100, 510, "thug", .1);
+    e3 = this.makeEnemy(2850, 505, "thug", .11);
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.08);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
     this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
@@ -92,7 +88,7 @@ export default class MasterFile extends Phaser.Scene {
     this.tree = this.add.image(4300, 400, "tree").setScale(.5);
     this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
-    this.makeEnemy(4740, 470, "thug", .2);
+    e4 = this.makeEnemy(4740, 470, "thug", .2);
 
     this.hachiko = this.physics.add.image(4700, 600, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
@@ -106,6 +102,16 @@ export default class MasterFile extends Phaser.Scene {
     //this.hachiko = this.physics.add.image(4700, 590, "hachiko").setScale(.14);
     //this.hachiko.setCollideWorldBounds(true);
 
+    //tweens
+    this.tweens.add({
+       targets: e1, e2, e3, e4,
+       x: 500,
+       y: 500,
+       ease: "Linear",
+       delay: 1000,
+       duration: 1000,
+       yoyo: true,
+       repeat: -1
 
 
     //player
@@ -156,6 +162,9 @@ export default class MasterFile extends Phaser.Scene {
   }
 
   update (time, delta) {
+
+
+
 
     this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
