@@ -62,9 +62,36 @@ export default class MasterFile extends Phaser.Scene {
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
     this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    e1 = this.makeEnemy(2440, 525, "thug", .08);
-    e2 = this.makeEnemy(2100, 510, "thug", .1);
-    e3 = this.makeEnemy(2850, 505, "thug", .11);
+    this.makeEnemy(2440, 525, "thug", .08);
+    // this.tweens.add({
+    //    targets: e1,
+    //    x: 2400,
+    //    y: 525,
+    //    ease: "Linear",
+    //    delay: 400,
+    //    duration: 2000,
+    //    yoyo: true,
+    //    repeat: -1
+    this.makeEnemy(2100, 510, "thug", .1);
+    // this.tweens.add({
+    //     targets: e2,
+    //     x: 2100,
+    //     y: 510,
+    //     ease: "Linear",
+    //     delay: 400,
+    //     duration: 2000,
+    //     yoyo: true,
+    //     repeat: -1
+    this.makeEnemy(2850, 505, "thug", .11);
+    // this.tweens.add({
+    //     targets: e3,
+    //     x: 2850,
+    //     y: 505,
+    //     ease: "Linear",
+    //     delay: 400,
+    //     duration: 2000,
+    //     yoyo: true,
+    //     repeat: -1
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.08);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
     this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
@@ -88,7 +115,16 @@ export default class MasterFile extends Phaser.Scene {
     this.tree = this.add.image(4300, 400, "tree").setScale(.5);
     this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
-    e4 = this.makeEnemy(4740, 470, "thug", .2);
+    this.makeEnemy(4740, 470, "thug", .2);
+    // this.tweens.add({
+    //     targets: e4,
+    //     x: 4740,
+    //     y: 470,
+    //     ease: "Linear",
+    //     delay: 400,
+    //     duration: 2000,
+    //     yoyo: true,
+    //     repeat: -1
 
     this.hachiko = this.physics.add.image(4700, 600, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
@@ -103,15 +139,49 @@ export default class MasterFile extends Phaser.Scene {
     //this.hachiko.setCollideWorldBounds(true);
 
     //tweens
-    this.tweens.add({
-       targets: e1, e2, e3, e4,
-       x: 500,
-       y: 500,
-       ease: "Linear",
-       delay: 1000,
-       duration: 1000,
-       yoyo: true,
-       repeat: -1
+    // this.tweens.add({
+    //    targets: e1,
+    //    x: 500,
+    //    y: 500,
+    //    ease: "Linear",
+    //    delay: 1000,
+    //    duration: 1000,
+    //    yoyo: true,
+    //    repeat: -1
+
+    // this.tweens.add({
+    //     targets: e2,
+    //     x: 500,
+    //     y: 500,
+    //     ease: "Linear",
+    //     delay: 1000,
+    //     duration: 1000,
+    //     yoyo: true,
+    //     repeat: -1
+
+    // this.tweens.add({
+    //     targets: e3,
+    //     x: 500,
+    //     y: 500,
+    //     ease: "Linear",
+    //     delay: 1000,
+    //     duration: 1000,
+    //     yoyo: true,
+    //     repeat: -1
+
+    // this.tweens.add({
+    //     targets: e4,
+    //     x: 500,
+    //     y: 500,
+    //     ease: "Linear",
+    //     delay: 1000,
+    //     duration: 1000,
+    //     yoyo: true,
+    //     repeat: -1
+
+
+
+
 
 
     //player
@@ -357,6 +427,17 @@ export default class MasterFile extends Phaser.Scene {
   //creating thugs
   makeEnemy(x, y, image, scale){
     this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+    var thug = this.thug;
+    this.tweens.add({
+        targets: e4,
+        x: x,
+        y: y,
+        ease: "Linear",
+        delay: 400,
+        duration: 2000,
+        yoyo: true,
+        repeat: -1
+
   }
 
   // make item dissapear when collecting it
