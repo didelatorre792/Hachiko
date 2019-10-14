@@ -8,6 +8,7 @@ export default class ParkScene extends Phaser.Scene {
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
     this.scoreFormated = data.scoreFormated;
+    this.alleyMusic = data.alleyMusic;
   }
 
   preload(){
@@ -16,6 +17,32 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   create(){
+    //this.alleyMusic.stop();
+    this.parkMusic = this.sound.add("parkBackgroundMusic");
+    this.parkMusic.addMarker({
+      name: "parkMusic",
+      start: 0,
+      duration: 16
+    });
+    this.parkMusic.play("parkMusic");
+    this.nerfShootSound = this.sound.add("nerfShoot");
+    this.nerfShootSound.addMarker({
+      name: 'nerfShootSound',
+      start: 0.185,
+      duration: 0.2
+    });
+    this.collectSound = this.sound.add("collect");
+    this.collectSound.addMarker({
+      name: "collectSound",
+      start: 0.1,
+      duration: 0.2
+    });
+    this.jumpSound = this.sound.add("jump");
+    this.jumpSound.addMarker({
+      name: "jumpSound",
+      start: 0.1,
+      duration: 0.3
+    });
     //player
     this.player = this.physics.add.sprite(3080, 500, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
@@ -95,13 +122,13 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   update (time, delta) {
-    console.log(this.player.x);
     this.player.setDepth(1);
     //this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
+      this.nerfShootSound.play("nerfShootSound");
     }
 
     //Scrolling screen
@@ -163,6 +190,7 @@ export default class ParkScene extends Phaser.Scene {
     if (cursors.up.isDown && this.player.body.onFloor())  {
       this.player.setVelocityY(-400);
       this.nerf.y = this.player.y;
+      this.jumpSound.play("jumpSound");
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
       this.nerf.y = this.player.y;
@@ -320,6 +348,7 @@ export default class ParkScene extends Phaser.Scene {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
   console.log(this.itemsCollected);
+  this.collectSound.play("collectSound");
   }
 
   //winning condition

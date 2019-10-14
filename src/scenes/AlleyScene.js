@@ -9,9 +9,37 @@ export default class AlleyScene extends Phaser.Scene {
     this.itemsCollected = data.itemsCollected;
     this.scoreFormated = data.scoreFormated;
     this.position = data.position;
+    this.neighborhoodMusic = data.neighborhoodMusic;
   }
 
   create(){
+    this.neighborhoodMusic.stop();
+    this.alleyMusic = this.sound.add("alleyBackgroundMusic");
+    this.alleyMusic.addMarker({
+      name: "alleyMusic",
+      start: 0,
+      duration: 16
+    });
+    this.alleyMusic.play("alleyMusic");
+    this.nerfShootSound = this.sound.add("nerfShoot");
+    this.nerfShootSound.addMarker({
+      name: 'nerfShootSound',
+      start: 0.185,
+      duration: 0.2
+    });
+    this.collectSound = this.sound.add("collect");
+    this.collectSound.addMarker({
+      name: "collectSound",
+      start: 0.1,
+      duration: 0.2
+    });
+    this.jumpSound = this.sound.add("jump");
+    this.jumpSound.addMarker({
+      name: "jumpSound",
+      start: 0.1,
+      duration: 0.3
+    });
+
     //camera
     this.scrollCam = this.cameras.main.setBounds(1545, 0, 3500, 300);
     this.scrollCam.scrollX = 0;
@@ -103,9 +131,8 @@ export default class AlleyScene extends Phaser.Scene {
 
   update (time, delta) {
     console.log(this.player.x);
-
     if (this.player.x > 3500) {
-      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated});
+      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, alleyMusic: this.alleyMusic});
       console.log("scene switch 2")
     };
 
@@ -114,6 +141,7 @@ export default class AlleyScene extends Phaser.Scene {
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
+      this.nerfShootSound.play("nerfShootSound");
     }
 
     //Scrolling screen
@@ -171,6 +199,7 @@ export default class AlleyScene extends Phaser.Scene {
     if (cursors.up.isDown && this.player.body.onFloor())  {
       this.player.setVelocityY(-400);
       this.nerf.y = this.player.y;
+      this.jumpSound.play("jumpSound");
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
       this.nerf.y = this.player.y;
@@ -332,6 +361,7 @@ export default class AlleyScene extends Phaser.Scene {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
   console.log(this.itemsCollected);
+  this.collectSound.play("collectSound");
   }
 
   //winning condition

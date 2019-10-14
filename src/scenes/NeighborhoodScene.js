@@ -9,6 +9,33 @@ export default class NeighborhoodScene extends Phaser.Scene {
   }
 
   create(){
+
+    this.neighborhoodMusic = this.sound.add("neighborhoodBackgroundMusic");
+    this.neighborhoodMusic.addMarker({
+      name: "neighborhoodMusic",
+      start: 0,
+      duration: 16
+    });
+    this.neighborhoodMusic.play("neighborhoodMusic");
+    this.nerfShootSound = this.sound.add("nerfShoot");
+    this.nerfShootSound.addMarker({
+      name: 'nerfShootSound',
+      start: 0.185,
+      duration: 0.2
+    });
+    this.collectSound = this.sound.add("collect");
+    this.collectSound.addMarker({
+      name: "collectSound",
+      start: 0.1,
+      duration: 0.2
+    });
+    this.jumpSound = this.sound.add("jump");
+    this.jumpSound.addMarker({
+      name: "jumpSound",
+      start: 0.1,
+      duration: 0.3
+    });
+
     //camera
     this.scrollCam = this.cameras.main.setBounds(0, 0, 1547, 300);
     this.scrollCam.scrollX = 0;
@@ -87,7 +114,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     //console.log(this.player.x);
     if (this.player.x > 1545) {
       this.position = this.player.x;
-      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position});
+      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position, neighborhoodMusic: this.neighborhoodMusic});
       console.log("scene switch")
       console.log("player x in scene 1: ", this.player.x)
     }
@@ -97,6 +124,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
+      this.nerfShootSound.play("nerfShootSound");
     }
 
     //Scrolling screen
@@ -136,10 +164,13 @@ export default class NeighborhoodScene extends Phaser.Scene {
     }
     if (cursors.up.isDown){
       this.nerf.y = this.player.y;
+
+
     }
     if (cursors.up.isDown && this.player.body.onFloor())  {
       this.player.setVelocityY(-400);
       this.nerf.y = this.player.y;
+      this.jumpSound.play("jumpSound");
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
       this.nerf.y = this.player.y;
@@ -242,9 +273,10 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {
-  dogItem.disableBody(true, true);
-  this.itemsCollected += 1;
-  console.log(this.itemsCollected);
+    dogItem.disableBody(true, true);
+    this.itemsCollected += 1;
+    console.log(this.itemsCollected);
+    this.collectSound.play("collectSound");
   }
 
   zeroPad(number, size){
