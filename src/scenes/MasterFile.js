@@ -429,7 +429,7 @@ export default class MasterFile extends Phaser.Scene {
     this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
     var thug = this.thug;
     this.tweens.add({
-        targets: e4,
+        targets: thug,
         x: x,
         y: y,
         ease: "Linear",
