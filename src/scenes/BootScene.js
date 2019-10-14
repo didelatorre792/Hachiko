@@ -3,6 +3,7 @@ export default class BootScene extends Phaser.Scene {
   preload () {
     // Preload assets
     this.load.image("background", "./assets/images/background.png");
+    this.load.image("tutorial", "./assets/images/hachiko backdrop.png");
     this.load.image("car1", "./assets/images/car11.png");
     this.load.image("car2", "./assets/images/car12.png");
     this.load.image("mailbox", "./assets/images/mailbox.png");
@@ -52,7 +53,7 @@ export default class BootScene extends Phaser.Scene {
       repeat: -1
     });
 
-    this.scene.start('NeighborhoodScene');
+    this.scene.start('TutorialScene');
 
   }
 }
