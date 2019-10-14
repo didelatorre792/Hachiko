@@ -104,20 +104,25 @@ export default class ParkScene extends Phaser.Scene {
 
     //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
-    //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    this.scrollCam.scrollX += 1.25;
+    this.time.addEvent({
+      delay:300,
+      callback:this.scroll,
+      callbackScope: this,
+      loop: false,
+    });
 
     //If player is off screen. LOSE condition
-    if(this.player.x < this.scrollCam.worldView.x - 75){
-      this.condition = 'Lose';
-      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
-      //this.scene.start('EndScene', {condition: this.condition});
-    }
+    // if(this.player.x < this.scrollCam.worldView.x - 75){
+    //   this.condition = 'Lose';
+    //   console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
+    //   this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+    //   //this.scene.start('EndScene', {condition: this.condition});
+    // }
 
     //If player has below 0 health. LOSE condition
     if (this.health < 0){
       this.condition = 'Lose';
+      console.log("died by damage");
       this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
     }
     //Create cursor keys and assign events
@@ -238,6 +243,16 @@ export default class ParkScene extends Phaser.Scene {
     );
   }
 
+  scroll(){
+    this.scrollCam.scrollX += 1.25;
+    if(this.player.x < this.scrollCam.worldView.x - 75){
+      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
+      this.condition = 'Lose';
+      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+    }
+
+  }
+
   enemyShoot(playerX, playerY, e){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(e, this.player);
@@ -293,6 +308,7 @@ export default class ParkScene extends Phaser.Scene {
   //winning condition
   gotHachiko(player, hachiko){
     this.condition = 'Win';
+    console.log("got hachiko");
     this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
     //this.scene.start('EndScene', {condition: this.condition});
   }

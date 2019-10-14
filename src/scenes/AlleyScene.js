@@ -54,7 +54,7 @@ export default class AlleyScene extends Phaser.Scene {
     // this.hachiko.setCollideWorldBounds(true);
 
     //player
-    this.player = this.physics.add.sprite(this.position, 500, "player").setScale(.3);
+    this.player = this.physics.add.sprite(1550, 300, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
     this.player.setDepth(1);
@@ -118,11 +118,14 @@ export default class AlleyScene extends Phaser.Scene {
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
     this.time.addEvent({
       delay:300,
-      callback:this.scroll,
+      callback:this.delay,
       callbackScope: this,
       loop: false,
     });
 
+    if(this.scrollCam.worldView.x > 4800){
+      console.log("done scrolling");
+    }
 
     //If player is off screen. LOSE condition
     // if(this.player.x < this.scrollCam.worldView.x - 75){
@@ -179,20 +182,7 @@ export default class AlleyScene extends Phaser.Scene {
       this.nerf.x = this.player.x + 10;
     }
 
-    //enemy detection again player
-    this.enemyGroup.children.each(
-      function(e){
-        if (e.active){
-          this.physics.add.collider(
-            e,
-            this.player,
-            this.takeDamage,
-            null,
-            this
-          );
-        }
-      }.bind(this)//for can't read property 'physics' of undefined
-    );
+
 
     //bullets detection
     this.bullets.children.each(
@@ -241,6 +231,31 @@ export default class AlleyScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
     );
 
+    //enemy detection again player
+    this.enemyGroup.children.each(
+      function(e){
+        if (e.active){
+          this.physics.add.collider(
+            e,
+            this.player,
+            this.takeDamage,
+            null,
+            this
+          );
+        }
+      }.bind(this)//for can't read property 'physics' of undefined
+    );
+
+  }
+
+  delay(){
+    this.scrollCam.scrollX += 1.25;
+    if(this.player.x < this.scrollCam.worldView.x - 75){
+      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
+      this.condition = 'Lose';
+      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+    }
+
     this.enemyGroup.children.each(
       function(e){
         if (e.active){
@@ -252,15 +267,7 @@ export default class AlleyScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
-  }
 
-  scroll(){
-    this.scrollCam.scrollX += 1.25;
-    if(this.player.x < this.scrollCam.worldView.x - 75){
-      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
-      this.condition = 'Lose';
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
-    }
 
   }
 
