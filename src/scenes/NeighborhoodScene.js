@@ -79,10 +79,12 @@ export default class NeighborhoodScene extends Phaser.Scene {
     var gunDir;
     this.health = 500;
     var scoreFormated = this.zeroPad(this.health, 6);
+    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
+    this.healthLabel.setScrollFactor(0);
   }
 
   update (time, delta) {
-    console.log(this.player.x);
+    //console.log(this.player.x);
     if (this.player.x > 1545) {
       this.position = this.player.x;
       this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position});
@@ -90,7 +92,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
       console.log("player x in scene 1: ", this.player.x)
     }
 
-    this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
+    //this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {

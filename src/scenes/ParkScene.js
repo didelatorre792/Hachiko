@@ -22,7 +22,7 @@ export default class ParkScene extends Phaser.Scene {
     this.player.setActive(true);
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(3050, 0, 4800, 300);
+    this.scrollCam = this.cameras.main.setBounds(3050, 0, 4000, 300);
     this.scrollCam.scrollX = 0;
 
     //background
@@ -90,12 +90,14 @@ export default class ParkScene extends Phaser.Scene {
     var condition;
     var gunDir;
     var scoreFormated = this.zeroPad(this.health, 6);
+    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
+    this.healthLabel.setScrollFactor(0);
   }
 
   update (time, delta) {
     console.log(this.player.x);
     this.player.setDepth(1);
-    this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
+    //this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
@@ -106,10 +108,16 @@ export default class ParkScene extends Phaser.Scene {
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
     this.time.addEvent({
       delay:300,
-      callback:this.scroll,
+      callback:this.delay,
       callbackScope: this,
       loop: false,
     });
+
+    if(this.scrollCam.worldView.x > 4000){
+      console.log("done scrolling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      //this.scrollCam = this.cameras.main.setBounds(3050, 0, 4800, 300);
+      this.scrollCam.scrollX -= 1.25;
+    }
 
     //If player is off screen. LOSE condition
     // if(this.player.x < this.scrollCam.worldView.x - 75){
@@ -213,7 +221,7 @@ export default class ParkScene extends Phaser.Scene {
           this.physics.add.collider(
             b,
             this.player,
-            this.takeDamage,
+            this.takeDamageFromEnemyBullets,
             null,
             this
           );
@@ -243,7 +251,7 @@ export default class ParkScene extends Phaser.Scene {
     );
   }
 
-  scroll(){
+  delay(){
     this.scrollCam.scrollX += 1.25;
     if(this.player.x < this.scrollCam.worldView.x - 75){
       console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
@@ -288,9 +296,18 @@ export default class ParkScene extends Phaser.Scene {
   takeDamage(enemy, player){
     this.health -= 5;
     console.log(this.health, "health");
+    this.healthLabel.text = "SCORE " + this.scoreFormated;
     //enemy.setImmovable();
     //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
+  }
+
+  takeDamageFromEnemyBullets(bullet, player){
+    this.health -= 10;
+    bullet.disableBody(true, true);
+    var scoreFormated = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "SCORE " + this.scoreFormated;
+    console.log(this.health, "health");
   }
 
   //creating thugs
@@ -307,9 +324,12 @@ export default class ParkScene extends Phaser.Scene {
 
   //winning condition
   gotHachiko(player, hachiko){
-    this.condition = 'Win';
-    console.log("got hachiko");
-    this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+    if (this.hachiko.x == 4700){
+      this.condition = 'Win';
+      console.log("got hachiko");
+      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+
+    }
     //this.scene.start('EndScene', {condition: this.condition});
   }
 

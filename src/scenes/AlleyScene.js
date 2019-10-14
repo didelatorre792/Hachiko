@@ -97,6 +97,8 @@ export default class AlleyScene extends Phaser.Scene {
     var condition;
     var gunDir;
     var scoreFormated = this.zeroPad(this.health, 6);
+    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
+    this.healthLabel.setScrollFactor(0);
   }
 
   update (time, delta) {
@@ -107,7 +109,7 @@ export default class AlleyScene extends Phaser.Scene {
       console.log("scene switch 2")
     };
 
-    this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
+    // this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
@@ -123,9 +125,7 @@ export default class AlleyScene extends Phaser.Scene {
       loop: false,
     });
 
-    if(this.scrollCam.worldView.x > 4800){
-      console.log("done scrolling");
-    }
+
 
     //If player is off screen. LOSE condition
     // if(this.player.x < this.scrollCam.worldView.x - 75){
@@ -214,7 +214,7 @@ export default class AlleyScene extends Phaser.Scene {
           this.physics.add.collider(
             b,
             this.player,
-            this.takeDamage,
+            this.takeDamageFromEnemyBullets,
             null,
             this
           );
@@ -246,16 +246,6 @@ export default class AlleyScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
     );
 
-  }
-
-  delay(){
-    this.scrollCam.scrollX += 1.25;
-    if(this.player.x < this.scrollCam.worldView.x - 75){
-      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
-      this.condition = 'Lose';
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
-    }
-
     this.enemyGroup.children.each(
       function(e){
         if (e.active){
@@ -267,6 +257,17 @@ export default class AlleyScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
+
+  }
+
+  delay(){
+    this.scrollCam.scrollX += 1.25;
+    if(this.player.x < this.scrollCam.worldView.x - 75){
+      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
+      this.condition = 'Lose';
+      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+    }
+
 
 
   }
@@ -307,9 +308,18 @@ export default class AlleyScene extends Phaser.Scene {
   takeDamage(enemy, player){
     this.health -= 5;
     console.log(this.health, "health");
+    this.healthLabel.text = "SCORE " + this.scoreFormated;
     //enemy.setImmovable();
     //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
+  }
+
+  takeDamageFromEnemyBullets(bullet, player){
+    this.health -= 10;
+    bullet.disableBody(true, true);
+    var scoreFormated = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "SCORE " + this.scoreFormated;
+    console.log(this.health, "health");
   }
 
   //creating thugs
