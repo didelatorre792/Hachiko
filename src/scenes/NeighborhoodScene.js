@@ -55,14 +55,14 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.lamppost1 = this.add.image(550, 408, "lamppost").setScale(.085);
     this.box3 = this.platforms.create(492, 300, "box").setSize(18, 8); this.box3.alpha = 0;
     this.box4 = this.platforms.create(610, 300, "box").setSize(18, 8); this.box4.alpha = 0;
-    this.car2 = this.add.image(920, 500, "car2").setScale(.4);
+    this.car2 = this.add.image(900, 530, "car2").setScale(.4);
     this.box5 = this.platforms.create(940, 494, "box").setSize(135); this.box5.alpha = 0;
     this.mailbox2 = this.add.image(1067, 475, "mailbox").setScale(.08);
     this.box6 = this.platforms.create(1062, 440, "box").setSize(40, 10); this.box6.alpha = 0;
     this.lamppost2 = this.add.image(1400, 408, "lamppost").setScale(.085);
     this.box7 = this.platforms.create(1342, 300, "box").setSize(18, 8); this.box7.alpha = 0;
     this.box8 = this.platforms.create(1460, 300, "box").setSize(18, 8); this.box8.alpha = 0;
-    this.collectables.create(1436, 188, "dogBone").setScale(.2).setSize(42, 15).setPosition(1320, 125);
+    this.collectables.create(1436, 188, "dogBone").setScale(.2).setSize(42, 15).setPosition(1350, 150);
     this.mailbox3 = this.add.image(1517, 485, "mailbox").setScale(.062);
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 

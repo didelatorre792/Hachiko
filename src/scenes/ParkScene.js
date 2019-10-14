@@ -18,13 +18,13 @@ export default class ParkScene extends Phaser.Scene {
 
   create(){
     //this.alleyMusic.stop();
-    /*this.parkMusic = this.sound.add("parkBackgroundMusic");
+    this.parkMusic = this.sound.add("parkBackgroundMusic");
     this.parkMusic.addMarker({
       name: "parkMusic",
       start: 0,
       duration: 16
     });
-    this.parkMusic.play("parkMusic");*/
+    this.parkMusic.play("parkMusic");
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
