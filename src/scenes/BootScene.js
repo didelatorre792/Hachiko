@@ -3,8 +3,8 @@ export default class BootScene extends Phaser.Scene {
   preload () {
     // Preload assets
     this.load.image("background", "./assets/images/background.png");
-    this.load.image("car1", "./assets/images/car1.png");
-    this.load.image("car2", "./assets/images/car2.png");
+    this.load.image("car1", "./assets/images/car11.png");
+    this.load.image("car2", "./assets/images/car12.png");
     this.load.image("mailbox", "./assets/images/mailbox.png");
     this.load.image("lamppost", "./assets/images/lamppost.png");
     this.load.image("trashcan", "./assets/images/trashcan.png");
