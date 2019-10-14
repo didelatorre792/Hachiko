@@ -34,9 +34,9 @@ export default class BootScene extends Phaser.Scene {
     this.load.audio("nerfShoot", "./assets/sounds/nerfGunShot.wav");
     this.load.audio("jump", "./assets/sounds/jump.wav");
     this.load.audio("alleyBackgroundMusic", "./assets/sounds/alleyBackground.ogg");
-    this.load.audio("parkBackgroundMusic", "./assets/sounds/");
+    this.load.audio("parkBackgroundMusic", "./assets/sounds/parkMusic.mov");
   }
-  
+
 
   create (data) {
     this.anims.create({
