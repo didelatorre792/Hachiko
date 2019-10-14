@@ -282,7 +282,7 @@ export default class MasterFile extends Phaser.Scene {
       function(e){
         if (e.active){
           if (Phaser.Math.Distance.Between(e.x,e.y,this.player.x,this.player.y) < 300){
-            console.log("woo");
+            console.log("within shooting distance");
             this.enemyShoot(this.player.x, this.player.y, e);
           }
         }

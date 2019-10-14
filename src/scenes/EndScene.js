@@ -30,10 +30,10 @@ export default class EndScene extends Phaser.Scene {
       this.cameras.main.setBackgroundColor(0xEC9284);
       this.add.text(this.centerX - 170, this.centerY, "You collected "+this.itemsCollected+" of Hachiko's things!", 40);
       var scoreArray = ["F", "D", "C", "B", "A", "A+"];
-      this.add.text(this.centerX - 115, this.centerY + 80, "You got a "+scoreArray[this.itemsCollected]+". TRY AGAIN!");
+      this.add.text(this.centerX - 115, this.centerY + 80, "You got a "+scoreArray[this.itemsCollected]+" TRY AGAIN!");
     };
    // console.log(this.condition);
-    
+
     //if (this.condition == 'Win'){
       //var text = this.add.text(this.centerX - 75, this.centerY, "You got Hachiko!", 40);
     //}else if (this.condition == 'Lose') {

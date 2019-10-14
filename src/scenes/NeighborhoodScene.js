@@ -83,10 +83,12 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
   update (time, delta) {
     console.log(this.player.x);
-    if (this.player.x >= 1545) {
-      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated});
-      return;
-    };
+    if (this.player.x > 1545) {
+      this.position = this.player.x;
+      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position});
+      console.log("scene switch")
+      console.log("player x in scene 1: ", this.player.x)
+    }
 
     this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
@@ -103,6 +105,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     if(this.player.x < this.scrollCam.worldView.x - 75){
       this.condition = 'Lose';
       this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+      console.log("death by scroll")
     }
 
     //Create cursor keys and assign events

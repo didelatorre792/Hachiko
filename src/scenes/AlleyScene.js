@@ -8,11 +8,12 @@ export default class AlleyScene extends Phaser.Scene {
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
     this.scoreFormated = data.scoreFormated;
+    this.position = data.position;
   }
 
   create(){
     //camera
-    this.scrollCam = this.cameras.main.setBounds(1550, 0, 2700, 300);
+    this.scrollCam = this.cameras.main.setBounds(1545, 0, 3500, 300);
     this.scrollCam.scrollX = 0;
 
     //background
@@ -49,17 +50,18 @@ export default class AlleyScene extends Phaser.Scene {
 
     this.makeEnemy(4750, 470, "thug", .7);
 
-    this.hachiko = this.physics.add.image(4700, 600, "hachiko").setScale(.14);
-    this.hachiko.setCollideWorldBounds(true);
+    // this.hachiko = this.physics.add.image(4700, 600, "hachiko").setScale(.14);
+    // this.hachiko.setCollideWorldBounds(true);
 
     //player
-    this.player = this.physics.add.sprite(1600, 500, "player").setScale(.3);
+    this.player = this.physics.add.sprite(this.position, 500, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
     this.player.setDepth(1);
+    console.log("player x in scene 2: ", this.player.x)
 
     //gun
-    this.nerf = this.add.sprite(1700, 520, "nerf");
+    this.nerf = this.add.sprite(this.position, 520, "nerf");
     this.nerf.setScale(.03);
     //Gun and Bullets
     var bullets;
@@ -98,8 +100,11 @@ export default class AlleyScene extends Phaser.Scene {
   }
 
   update (time, delta) {
-    if (this.player.x >= 3000) {
+    console.log(this.player.x);
+
+    if (this.player.x > 3500) {
       this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated});
+      console.log("scene switch 2")
     };
 
     this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
@@ -110,15 +115,21 @@ export default class AlleyScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(1550, 0, 4800, 550);
-    this.scrollCam.scrollX += 1.25;
+    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
+    this.time.addEvent({
+      delay:300,
+      callback:this.scroll,
+      callbackScope: this,
+      loop: false,
+    });
+
 
     //If player is off screen. LOSE condition
-    if(this.player.x < this.scrollCam.worldView.x - 75){
-      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
-      this.condition = 'Lose';
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
-    }
+    // if(this.player.x < this.scrollCam.worldView.x - 75){
+    //   console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
+    //   this.condition = 'Lose';
+    //   this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+    // }
 
     //If player has below 0 health. LOSE condition
     if (this.health < 0){
@@ -234,7 +245,7 @@ export default class AlleyScene extends Phaser.Scene {
       function(e){
         if (e.active){
           if (Phaser.Math.Distance.Between(e.x,e.y,this.player.x,this.player.y) < 300){
-            console.log("woo");
+            console.log("within shooting distance");
             this.enemyShoot(this.player.x, this.player.y, e);
           }
         }
@@ -242,6 +253,17 @@ export default class AlleyScene extends Phaser.Scene {
 
     );
   }
+
+  scroll(){
+    this.scrollCam.scrollX += 1.25;
+    if(this.player.x < this.scrollCam.worldView.x - 75){
+      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
+      this.condition = 'Lose';
+      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+    }
+
+  }
+
 
   enemyShoot(playerX, playerY, e){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
@@ -296,11 +318,12 @@ export default class AlleyScene extends Phaser.Scene {
   }
 
   //winning condition
-  gotHachiko(player, hachiko){
-    this.condition = 'Win';
-    this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
-    //this.scene.start('EndScene', {condition: this.condition});
-  }
+  // gotHachiko(player, hachiko){
+  //   this.condition = 'Win';
+  //   console.log("got hachiko")
+  //   this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+  //   //this.scene.start('EndScene', {condition: this.condition});
+  // }
 
   //damaging the enemy
   hitEnemy (bullet, enemy) {

@@ -22,7 +22,7 @@ export default class ParkScene extends Phaser.Scene {
     this.player.setActive(true);
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(3050, 0, 4000, 300);
+    this.scrollCam = this.cameras.main.setBounds(3050, 0, 4800, 300);
     this.scrollCam.scrollX = 0;
 
     //background
@@ -93,6 +93,7 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   update (time, delta) {
+    console.log(this.player.x);
     this.player.setDepth(1);
     this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
@@ -228,7 +229,7 @@ export default class ParkScene extends Phaser.Scene {
       function(e){
         if (e.active){
           if (Phaser.Math.Distance.Between(e.x,e.y,this.player.x,this.player.y) < 300){
-            console.log("woo");
+            console.log("within shooting distance");
             this.enemyShoot(this.player.x, this.player.y, e);
           }
         }

@@ -27,6 +27,11 @@ export default class BootScene extends Phaser.Scene {
       frameWidth:554/3,
       frameHeight: 527/2
     });
+    this.load.audio("collect", "./assets/sounds/collect.wav");
+    this.load.audio("enemyGrunt", "./assets/sounds/enemyGrunt.wav");
+    this.load.audio("mcGrunt", "./assets/sounds/mcGrunt.mp3");
+    this.load.audio("neighborhoodMusic", "./assets/sounds/neighborhoodBackground.wav");
+    this.load.audio("nerfShoot", "./assets/sounds/nerfGunShot.wav");
   }
 
   create (data) {
