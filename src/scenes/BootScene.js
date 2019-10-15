@@ -24,9 +24,9 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("nerf", "./assets/images/nerf.png");
     this.load.image("bullet", "./assets/images/bullet.png");
     this.load.image("box", "./assets/sprites/box.png");
-    this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheet1.png", {
-      frameWidth:554/3,
-      frameHeight: 527/2
+    this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheetwithCrouch.png", {
+      frameWidth:545/3,
+      frameHeight: 794/3
     });
     this.load.audio("collect", "./assets/sounds/collect.wav");
     this.load.audio("enemyGrunt", "./assets/sounds/enemyGrunt.wav");
@@ -42,15 +42,19 @@ export default class BootScene extends Phaser.Scene {
   create (data) {
     this.anims.create({
       key: "walk",
-      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 5 }),
-      frameRate: 20,
+      frames: this.anims.generateFrameNumbers("player", { start: 1, end: 3 }),
+      frameRate: 13,
       repeat: -1
     });
     this.anims.create({
       key: "idle",
       frames: this.anims.generateFrameNumbers("player", { start: 0, end: 0 }),
       frameRate: 20,
-      repeat: -1
+    });
+    this.anims.create({
+      key: "crouch",
+      frames: this.anims.generateFrameNumbers("player", {start: 7, end: 9 }),
+      frameRate: 3,
     });
 
     this.scene.start('TutorialScene');

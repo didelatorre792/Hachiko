@@ -144,7 +144,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     var stopped = 0;
 
     //moving with velocity and the gun
-    if (cursors.left.isDown) {
+     if (cursors.left.isDown) {
       this.player.setVelocityX(-200);
       this.nerf.x = this.player.x - 40;
       this.player.anims.play("walk", true);
@@ -174,6 +174,8 @@ export default class NeighborhoodScene extends Phaser.Scene {
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
       this.nerf.y = this.player.y;
+      this.player.anims.play("crouch", true);
+
     }
     if (cursors.up.isUp) {
       this.nerf.y = this.player.y;
