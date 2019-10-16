@@ -7,13 +7,12 @@ export default class AlleyScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
-    this.scoreFormated = data.scoreFormated;
-    this.position = data.position;
+    this.scoreFormatted = data.scoreFormatted;
     this.neighborhoodMusic = data.neighborhoodMusic;
   }
 
   create(){
-    this.neighborhoodMusic.stop();
+    //this.neighborhoodMusic.stop();
     this.alleyMusic = this.sound.add("alleyBackgroundMusic");
     this.alleyMusic.addMarker({
       name: "alleyMusic",
@@ -41,8 +40,8 @@ export default class AlleyScene extends Phaser.Scene {
     });
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(1545, 0, 3500, 300);
-    this.scrollCam.scrollX = 0;
+    this.scrollCam = this.cameras.main.setBounds(1545, 0, 3500, 600);
+    this.scrollCam.scrollX = 1545;
 
     //background
     this.background = this.add.image(2400, 300, "background");
@@ -69,27 +68,29 @@ export default class AlleyScene extends Phaser.Scene {
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
     this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.makeEnemy(2100, 530, "thug", .3);
-    this.makeEnemy(2390, 525, "thug", .3);
-    this.makeEnemy(2850, 505, "thug", .3);
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.08);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
-    this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
+    //this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
 
-    this.makeEnemy(4750, 470, "thug", .7);
+    //this.makeEnemy(4750, 470, "thug", .7);
 
     // this.hachiko = this.physics.add.image(4700, 600, "hachiko").setScale(.14);
     // this.hachiko.setCollideWorldBounds(true);
 
     //player
-    this.player = this.physics.add.sprite(1550, 300, "player").setScale(.3);
+    this.player = this.physics.add.sprite(1600, 300, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
     this.player.setDepth(1);
     console.log("player x in scene 2: ", this.player.x)
+    console.log(this.cameras.main.width + ", " + this.cameras.main.height);
+
+    this.makeEnemy(this.player.x + 500, 530, "thug", .3);
+    this.makeEnemy(this.player.x + 790, 525, "thug", .3);
+    this.makeEnemy(this.player.x + 1250, 505, "thug", .3);
 
     //gun
-    this.nerf = this.add.sprite(this.position, 520, "nerf");
+    this.nerf = this.add.sprite(this.player.x + 10, 520, "nerf");
     this.nerf.setScale(.03);
     //Gun and Bullets
     var bullets;
@@ -101,12 +102,12 @@ export default class AlleyScene extends Phaser.Scene {
 
     this.bullets = this.physics.add.group({
       defaultKey:"bullet",
-      maxSize: 10
+      maxSize: 100
     });
 
     this.enemyBullets = this.physics.add.group({
       defaultKey:"bullet",
-      maxSize: 10
+      maxSize: 100
     });
 
     //to shoot
@@ -124,20 +125,12 @@ export default class AlleyScene extends Phaser.Scene {
     //conditions and health variables
     var condition;
     var gunDir;
-    var scoreFormated = this.zeroPad(this.health, 6);
-    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
+    var scoreFormatted = this.zeroPad(this.health, 6);
+    this.healthLabel = this.add.text(5, 5, "Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
   }
 
   update (time, delta) {
-    console.log(this.player.x);
-    if (this.player.x > 3500) {
-      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, alleyMusic: this.alleyMusic});
-      console.log("scene switch 2")
-    };
-
-    // this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
-
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
@@ -145,22 +138,13 @@ export default class AlleyScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
+    this.physics.world.setBounds(1545, 0, 4800, 600);
     this.time.addEvent({
       delay:300,
       callback:this.delay,
       callbackScope: this,
       loop: false,
     });
-
-
-
-    //If player is off screen. LOSE condition
-    // if(this.player.x < this.scrollCam.worldView.x - 75){
-    //   console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
-    //   this.condition = 'Lose';
-    //   this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
-    // }
 
     //If player has below 0 health. LOSE condition
     if (this.health < 0){
@@ -207,11 +191,9 @@ export default class AlleyScene extends Phaser.Scene {
     if (cursors.up.isUp) {
       this.nerf.y = this.player.y;
     }
-    if (this.nerf.x < this.scrollCam.worldView.x - 5){
-      this.nerf.x = this.player.x + 10;
-    }
-
-
+    //if (this.nerf.x < this.scrollCam.worldView.x - 5){
+    //  this.nerf.x = this.player.x + 10;
+   // }
 
     //bullets detection
     this.bullets.children.each(
@@ -286,21 +268,20 @@ export default class AlleyScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
-
+    if (this.player.x > 3500) {
+      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormatted: this.scoreFormatted, alleyMusic: this.alleyMusic});
+      console.log("scene switch 2")
+    };
   }
 
   delay(){
     this.scrollCam.scrollX += 1.25;
-    if(this.player.x < this.scrollCam.worldView.x - 75){
-      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
+    if(this.player.x < this.scrollCam.scrollX - 75){
+      console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.condition = 'Lose';
       this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
     }
-
-
-
   }
-
 
   enemyShoot(playerX, playerY, e){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
@@ -337,7 +318,7 @@ export default class AlleyScene extends Phaser.Scene {
   takeDamage(enemy, player){
     this.health -= 5;
     console.log(this.health, "health");
-    this.healthLabel.text = "SCORE " + this.scoreFormated;
+    this.healthLabel.text = "Health: " + this.scoreFormatted;
     //enemy.setImmovable();
     //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
@@ -346,9 +327,9 @@ export default class AlleyScene extends Phaser.Scene {
   takeDamageFromEnemyBullets(bullet, player){
     this.health -= 10;
     bullet.disableBody(true, true);
-    var scoreFormated = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "SCORE " + this.scoreFormated;
-    console.log(this.health, "health");
+    var scoreFormatted = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "Health: " + this.scoreFormatted;
+    console.log(this.health, "is current health");
   }
 
   //creating thugs
@@ -363,14 +344,6 @@ export default class AlleyScene extends Phaser.Scene {
   console.log(this.itemsCollected);
   this.collectSound.play("collectSound");
   }
-
-  //winning condition
-  // gotHachiko(player, hachiko){
-  //   this.condition = 'Win';
-  //   console.log("got hachiko")
-  //   this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
-  //   //this.scene.start('EndScene', {condition: this.condition});
-  // }
 
   //damaging the enemy
   hitEnemy (bullet, enemy) {
