@@ -341,7 +341,7 @@ export default class AlleyScene extends Phaser.Scene {
   collectDogItem(player, dogItem) {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
-  console.log(this.itemsCollected);
+  console.log("number of items collected is " + this.itemsCollected);
   this.collectSound.play("collectSound");
   }
 
