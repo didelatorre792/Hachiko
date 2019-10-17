@@ -268,7 +268,7 @@ export default class AlleyScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
-    if (this.player.x > 3500) {
+    if (this.player.x > 3250) {
       this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormatted: this.scoreFormatted, alleyMusic: this.alleyMusic});
       console.log("scene switch 2")
     };
