@@ -12,7 +12,7 @@ export default class AlleyScene extends Phaser.Scene {
   }
 
   create(){
-    //this.neighborhoodMusic.stop();
+    this.neighborhoodMusic.stop();
     this.alleyMusic = this.sound.add("alleyBackgroundMusic");
     this.alleyMusic.addMarker({
       name: "alleyMusic",
@@ -40,7 +40,7 @@ export default class AlleyScene extends Phaser.Scene {
     });
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(1545, 0, 3500, 600);
+    this.scrollCam = this.cameras.main.setBounds(1545, 0, 1720, 600);
     this.scrollCam.scrollX = 1545;
 
     //background
@@ -59,7 +59,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
     this.sign1 = this.add.image(1850, 350, "sign1").setScale(.1);
     this.box12 = this.platforms.create(1850, 364, "box").setSize(70, 30); this.box12.alpha = 0;
-    this.collectables.create(1700, 250, "dogBowl").setScale(.2).setSize(42, 25).setPosition(1610, 160);
+    this.collectables.create(2400, 250, "dogBowl").setScale(.2).setSize(42, 25).setPosition(2310, 160);
     this.collectables.create(2282, 404, "dogCollar").setScale(.05).setSize(30, 25).setPosition(2010, 160);
     this.dumpster = this.add.image(2200, 480, "dumpster").setScale(.26);
     this.box13 = this.platforms.create(2200, 520, "box").setSize(155, 110); this.box13.alpha = 0;
@@ -85,9 +85,9 @@ export default class AlleyScene extends Phaser.Scene {
     console.log("player x in scene 2: ", this.player.x)
     console.log(this.cameras.main.width + ", " + this.cameras.main.height);
 
-    this.makeEnemy(this.player.x + 500, 530, "thug", .3);
-    this.makeEnemy(this.player.x + 790, 525, "thug", .3);
-    this.makeEnemy(this.player.x + 1250, 505, "thug", .3);
+    this.makeEnemy(1600 + 500, 530, "thug", .3);
+    this.makeEnemy(1600 + 790, 525, "thug", .3);
+    this.makeEnemy(1600 + 1250, 505, "thug", .3);
 
     //gun
     this.nerf = this.add.sprite(this.player.x + 10, 520, "nerf");
@@ -138,7 +138,7 @@ export default class AlleyScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(1545, 0, 4800, 600);
+    this.physics.world.setBounds(1545, 0, 4800, 550);
     this.time.addEvent({
       delay:300,
       callback:this.delay,
@@ -186,7 +186,8 @@ export default class AlleyScene extends Phaser.Scene {
       this.jumpSound.play("jumpSound");
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
-      this.nerf.y = this.player.y;
+      this.nerf.y = this.player.y + 30;
+      this.player.anims.play("crouch", true);
     }
     if (cursors.up.isUp) {
       this.nerf.y = this.player.y;
@@ -335,6 +336,7 @@ export default class AlleyScene extends Phaser.Scene {
   //creating thugs
   makeEnemy(x, y, image, scale){
     this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+    console.log("enemy coordinates:", x, y);
     var thug = this.thug;
     this.tweens.add({
         targets: thug,
@@ -346,7 +348,7 @@ export default class AlleyScene extends Phaser.Scene {
         yoyo: true,
         repeat: -1});
   }
-  
+
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {
