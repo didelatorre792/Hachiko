@@ -18,13 +18,13 @@ export default class ParkScene extends Phaser.Scene {
 
   create(){
     //this.alleyMusic.stop();
-    this.parkMusic = this.sound.add("parkBackgroundMusic");
+    /*this.parkMusic = this.sound.add("parkBackgroundMusic");
     this.parkMusic.addMarker({
       name: "parkMusic",
       start: 0,
       duration: 16
     });
-    this.parkMusic.play("parkMusic");
+    this.parkMusic.play("parkMusic");*/
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
@@ -341,6 +341,21 @@ export default class ParkScene extends Phaser.Scene {
   //creating thugs
   makeEnemy(x, y, image, scale){
     this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+    var thug = this.thug;
+    this.tweens.add({
+        targets: thug,
+        x: x,
+        y: y,
+        ease: "Linear",
+        delay: 400,
+        duration: 2000,
+        yoyo: true,
+        repeat: -1
+
+
+    // makeEnemy(x, y, image, scale){
+    //   this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+    //
   }
 
   // make item dissapear when collecting it
