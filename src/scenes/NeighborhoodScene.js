@@ -55,14 +55,14 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.lamppost1 = this.add.image(550, 408, "lamppost").setScale(.085);
     this.box3 = this.platforms.create(492, 300, "box").setSize(18, 8); this.box3.alpha = 0;
     this.box4 = this.platforms.create(610, 300, "box").setSize(18, 8); this.box4.alpha = 0;
-    this.car2 = this.add.image(900, 530, "car2").setScale(.4);
-    this.box5 = this.platforms.create(940, 494, "box").setSize(135); this.box5.alpha = 0;
+    this.car2 = this.add.image(900, 490, "car2").setScale(.45);
+    this.box5 = this.platforms.create(920, 494, "box").setSize(135); this.box5.alpha = 0;
     this.mailbox2 = this.add.image(1067, 475, "mailbox").setScale(.08);
     this.box6 = this.platforms.create(1062, 440, "box").setSize(40, 10); this.box6.alpha = 0;
     this.lamppost2 = this.add.image(1400, 408, "lamppost").setScale(.085);
     this.box7 = this.platforms.create(1342, 300, "box").setSize(18, 8); this.box7.alpha = 0;
     this.box8 = this.platforms.create(1460, 300, "box").setSize(18, 8); this.box8.alpha = 0;
-    this.collectables.create(1436, 188, "dogBone").setScale(.2).setSize(42, 15).setPosition(1350, 150);
+    this.collectables.create(1446, 220, "dogBone").setScale(.2).setSize(42, 15).setPosition(1350, 150);
     this.mailbox3 = this.add.image(1517, 485, "mailbox").setScale(.062);
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
@@ -168,7 +168,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
       this.jumpSound.play("jumpSound");
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
-      this.nerf.y = this.player.y;
+      this.nerf.y = this.player.y + 30;
       this.player.anims.play("crouch", true);
 
     }
@@ -254,7 +254,6 @@ export default class NeighborhoodScene extends Phaser.Scene {
     if (this.player.x > 1545) {
       this.position = this.player.x;
       this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position, neighborhoodMusic: this.neighborhoodMusic});
-      this.scene.remove("NeighborhoodScene");
       console.log("scene switch")
       console.log("player x in scene 1: ", this.player.x)
     }

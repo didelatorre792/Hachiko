@@ -17,14 +17,14 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   create(){
-    //this.alleyMusic.stop();
-    /*this.parkMusic = this.sound.add("parkBackgroundMusic");
+    this.alleyMusic.stop();
+    this.parkMusic = this.sound.add("parkBackgroundMusic");
     this.parkMusic.addMarker({
       name: "parkMusic",
       start: 0,
       duration: 3
     });
-    this.parkMusic.play("parkMusic");*/
+    this.parkMusic.play("parkMusic");
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
@@ -44,6 +44,10 @@ export default class ParkScene extends Phaser.Scene {
       duration: 0.3
     });
 
+    //camera
+    this.scrollCam = this.cameras.main.setBounds(3250, 0, 4700, 600);
+    this.scrollCam.scrollX = 3250;
+
     //player
     this.player = this.physics.add.sprite(3300, 300, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
@@ -52,9 +56,6 @@ export default class ParkScene extends Phaser.Scene {
     console.log("player x in scene 2: ", this.player.x)
     console.log(this.cameras.main.width + ", " + this.cameras.main.height);
 
-    //camera
-    this.scrollCam = this.cameras.main.setBounds(3250, 0, 4700, 600);
-    this.scrollCam.scrollX = 3250;
 
     //background
     this.background = this.add.image(2400, 300, "background");
@@ -72,8 +73,8 @@ export default class ParkScene extends Phaser.Scene {
     this.lamppost3 = this.add.image(3800, 463, "lamppost").setScale(.097);
     this.box18 = this.platforms.create(3733, 340, "box").setSize(22, 9); this.box18.alpha = 0;
     this.box19 = this.platforms.create(3868, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    this.bench = this.add.image(4000, 520, "bench").setScale(.8);
-    this.box20 = this.platforms.create(3996, 490, "box").setSize(189, 5); this.box20.alpha = 0;
+    this.bench = this.add.image(4000, 490, "bench").setScale(.5);
+    this.box20 = this.platforms.create(3996, 490, "box").setSize(202, 5); this.box20.alpha = 0;
     this.tree = this.add.image(4300, 400, "tree").setScale(.5);
     this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
 
@@ -84,7 +85,7 @@ export default class ParkScene extends Phaser.Scene {
     this.hachiko.setCollideWorldBounds(true);
 
     //gun
-    this.nerf = this.add.sprite(100 ,520, "nerf");
+    this.nerf = this.add.sprite(this.player.x + 10 ,520, "nerf");
     this.nerf.setScale(.03);
     //Gun and Bullets
     var bullets;
@@ -133,7 +134,7 @@ export default class ParkScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(3250, 0, 4800, 600);
+    this.physics.world.setBounds(3250, 0, 4800, 550);
 
     this.time.addEvent({
       delay:300,
@@ -142,7 +143,7 @@ export default class ParkScene extends Phaser.Scene {
       loop: false,
     });
 
-    if(this.scrollCam.scrollX > 4000){
+    if(this.player.x > 4800){
       console.log("done scrolling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       //this.scrollCam = this.cameras.main.setBounds(3050, 0, 4800, 300);
       this.scrollCam.scrollX -= 1.25;
@@ -188,13 +189,14 @@ export default class ParkScene extends Phaser.Scene {
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
       this.nerf.y = this.player.y;
+      this.player.anims.play("crouch", true);
     }
     if (cursors.up.isUp) {
       this.nerf.y = this.player.y;
     }
-    if (this.nerf.x < this.scrollCam.worldView.x - 5){
+    /*if (this.nerf.x < this.scrollCam.worldView.x - 5){
       this.nerf.x = this.player.x + 10;
-    }
+    }*/
 
     //bullets detection
     this.bullets.children.each(
