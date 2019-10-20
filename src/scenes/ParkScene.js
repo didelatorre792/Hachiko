@@ -335,19 +335,21 @@ export default class ParkScene extends Phaser.Scene {
     var thug = this.thug;
     this.tweens.add({
         targets: thug,
-        x: x,
+        x: x+10,
         y: y,
         ease: "Linear",
-        delay: 400,
-        duration: 2000,
+        delay: 500,
+        duration: 500,
         yoyo: true,
-        repeat: -1
+        repeat: -1});
 
 
+
+  }
     // makeEnemy(x, y, image, scale){
     //   this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
     //
-  }
+
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {

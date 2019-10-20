@@ -335,7 +335,18 @@ export default class AlleyScene extends Phaser.Scene {
   //creating thugs
   makeEnemy(x, y, image, scale){
     this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+    var thug = this.thug;
+    this.tweens.add({
+        targets: thug,
+        x: x-100,
+        y: y,
+        ease: "Linear",
+        delay: 500,
+        duration: 500,
+        yoyo: true,
+        repeat: -1});
   }
+  
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {
