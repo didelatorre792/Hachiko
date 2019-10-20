@@ -112,12 +112,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
   update (time, delta) {
     //console.log(this.player.x);
-    if (this.player.x > 1545) {
-      this.position = this.player.x;
-      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position, neighborhoodMusic: this.neighborhoodMusic});
-      console.log("scene switch")
-      console.log("player x in scene 1: ", this.player.x)
-    }
+
 
     //this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
 
@@ -144,7 +139,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     var stopped = 0;
 
     //moving with velocity and the gun
-    if (cursors.left.isDown) {
+     if (cursors.left.isDown) {
       this.player.setVelocityX(-200);
       this.nerf.x = this.player.x - 40;
       this.player.anims.play("walk", true);
@@ -174,6 +169,8 @@ export default class NeighborhoodScene extends Phaser.Scene {
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
       this.nerf.y = this.player.y;
+      this.player.anims.play("crouch", true);
+
     }
     if (cursors.up.isUp) {
       this.nerf.y = this.player.y;
@@ -254,6 +251,13 @@ export default class NeighborhoodScene extends Phaser.Scene {
         }
       }.bind(this)//for can't read property 'physics' of undefined
     );
+    if (this.player.x > 1545) {
+      this.position = this.player.x;
+      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position, neighborhoodMusic: this.neighborhoodMusic});
+      this.scene.remove("NeighborhoodScene");
+      console.log("scene switch")
+      console.log("player x in scene 1: ", this.player.x)
+    }
   }
 
   //shooting the gun
@@ -275,7 +279,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
   collectDogItem(player, dogItem) {
     dogItem.disableBody(true, true);
     this.itemsCollected += 1;
-    console.log(this.itemsCollected);
+    console.log("number of items collected is " + this.itemsCollected);
     this.collectSound.play("collectSound");
   }
 

@@ -7,7 +7,7 @@ export default class ParkScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
-    this.scoreFormated = data.scoreFormated;
+    this.scoreformatted = data.scoreformatted;
     this.alleyMusic = data.alleyMusic;
   }
 
@@ -22,7 +22,7 @@ export default class ParkScene extends Phaser.Scene {
     this.parkMusic.addMarker({
       name: "parkMusic",
       start: 0,
-      duration: 16
+      duration: 3
     });
     this.parkMusic.play("parkMusic");*/
     this.nerfShootSound = this.sound.add("nerfShoot");
@@ -43,14 +43,18 @@ export default class ParkScene extends Phaser.Scene {
       start: 0.1,
       duration: 0.3
     });
+
     //player
-    this.player = this.physics.add.sprite(3080, 500, "player").setScale(.3);
+    this.player = this.physics.add.sprite(3300, 300, "player").setScale(.3);
     this.player.setCollideWorldBounds(true);
     this.player.setActive(true);
+    this.player.setDepth(1);
+    console.log("player x in scene 2: ", this.player.x)
+    console.log(this.cameras.main.width + ", " + this.cameras.main.height);
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(3050, 0, 4000, 300);
-    this.scrollCam.scrollX = 0;
+    this.scrollCam = this.cameras.main.setBounds(3250, 0, 4700, 600);
+    this.scrollCam.scrollX = 3250;
 
     //background
     this.background = this.add.image(2400, 300, "background");
@@ -92,12 +96,12 @@ export default class ParkScene extends Phaser.Scene {
 
     this.bullets = this.physics.add.group({
       defaultKey:"bullet",
-      maxSize: 10
+      maxSize: 100
     });
 
     this.enemyBullets = this.physics.add.group({
       defaultKey:"bullet",
-      maxSize: 10
+      maxSize: 100
     });
 
     //to shoot
@@ -116,15 +120,12 @@ export default class ParkScene extends Phaser.Scene {
     //conditions and health variables
     var condition;
     var gunDir;
-    var scoreFormated = this.zeroPad(this.health, 6);
-    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
+    var scoreformatted = this.zeroPad(this.health, 6);
+    this.healthLabel = this.add.text(5, 5,"Health: " + scoreformatted);
     this.healthLabel.setScrollFactor(0);
   }
 
   update (time, delta) {
-    this.player.setDepth(1);
-    //this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
-
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
@@ -132,7 +133,8 @@ export default class ParkScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
+    this.physics.world.setBounds(3250, 0, 4800, 600);
+
     this.time.addEvent({
       delay:300,
       callback:this.delay,
@@ -140,19 +142,11 @@ export default class ParkScene extends Phaser.Scene {
       loop: false,
     });
 
-    if(this.scrollCam.worldView.x > 4000){
+    if(this.scrollCam.scrollX > 4000){
       console.log("done scrolling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       //this.scrollCam = this.cameras.main.setBounds(3050, 0, 4800, 300);
       this.scrollCam.scrollX -= 1.25;
     }
-
-    //If player is off screen. LOSE condition
-    // if(this.player.x < this.scrollCam.worldView.x - 75){
-    //   this.condition = 'Lose';
-    //   console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
-    //   this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
-    //   //this.scene.start('EndScene', {condition: this.condition});
-    // }
 
     //If player has below 0 health. LOSE condition
     if (this.health < 0){
@@ -202,23 +196,6 @@ export default class ParkScene extends Phaser.Scene {
       this.nerf.x = this.player.x + 10;
     }
 
-    //enemy detection again player
-    this.enemyGroup.children.each(
-      function(e){
-        if (e.active){
-          this.physics.add.collider(
-            e,
-            this.player,
-            this.takeDamage,
-            null,
-            this
-          );
-        }
-      }.bind(this)//for can't read property 'physics' of undefined
-    );
-
-
-
     //bullets detection
     this.bullets.children.each(
       function(b){
@@ -266,6 +243,21 @@ export default class ParkScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
     );
 
+    //enemy detection again player
+    this.enemyGroup.children.each(
+      function(e){
+        if (e.active){
+          this.physics.add.collider(
+            e,
+            this.player,
+            this.takeDamage,
+            null,
+            this
+          );
+        }
+      }.bind(this)//for can't read property 'physics' of undefined
+    );
+
     this.enemyGroup.children.each(
       function(e){
         if (e.active){
@@ -281,12 +273,11 @@ export default class ParkScene extends Phaser.Scene {
 
   delay(){
     this.scrollCam.scrollX += 1.25;
-    if(this.player.x < this.scrollCam.worldView.x - 75){
-      console.log("Out of bounds", this.scrollCam.worldView.x, this.player.x);
+    if(this.player.x < this.scrollCam.scrollX - 75){
+      console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.condition = 'Lose';
       this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
     }
-
   }
 
   enemyShoot(playerX, playerY, e){
@@ -324,7 +315,7 @@ export default class ParkScene extends Phaser.Scene {
   takeDamage(enemy, player){
     this.health -= 5;
     console.log(this.health, "health");
-    this.healthLabel.text = "SCORE " + this.scoreFormated;
+    this.healthLabel.text = "SCORE " + this.scoreformatted;
     //enemy.setImmovable();
     //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
@@ -333,8 +324,8 @@ export default class ParkScene extends Phaser.Scene {
   takeDamageFromEnemyBullets(bullet, player){
     this.health -= 10;
     bullet.disableBody(true, true);
-    var scoreFormated = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "SCORE " + this.scoreFormated;
+    var scoreformatted = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "SCORE " + this.scoreformatted;
     console.log(this.health, "health");
   }
 
