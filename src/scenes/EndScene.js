@@ -21,7 +21,7 @@ export default class EndScene extends Phaser.Scene {
     if (this.itemsCollected == 0) {
       this.cameras.main.setBackgroundColor(0x9F2B30);
       this.add.text(this.centerX - 305, this.centerY, "You didn't get any of his things, so he doesn't remember you")
-      this.add.text(this.centerX - 220, this.centerY + 80, ". TRY AGAIN TO GET HACHIKO TO COME HOME WITH YOU")
+      this.add.text(this.centerX - 220, this.centerY + 80, "TRY AGAIN TO GET HACHIKO TO COME HOME WITH YOU")
     } else if (this.itemsCollected == 5) {
       this.cameras.main.setBackgroundColor(0xECCE00);
       this.add.text(this.centerX - 175, this.centerY, "You collected all of Hachiko's things!", 40);

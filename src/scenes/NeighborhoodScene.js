@@ -62,7 +62,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.lamppost2 = this.add.image(1400, 408, "lamppost").setScale(.085);
     this.box7 = this.platforms.create(1342, 300, "box").setSize(18, 8); this.box7.alpha = 0;
     this.box8 = this.platforms.create(1460, 300, "box").setSize(18, 8); this.box8.alpha = 0;
-    this.collectables.create(1446, 220, "dogBone").setScale(.2).setSize(42, 15).setPosition(1350, 150);
+    this.collectables.create(1216, 120, "dogBone").setScale(.2).setSize(42, 15).setPosition(1120, 50);
     this.mailbox3 = this.add.image(1517, 485, "mailbox").setScale(.062);
     this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 

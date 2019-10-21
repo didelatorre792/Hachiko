@@ -68,14 +68,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
     this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.08);
-    this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
-    //this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
-
-    //this.makeEnemy(4750, 470, "thug", .7);
-
-    // this.hachiko = this.physics.add.image(4700, 600, "hachiko").setScale(.14);
-    // this.hachiko.setCollideWorldBounds(true);
+    this.collectables.create(2850, 1027, "dogToy").setScale(.04).setSize(26, 335).setPosition(2320, 510);
 
     //player
     this.player = this.physics.add.sprite(1600, 300, "player").setScale(.3);
