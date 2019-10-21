@@ -37,12 +37,11 @@ export default class NeighborhoodScene extends Phaser.Scene {
     });
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 1547, 300);
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 2520, 300);
     this.scrollCam.scrollX = 0;
 
     //background
-    this.background = this.add.image(2400, 300, "background");
-    this.background.setScale(2)
+    this.background = this.add.image(3900, 300, "background");
 
     //groups
     this.platforms = this.physics.add.staticGroup();
@@ -50,21 +49,21 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.enemyGroup = this.physics.add.group();
 
     // neighborhood platforms
-    this.mailbox1 = this.add.image(442, 475, "mailbox").setScale(.08);
-    this.box2 = this.platforms.create(437, 440, "box").setSize(40,10); this.box2.alpha = 0;
-    this.lamppost1 = this.add.image(550, 408, "lamppost").setScale(.085);
-    this.box3 = this.platforms.create(492, 300, "box").setSize(18, 8); this.box3.alpha = 0;
-    this.box4 = this.platforms.create(610, 300, "box").setSize(18, 8); this.box4.alpha = 0;
-    this.car2 = this.add.image(900, 490, "car2").setScale(.45);
-    this.box5 = this.platforms.create(920, 494, "box").setSize(135); this.box5.alpha = 0;
-    this.mailbox2 = this.add.image(1067, 475, "mailbox").setScale(.08);
-    this.box6 = this.platforms.create(1062, 440, "box").setSize(40, 10); this.box6.alpha = 0;
-    this.lamppost2 = this.add.image(1400, 408, "lamppost").setScale(.085);
-    this.box7 = this.platforms.create(1342, 300, "box").setSize(18, 8); this.box7.alpha = 0;
-    this.box8 = this.platforms.create(1460, 300, "box").setSize(18, 8); this.box8.alpha = 0;
-    this.collectables.create(1216, 120, "dogBone").setScale(.2).setSize(42, 15).setPosition(1120, 50);
-    this.mailbox3 = this.add.image(1517, 485, "mailbox").setScale(.062);
-    this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
+    this.mailbox1 = this.add.image(1242, 475, "mailbox").setScale(.08);
+    this.box2 = this.platforms.create(1237, 440, "box").setSize(40,10); this.box2.alpha = 0;
+    this.lamppost1 = this.add.image(1350, 408, "lamppost").setScale(.085);
+    this.box3 = this.platforms.create(1292, 300, "box").setSize(18, 8); this.box3.alpha = 0;
+    this.box4 = this.platforms.create(1410, 300, "box").setSize(18, 8); this.box4.alpha = 0;
+    this.car2 = this.add.image(1700, 490, "car2").setScale(.45);
+    this.box5 = this.platforms.create(1720, 494, "box").setSize(135); this.box5.alpha = 0;
+    this.mailbox2 = this.add.image(1867, 475, "mailbox").setScale(.08);
+    this.box6 = this.platforms.create(1862, 440, "box").setSize(40, 10); this.box6.alpha = 0;
+    this.lamppost2 = this.add.image(2200, 408, "lamppost").setScale(.085);
+    this.box7 = this.platforms.create(2142, 300, "box").setSize(18, 8); this.box7.alpha = 0;
+    this.box8 = this.platforms.create(2260, 300, "box").setSize(18, 8); this.box8.alpha = 0;
+    this.collectables.create(2016, 120, "dogBone").setScale(.2).setSize(42, 15).setPosition(1920, 50);
+    this.mailbox3 = this.add.image(2317, 485, "mailbox").setScale(.062);
+    this.box9 = this.platforms.create(2315, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     //player
     this.player = this.physics.add.sprite(50, 500, "player").setScale(.3);
@@ -123,7 +122,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4800, 550);
+    this.physics.world.setBounds(0, 0, 7800, 550);
     this.scrollCam.scrollX += 1.25;
 
     //If player is off screen. LOSE condition
@@ -251,7 +250,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
         }
       }.bind(this)//for can't read property 'physics' of undefined
     );
-    if (this.player.x > 1545) {
+    if (this.player.x > 2455) {
       this.position = this.player.x;
       this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position, neighborhoodMusic: this.neighborhoodMusic});
       console.log("scene switch")
