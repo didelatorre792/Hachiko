@@ -75,7 +75,7 @@ export default class ParkScene extends Phaser.Scene {
     // boss
     this.makeEnemy(7250, 470, "thug", .7);
 
-    this.hachiko = this.physics.add.image(7200, 600, "hachiko").setScale(.14);
+    this.hachiko = this.physics.add.image(7400, 620, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
 
     //gun
@@ -121,7 +121,6 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   update (time, delta) {
-    console.log(this.player.x);
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
@@ -358,7 +357,7 @@ export default class ParkScene extends Phaser.Scene {
 
   //winning condition
   gotHachiko(player, hachiko){
-    if (this.player.x == 7200){
+    if (this.player.x > 7397 && this.player.x < 7403){
       this.condition = 'Win';
       console.log("got hachiko");
       this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
