@@ -58,7 +58,7 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 3,
     });
 
-    this.scene.start('TutorialScene');
+    this.scene.start('PreGameScene');
 
   }
 }

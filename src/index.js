@@ -2,6 +2,7 @@
 import BootScene from './scenes/BootScene.js';
 import Config from './config/config.js';
 //import MasterFile from './scenes/MasterFile.js';
+import PreGameScene from './scenes/PreGameScene.js';
 import TutorialScene from './scenes/TutorialScene.js';
 import NeighborhoodScene from './scenes/NeighborhoodScene.js';
 import AlleyScene from './scenes/AlleyScene.js';
@@ -13,6 +14,7 @@ class Game extends Phaser.Game {
     super(Config);
     this.scene.add('Boot', BootScene);
     //this.scene.add('MasterFile', MasterFile);
+    this.scene.add('PreGameScene', PreGameScene);
     this.scene.add('TutorialScene', TutorialScene);
     this.scene.add('NeighborhoodScene', NeighborhoodScene);
     this.scene.add('AlleyScene', AlleyScene);
