@@ -17,7 +17,7 @@ export default class PreGameScene extends Phaser.Scene {
     this.scrollCam.scrollX = 4600;
 
     //background
-    this.background = this.add.image(2400, 300, "background");
+    this.background = this.add.image(0, 0, "background");
     this.background.setScale(2)
 
 
@@ -62,11 +62,11 @@ export default class PreGameScene extends Phaser.Scene {
     this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
     this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.makeEnemy(2440, 525, "thug", .08);
+    this.makeEnemy(2440, 525, "thug", .55);
 
-    this.makeEnemy(2100, 510, "thug", .1);
+    this.makeEnemy(2100, 510, "thug", .6);
 
-    this.makeEnemy(2850, 505, "thug", .11);
+    this.makeEnemy(2850, 505, "thug", .6);
 
     this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.08);
     this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
@@ -91,10 +91,11 @@ export default class PreGameScene extends Phaser.Scene {
     this.tree = this.add.image(4300, 400, "tree").setScale(.5);
     this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
-    this.makeEnemy(4740, 470, "thug", .2);
+    this.makeEnemy(4640, 390, "thug", .7);
 
 
-    this.hachiko = this.add.image(4700, 600, "hachiko").setScale(.14);
+    this.hachiko = this.add.image(4650, 470, "hachiko").setScale(.25);
+
 
     //player
     this.player = this.add.sprite(50, 500, "player").setScale(.3);
@@ -120,12 +121,48 @@ export default class PreGameScene extends Phaser.Scene {
     //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4700, 550);
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
-    this.scrollCam.scrollX -= 5;
 
+    this.time.addEvent({
+      delay:400,
+      callback: this.text,
+      callbackScope: this,
+      loop: false,
+    })
 
+    this.time.addEvent({
+      delay:1000,
+      callback:this.delay,
+      callbackScope: this,
+      loop: false,
+    });
 
-      //this.scene.start('EndScene', {condition: this.condition});
+    this.time.addEvent({
+      delay:8300,
+      callback:this.story,
+      callbackScope: this,
+      loop: false,
+    });
 
+    this.time.addEvent({
+      delay:9300,
+      callback:this.story1,
+      callbackScope: this,
+      loop: false,
+    });
+
+    this.time.addEvent({
+      delay:10300,
+      callback:this.story2,
+      callbackScope: this,
+      loop: false,
+    });
+
+    this.time.addEvent({
+      delay:14000,
+      callback:this.sceneChange,
+      callbackScope: this,
+      loop: false,
+    });
 
 
   }
@@ -159,6 +196,31 @@ export default class PreGameScene extends Phaser.Scene {
         .enableBody(true, this.nerf.x, this.nerf.y, true, true)
         .setVelocity(velocity.x + 1000, velocity.y);
     }
+  }
+
+  story(){
+    this.add.text(225, 250, "Hachiko has been taken by thugs!");
+  }
+
+  story1(){
+    this.add.text(245, 300, "He has forgotten his past!");
+  }
+
+  story2(){
+    this.add.text(150, 350, "Collect all of his memories so he remebers you!");
+  }
+
+  text(){
+    this.add.text(4500, 520, "Hachiko");
+    this.add.image(4565, 485, "arrow").setScale(.1);
+  }
+
+  sceneChange(){
+    this.scene.start('TutorialScene');
+  }
+
+  delay(){
+    this.scrollCam.scrollX -= 10;
   }
 
   //when hit by an enemy
