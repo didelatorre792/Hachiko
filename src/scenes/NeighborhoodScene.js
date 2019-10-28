@@ -252,7 +252,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     );
     if (this.player.x > 2465) {
       this.position = this.player.x;
-      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position, neighborhoodMusic: this.neighborhoodMusic});
+      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, position: this.position, neighborhoodMusic: this.neighborhoodMusic});
       console.log("scene switch")
       console.log("player x in scene 1: ", this.player.x)
     }
