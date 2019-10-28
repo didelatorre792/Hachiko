@@ -7,7 +7,7 @@ export default class AlleyScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
-    this.scoreFormatted = data.scoreFormatted;
+    //this.scoreFormatted = data.scoreFormatted;
     this.neighborhoodMusic = data.neighborhoodMusic;
   }
 
@@ -264,7 +264,7 @@ export default class AlleyScene extends Phaser.Scene {
 
     );
     if (this.player.x > 4995) {
-      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormatted: this.scoreFormatted, alleyMusic: this.alleyMusic});
+      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, alleyMusic: this.alleyMusic});
       console.log("scene switch 2")
     };
   }
@@ -313,7 +313,8 @@ export default class AlleyScene extends Phaser.Scene {
   takeDamage(enemy, player){
     this.health -= 5;
     console.log(this.health, "health");
-    this.healthLabel.text = "Health: " + this.scoreFormatted;
+    var scoreFormatted = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "Health: " + scoreFormatted;
     //enemy.setImmovable();
     //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
@@ -321,10 +322,11 @@ export default class AlleyScene extends Phaser.Scene {
 
   takeDamageFromEnemyBullets(bullet, player){
     this.health -= 10;
-    bullet.disableBody(true, true);
+
     var scoreFormatted = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "Health: " + this.scoreFormatted;
+    this.healthLabel.text = "Health: " + scoreFormatted;
     console.log(this.health, "is current health");
+    bullet.disableBody(true, true);
   }
 
   //creating thugs

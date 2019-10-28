@@ -7,7 +7,7 @@ export default class ParkScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
-    this.scoreformatted = data.scoreformatted;
+    //this.scoreformatted = data.scoreformatted;
     this.alleyMusic = data.alleyMusic;
   }
 
@@ -115,8 +115,8 @@ export default class ParkScene extends Phaser.Scene {
     //conditions and health variables
     var condition;
     var gunDir;
-    var scoreformatted = this.zeroPad(this.health, 6);
-    this.healthLabel = this.add.text(5, 5,"Health: " + scoreformatted);
+    var scoreFormatted = this.zeroPad(this.health, 6);
+    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
   }
 
@@ -311,18 +311,17 @@ export default class ParkScene extends Phaser.Scene {
   takeDamage(enemy, player){
     this.health -= 5;
     console.log(this.health, "health");
-    this.healthLabel.text = "SCORE " + this.scoreformatted;
-    //enemy.setImmovable();
-    //enemy.setVelocity = -(player.velocity);
-    //add a red tint later to indicate damage
+    var scoreFormatted = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "SCORE " + scoreFormatted;
+
   }
 
   takeDamageFromEnemyBullets(bullet, player){
     this.health -= 10;
-    bullet.disableBody(true, true);
-    var scoreformatted = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "SCORE " + this.scoreformatted;
+    var scoreFormatted = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "SCORE " + scoreFormatted;
     console.log(this.health, "health");
+    bullet.disableBody(true, true);
   }
 
   //creating thugs
