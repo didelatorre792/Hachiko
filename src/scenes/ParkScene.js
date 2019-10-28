@@ -334,8 +334,8 @@ export default class ParkScene extends Phaser.Scene {
         x: x+10,
         y: y,
         ease: "Linear",
-        delay: 500,
-        duration: 500,
+        delay: 2000,
+        duration: 1500,
         yoyo: true,
         repeat: -1});
 

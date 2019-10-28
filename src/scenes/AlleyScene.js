@@ -334,11 +334,11 @@ export default class AlleyScene extends Phaser.Scene {
     var thug = this.thug;
     this.tweens.add({
         targets: thug,
-        x: x-100,
+        x: x-50,
         y: y,
         ease: "Linear",
-        delay: 500,
-        duration: 500,
+        delay: 2000,
+        duration: 1500,
         yoyo: true,
         repeat: -1});
   }
