@@ -199,7 +199,7 @@ export default class PreGameScene extends Phaser.Scene {
   }
 
   story(){
-    this.add.text(225, 250, "Hachiko has been taken by thugs!");
+    this.add.text(225, 250, "Hachikō has been taken by thugs!");
   }
 
   story1(){
@@ -207,11 +207,11 @@ export default class PreGameScene extends Phaser.Scene {
   }
 
   story2(){
-    this.add.text(150, 350, "Collect all of his memories so he remebers you!");
+    this.add.text(150, 350, "Collect all of his memories so he remembers you!");
   }
 
   text(){
-    this.add.text(4500, 520, "Hachiko");
+    this.add.text(4500, 520, "Hachikō");
     this.add.image(4565, 485, "arrow").setScale(.1);
   }
 
