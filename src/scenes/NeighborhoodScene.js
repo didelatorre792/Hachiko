@@ -9,14 +9,11 @@ export default class NeighborhoodScene extends Phaser.Scene {
   }
 
   create(){
-
     this.neighborhoodMusic = this.sound.add("neighborhoodBackgroundMusic");
-    this.neighborhoodMusic.addMarker({
-      name: "neighborhoodMusic",
-      start: 0,
-      duration: 16
-    });
-    this.neighborhoodMusic.play("neighborhoodMusic");
+    var neighborhoodMusicCongif = {
+      loop: true
+    };
+    this.neighborhoodMusic.play(neighborhoodMusicCongif);
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
@@ -100,8 +97,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.itemsCollected = 0;
     this.physics.add.overlap(this.player, this.collectables, this.collectDogItem, null, this);
 
-    //conditions and health variables
-    var condition;
+    //health variables
     var gunDir;
     this.health = 500;
     var scoreFormated = this.zeroPad(this.health, 6);
@@ -125,10 +121,10 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, 7800, 550);
     this.scrollCam.scrollX += 1.25;
 
-    //If player is off screen. LOSE condition
+    //If player is off screen
     if(this.player.x < this.scrollCam.worldView.x - 75){
-      this.condition = 'Lose';
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+      this.neighborhoodMusic.stop();
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
       console.log("death by scroll")
     }
 
@@ -252,7 +248,8 @@ export default class NeighborhoodScene extends Phaser.Scene {
     );
     if (this.player.x > 2465) {
       this.position = this.player.x;
-      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position, neighborhoodMusic: this.neighborhoodMusic});
+      this.neighborhoodMusic.stop();
+      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position});
       console.log("scene switch")
       console.log("player x in scene 1: ", this.player.x)
     }
