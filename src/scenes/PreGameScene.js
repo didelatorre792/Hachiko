@@ -147,15 +147,15 @@ export default class PreGameScene extends Phaser.Scene {
   }
 
   story(){
-    this.add.text(120, 250, "Hachikō has been taken by thugs!").setStyle({fontSize: "30px", color: "#000", align: "center"});
+    this.add.text(120, 250, "Hachikō has been taken by thugs!").setStyle({fontSize: "30px", color: "#000"});
   }
 
   story1(){
-    this.add.text(190, 300, "He has forgotten his past.").setStyle({fontSize: "30px", color: "#000", align: "center"});
+    this.add.text(190, 300, "He has forgotten his past.").setStyle({fontSize: "30px", color: "#000"});
   }
 
   story2(){
-    this.add.text(10, 350, "Collect all of his memories so he remembers you.").setStyle({fontSize: "27px", color: "#000", align: "center"});
+    this.add.text(10, 350, "Collect all of his memories so he remembers you.").setStyle({fontSize: "27px", color: "#000"});
   }
 
   sceneChange(){
