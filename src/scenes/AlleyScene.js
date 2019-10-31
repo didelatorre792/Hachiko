@@ -40,11 +40,11 @@ export default class AlleyScene extends Phaser.Scene {
     });
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(2520, 0, 2520, 600);
-    this.scrollCam.scrollX = 2520;
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 3400, 600);
+    this.scrollCam.scrollX = 0;
 
     //background
-    this.background = this.add.image(3900, 300, "background");
+    this.background = this.add.image(1700, 300, "alley");
 
     //groups
     this.platforms = this.physics.add.staticGroup();
@@ -52,33 +52,33 @@ export default class AlleyScene extends Phaser.Scene {
     this.enemyGroup = this.physics.add.group();
 
     // alley platforms
-    this.trashcan1 = this.add.image(2950, 540, "trashcan").setScale(.08);
-    this.box10 = this.platforms.create(2950, 540, "box").setSize(40, 60); this.box10.alpha = 0;
-    this.trashcan2 = this.add.image(3020, 520, "trashcan").setScale(.12);
-    this.box11 = this.platforms.create(3020, 520, "box").setSize(60, 90); this.box11.alpha = 0;
-    this.sign1 = this.add.image(3150, 350, "sign1").setScale(.1);
-    this.box12 = this.platforms.create(3150, 364, "box").setSize(70, 30); this.box12.alpha = 0;
-    this.collectables.create(3682, 344, "dogCollar").setScale(.05).setSize(30, 25).setPosition(3410, 100);
-    this.collectables.create(4100, 1048, "dogToy").setScale(.04).setSize(29, 35).setPosition(3620, 530);
-    this.dumpster = this.add.image(3500, 480, "dumpster").setScale(.26);
-    this.box13 = this.platforms.create(3500, 520, "box").setSize(155, 110); this.box13.alpha = 0;
-    this.box14 = this.platforms.create(3500, 417, "box").setSize(120, 50); this.box14.alpha = 0;
-    this.trashcan3 = this.add.image(3750, 540, "trashcan").setScale(.08);
-    this.box15 = this.platforms.create(3750, 540, "box").setSize(40, 60); this.box15.alpha = 0;
-    this.sign2 = this.add.image(3930, 444, "sign2").setScale(.08);
-    this.box16 = this.platforms.create(3930, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.sign3 = this.add.image(4250, 270, "sign3").setScale(.1);
-    this.box17 = this.platforms.create(4250, 270, "box").setSize(100, 25); this.box17.alpha = 0;
-    this.collectables.create(4640, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(4550, 15);
+    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.08);
+    this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
+    this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.12);
+    this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
+    this.sign1 = this.add.image(1850, 350, "sign1").setScale(.1);
+    this.box12 = this.platforms.create(1850, 364, "box").setSize(70, 30); this.box12.alpha = 0;
+    this.collectables.create(2382, 344, "dogCollar").setScale(.05).setSize(30, 25).setPosition(2110, 100);
+    this.collectables.create(2800, 1048, "dogToy").setScale(.04).setSize(29, 35).setPosition(2320, 530);
+    this.dumpster = this.add.image(2200, 480, "dumpster").setScale(.26);
+    this.box13 = this.platforms.create(2200, 520, "box").setSize(155, 110); this.box13.alpha = 0;
+    this.box14 = this.platforms.create(2200, 417, "box").setSize(120, 50); this.box14.alpha = 0;
+    this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.08);
+    this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
+    this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
+    this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
+    this.sign3 = this.add.image(2950, 270, "sign3").setScale(.1);
+    this.box17 = this.platforms.create(2950, 270, "box").setSize(100, 25); this.box17.alpha = 0;
+    this.collectables.create(3340, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3250, 15);
 
     //player
-    this.player = this.physics.add.sprite(2600, 300, "player").setScale(.3);
+    this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
     console.log("player x in scene 2: ", this.player.x);
 
-    this.makeEnemy(3400, 530, .3);
-    this.makeEnemy(3690, 525, .3);
-    this.makeEnemy(4150, 505, .3);
+    this.makeEnemy(2100, 530, .3);
+    this.makeEnemy(2390, 525, .3);
+    this.makeEnemy(2850, 505, .3);
 
     //gun
     this.nerf = this.add.sprite(this.player.x + 10, 520, "nerf");
@@ -126,7 +126,7 @@ export default class AlleyScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(2520, 0, 7800, 550);
+    this.physics.world.setBounds(0, 0, 4000, 550);
     this.time.addEvent({
       delay: 300,
       callback: this.delay,
@@ -248,14 +248,13 @@ export default class AlleyScene extends Phaser.Scene {
       function(e){
         if (e.active){
           if (Phaser.Math.Distance.Between(e.x,e.y,this.player.x,this.player.y) < 300){
-            console.log("within shooting distance");
             this.enemyShoot(this.player.x, this.player.y, e);
           }
         }
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
-    if (this.player.x > 4995) {
+    if (this.player.x > 3395) {
       this.alleyMusic.stop();
       this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected});
       console.log("scene switch 2")

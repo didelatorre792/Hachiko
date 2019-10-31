@@ -7,7 +7,6 @@ export default class ParkScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
-    this.scoreformatted = data.scoreformatted;
   }
 
   create(){
@@ -36,20 +35,18 @@ export default class ParkScene extends Phaser.Scene {
     });
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(5310, 0, 5310, 600);
-    this.scrollCam.scrollX = 5310;
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 2400, 600);
+    this.scrollCam.scrollX = 0;
 
     //player
-    this.player = this.physics.add.sprite(5390, 300, "player").setScale(.3);
-    this.player.setCollideWorldBounds(true);
-    this.player.setActive(true);
-    this.player.setDepth(1);
+    this.player = this.physics.add.sprite(50, 300, "player").setScale(.3);
+    this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
     console.log("player x in scene 2: ", this.player.x)
     console.log(this.cameras.main.width + ", " + this.cameras.main.height);
 
 
     //background
-    this.background = this.add.image(3900, 300, "background");
+    this.background = this.add.image(1245, 300, "park");
 
     //groups
     this.platforms = this.physics.add.staticGroup();
@@ -57,21 +54,21 @@ export default class ParkScene extends Phaser.Scene {
     this.enemyGroup = this.physics.add.group();
 
     //park
-    this.collectables.create(5917, 525, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(5580, 50);
-    this.trashcan4 = this.add.image(5650, 545, "trashcan").setScale(.12);
-    this.box17 = this.platforms.create(5650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
-    this.lamppost3 = this.add.image(5800, 463, "lamppost").setScale(.097);
-    this.box18 = this.platforms.create(5733, 340, "box").setSize(22, 9); this.box18.alpha = 0;
-    this.box19 = this.platforms.create(5868, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    this.bench = this.add.image(6000, 490, "bench").setScale(.5);
-    this.box20 = this.platforms.create(5996, 490, "box").setSize(202, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(6300, 400, "tree").setScale(.5);
-    this.box21 = this.platforms.create(6300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
+    this.collectables.create(917, 525, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(580, 50);
+    this.trashcan4 = this.add.image(650, 545, "trashcan").setScale(.12);
+    this.box17 = this.platforms.create(650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
+    this.lamppost3 = this.add.image(800, 463, "lamppost").setScale(.097);
+    this.box18 = this.platforms.create(733, 340, "box").setSize(22, 9); this.box18.alpha = 0;
+    this.box19 = this.platforms.create(868, 340, "box").setSize(22, 9); this.box19.alpha = 0;
+    this.bench = this.add.image(1000, 490, "bench").setScale(.5);
+    this.box20 = this.platforms.create(996, 490, "box").setSize(202, 5); this.box20.alpha = 0;
+    this.tree = this.add.image(1300, 400, "tree").setScale(.5);
+    this.box21 = this.platforms.create(1300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
 
     // boss
-    this.makeEnemy(7250, 470, "thug", .7);
+    this.makeEnemy(2250, 470, "thug", .7);
 
-    this.hachiko = this.physics.add.image(7400, 620, "hachiko").setScale(.14);
+    this.hachiko = this.physics.add.image(2400, 620, "hachiko").setScale(.14);
     this.hachiko.setCollideWorldBounds(true);
 
     //gun
@@ -123,7 +120,7 @@ export default class ParkScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(5310, 0, 7800, 550);
+    this.physics.world.setBounds(0, 0, 4000, 550);
 
     this.time.addEvent({
       delay:300,
@@ -132,7 +129,7 @@ export default class ParkScene extends Phaser.Scene {
       loop: false,
     });
 
-    if(this.scrollCam.scrollX > 7000){
+    if(this.scrollCam.scrollX > 2490){
       console.log("done scrolling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       //this.scrollCam = this.cameras.main.setBounds(3050, 0, 4800, 300);
       this.scrollCam.scrollX -= 1.25;
@@ -345,11 +342,11 @@ export default class ParkScene extends Phaser.Scene {
 
   //winning condition
   gotHachiko(player, hachiko){
-    if (this.player.x > 7397 && this.player.x < 7403){
+    //if (this.player.x > 7397 && this.player.x < 7403){
       console.log("got hachiko");
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
-  }
+  //}
 
   //damaging the enemy
   hitEnemy (bullet, enemy) {
