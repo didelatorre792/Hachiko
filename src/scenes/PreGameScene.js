@@ -76,7 +76,7 @@ export default class PreGameScene extends Phaser.Scene {
     this.box21 = this.platforms.create(8200, 390, "box").setSize(250, 5); this.box21.alpha = 0;
 
     // boss
-    this.makeEnemy(8950, 470, "thug", .7);
+    this.makeEnemy(8950, 470, .7);
 
     this.hachiko = this.add.image(9000, 540, "hachiko").setScale(.2);
 
@@ -94,45 +94,60 @@ export default class PreGameScene extends Phaser.Scene {
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
 
     this.time.addEvent({
-      delay:600,
-      callback: this.text,
+      delay:800,
+      callback: this.text1,
       callbackScope: this,
-    })
+    });
 
     this.time.addEvent({
-      delay:2000,
+      delay:1800,
+      callback: this.text2,
+      callbackScope: this,
+    });
+
+    this.time.addEvent({
+      delay:3000,
       callback:this.delay,
       callbackScope: this,
     });
 
     this.time.addEvent({
-      delay:8000,
+      delay:13000,
       callback:this.story,
       callbackScope: this,
     });
 
     this.time.addEvent({
-      delay:9100,
+      delay:14000,
       callback:this.story1,
       callbackScope: this,
     });
 
     this.time.addEvent({
-      delay:10000,
+      delay:15000,
       callback:this.story2,
       callbackScope: this,
     });
 
     this.time.addEvent({
-      delay:14000,
+      delay:19000,
       callback:this.sceneChange,
       callbackScope: this,
     });
   }
 
+  text1(){
+    this.add.text(9000, 400, "Hachikō").setStyle({fontSize: "30px", color: "#000"});
+    this.add.image(9040, 475, "arrow1").setScale(.2);
+  }
+
+  text2(){
+    this.add.text(8735, 290, "Leader of thugs holding \nHachikō captive").setStyle({fontSize: "20px", color: "#000"});
+    this.add.image(8860, 375, "arrow2").setScale(.2);
+  }
+
   story(){
     this.add.text(120, 250, "Hachikō has been taken by thugs!").setStyle({fontSize: "30px", color: "#000", align: "center"});
-    //????new Phaser.Geom.Rectangle(50, 250, 400, 100);
   }
 
   story1(){
@@ -141,11 +156,6 @@ export default class PreGameScene extends Phaser.Scene {
 
   story2(){
     this.add.text(10, 350, "Collect all of his memories so he remembers you.").setStyle({fontSize: "27px", color: "#000", align: "center"});
-  }
-
-  text(){
-    this.add.text(9035, 400, "This is Hachikō").setStyle({fontSize: "30px", color: "#000"});
-    this.add.image(9040, 475, "arrow").setScale(.2);
   }
 
   sceneChange(){
@@ -157,7 +167,7 @@ export default class PreGameScene extends Phaser.Scene {
   }
 
   //creating thugs
-  makeEnemy(x, y, image, scale){
-    this.thug = this.enemyGroup.create(x, y, image).setScale(scale);
+  makeEnemy(x, y, scale){
+    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale);
   }
 }
