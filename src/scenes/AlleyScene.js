@@ -329,7 +329,7 @@ export default class AlleyScene extends Phaser.Scene {
 
   //creating thugs
   makeEnemy(x, y, image, scale){
-    this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+    this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true).setActive(true);
     console.log("enemy coordinates:", x, y);
     var thug = this.thug;
     this.tweens.add({

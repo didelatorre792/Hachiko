@@ -322,7 +322,7 @@ export default class ParkScene extends Phaser.Scene {
 
   //creating thugs
   makeEnemy(x, y, image, scale){
-    this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+    this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true).setActive(true);
     var thug = this.thug;
     this.tweens.add({
         targets: thug,
@@ -333,14 +333,7 @@ export default class ParkScene extends Phaser.Scene {
         duration: 1500,
         yoyo: true,
         repeat: -1});
-
-
-
   }
-    // makeEnemy(x, y, image, scale){
-    //   this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
-    //
-
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {
