@@ -10,209 +10,135 @@ export default class PreGameScene extends Phaser.Scene {
 
   create(){
     //camera
-
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 4700, 300);
-
-    //this.scrollCam = this.cameras.main.setBounds(0,0, 3000, 300);
-    this.scrollCam.scrollX = 4600;
-
-    //background
-    this.background = this.add.image(0, 0, "background");
-    this.background.setScale(2)
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 7800, 600);
+    this.scrollCam.scrollX = 7800;
 
 
     //building the scene
+    this.background = this.add.image(3900, 300, "background");
     //groups
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.staticGroup();
     // neighborhood
-    //this.car1 = this.add.image(240, 540, "car1").setScale(2);
-    //this.box1 = this.platforms.create(220, 530, "box"); this.box1.alpha = 0;
-    this.mailbox1 = this.add.image(442, 475, "mailbox").setScale(.08);
-    this.box2 = this.platforms.create(437, 440, "box").setSize(40,10); this.box2.alpha = 0;
-    this.lamppost1 = this.add.image(550, 408, "lamppost").setScale(.085);
-    this.box3 = this.platforms.create(492, 300, "box").setSize(18, 8); this.box3.alpha = 0;
-    this.box4 = this.platforms.create(610, 300, "box").setSize(18, 8); this.box4.alpha = 0;
-    this.car2 = this.add.image(900, 530, "car2").setScale(.4);
-    this.box5 = this.platforms.create(940, 494, "box").setSize(135); this.box5.alpha = 0;
-    this.mailbox2 = this.add.image(1067, 475, "mailbox").setScale(.08);
-    this.box6 = this.platforms.create(1062, 440, "box").setSize(40, 10); this.box6.alpha = 0;
-    this.lamppost2 = this.add.image(1400, 408, "lamppost").setScale(.085);
-    this.box7 = this.platforms.create(1342, 300, "box").setSize(18, 8); this.box7.alpha = 0;
-    this.box8 = this.platforms.create(1460, 300, "box").setSize(18, 8); this.box8.alpha = 0;
-    this.collectables.create(1436, 188, "dogBone").setScale(.2).setSize(42, 15).setPosition(1350, 150);
-    this.mailbox3 = this.add.image(1517, 485, "mailbox").setScale(.062);
-    this.box9 = this.platforms.create(1515, 457, "box").setSize(30, 10); this.box9.alpha = 0;
+    this.mailbox1 = this.add.image(842, 475, "mailbox").setScale(.08);
+    this.box2 = this.platforms.create(837, 440, "box").setSize(40,10); this.box2.alpha = 0; //this.box2.setTint(#ed0e04);
+    this.lamppost1 = this.add.image(1050, 408, "lamppost").setScale(.085);
+    this.box3 = this.platforms.create(992, 300, "box").setSize(18, 8); this.box3.alpha = 0;
+    this.box4 = this.platforms.create(1110, 300, "box").setSize(18, 8); this.box4.alpha = 0;
+    this.car2 = this.add.image(1700, 490, "car2").setScale(.45);
+    this.box5 = this.platforms.create(1720, 494, "box").setSize(135); this.box5.alpha = 0;
+    this.mailbox2 = this.add.image(1867, 475, "mailbox").setScale(.08);
+    this.box6 = this.platforms.create(1862, 440, "box").setSize(40, 10); this.box6.alpha = 0;
+    this.lamppost2 = this.add.image(2000, 408, "lamppost").setScale(.085);
+    this.box7 = this.platforms.create(1942, 300, "box").setSize(18, 8); this.box7.alpha = 0;
+    this.box8 = this.platforms.create(2060, 300, "box").setSize(18, 8); this.box8.alpha = 0;
+    this.collectables.create(1766, 120, "dogBone").setScale(.2).setSize(42, 15).setPosition(1670, 50);
+    this.mailbox3 = this.add.image(2317, 485, "mailbox").setScale(.062);
+    this.box9 = this.platforms.create(2315, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
-    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.08);
-    this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
-    this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.12);
-    this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
-
-    this.sign1 = this.add.image(1850, 350, "sign1").setScale(.1);
-    this.box12 = this.platforms.create(1850, 364, "box").setSize(70, 30); this.box12.alpha = 0;
-    this.collectables.create(1700, 250, "dogBowl").setScale(.2).setSize(42, 25).setPosition(1610, 160);
-    this.collectables.create(2092, 244, "dogCollar").setScale(.1).setSize(45, 30).setPosition(2010, 160);
-    this.dumpster = this.add.image(2200, 480, "dumpster").setScale(.26);
-    this.box13 = this.platforms.create(2200, 520, "box").setSize(150, 110); this.box13.alpha = 0;
-    this.box14 = this.platforms.create(2200, 417, "box").setSize(110, 60); this.box14.alpha = 0;
-    this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.08);
-    this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
-    this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
-    this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.makeEnemy(2440, 525, "thug", .55);
-
-    this.makeEnemy(2100, 510, "thug", .6);
-
-    this.makeEnemy(2850, 505, "thug", .6);
-
-    this.trashcan4 = this.add.image(3450, 540, "trashcan").setScale(.08);
-    this.box16 = this.platforms.create(3450, 540, "box").setSize(40, 60); this.box16.alpha = 0;
-    this.collectables.create(3800, 777, "dogToy").setScale(.04).setSize(26, 35).setPosition(3320, 260);
+    this.trashcan1 = this.add.image(2950, 540, "trashcan").setScale(.08);
+    this.box10 = this.platforms.create(2950, 540, "box").setSize(40, 60); this.box10.alpha = 0;
+    this.trashcan2 = this.add.image(3020, 520, "trashcan").setScale(.12);
+    this.box11 = this.platforms.create(3020, 520, "box").setSize(60, 90); this.box11.alpha = 0;
+    this.sign1 = this.add.image(3150, 350, "sign1").setScale(.1);
+    this.box12 = this.platforms.create(3150, 364, "box").setSize(70, 30); this.box12.alpha = 0;
+    this.collectables.create(3682, 344, "dogCollar").setScale(.05).setSize(30, 25).setPosition(3410, 100);
+    this.collectables.create(4100, 1048, "dogToy").setScale(.04).setSize(29, 35).setPosition(3620, 530);
+    this.dumpster = this.add.image(3500, 480, "dumpster").setScale(.26);
+    this.box13 = this.platforms.create(3500, 520, "box").setSize(155, 110); this.box13.alpha = 0;
+    this.box14 = this.platforms.create(3500, 417, "box").setSize(120, 50); this.box14.alpha = 0;
+    this.trashcan3 = this.add.image(3750, 540, "trashcan").setScale(.08);
+    this.box15 = this.platforms.create(3750, 540, "box").setSize(40, 60); this.box15.alpha = 0;
+    this.sign2 = this.add.image(3930, 444, "sign2").setScale(.08);
+    this.box16 = this.platforms.create(3930, 455, "box").setSize(60, 20); this.box16.alpha = 0;
+    this.sign3 = this.add.image(4250, 270, "sign3").setScale(.1);
+    this.box17 = this.platforms.create(4250, 270, "box").setSize(100, 25); this.box17.alpha = 0;
+    this.collectables.create(4640, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(4550, 15);
+    this.makeEnemy(3400, 515, "thug", .55);
+    this.makeEnemy(3690, 500, "thug", .6);
+    this.makeEnemy(4150, 495, "thug", .6);
 
     // park
-
-    this.collectables.create(3997, 575, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(3660, 100);
-    this.trashcan4 = this.add.image(3650, 545, "trashcan").setScale(.12);
-    this.box17 = this.platforms.create(3650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
-    this.lamppost3 = this.add.image(3800, 463, "lamppost").setScale(.097);
-    this.box18 = this.platforms.create(3733, 340, "box").setSize(22, 9); this.box18.alpha = 0;
-    this.box19 = this.platforms.create(3868, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    //this.dogPicture =     this.collectables.create(3997, 575, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(3660, 100);
-    //this.trashcan4 = this.add.image(3650, 545, "trashcan").setScale(.5);
-    //this.box17 = this.platforms.create(3650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
-    //this.lamppost3 = this.add.image(3800, 463, "lamppost").setScale(1.2);
-    //this.box18 = this.platforms.create(3760, 342, "box").setSize(10,10); this.box18.alpha = 0;
-    //this.box19 = this.platforms.create(3830, 345, "box").setSize(40, 10); this.box19.alpha = 0;
-    this.bench = this.add.image(4000, 520, "bench").setScale(.8);
-    this.box20 = this.platforms.create(3996, 490, "box").setSize(189, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(4300, 400, "tree").setScale(.5);
-    this.box21 = this.platforms.create(4300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
+    this.collectables.create(5917, 525, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(5580, 50);
+    this.trashcan4 = this.add.image(5650, 545, "trashcan").setScale(.12);
+    this.box17 = this.platforms.create(5650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
+    this.lamppost3 = this.add.image(5800, 463, "lamppost").setScale(.097);
+    this.box18 = this.platforms.create(5733, 340, "box").setSize(22, 9); this.box18.alpha = 0;
+    this.box19 = this.platforms.create(5868, 340, "box").setSize(22, 9); this.box19.alpha = 0;
+    this.bench = this.add.image(6000, 490, "bench").setScale(.5);
+    this.box20 = this.platforms.create(5996, 490, "box").setSize(202, 5); this.box20.alpha = 0;
+    this.tree = this.add.image(6300, 400, "tree").setScale(.5);
+    this.box21 = this.platforms.create(6300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
     // boss
-    this.makeEnemy(4640, 390, "thug", .7);
-
-
-    this.hachiko = this.add.image(4650, 470, "hachiko").setScale(.25);
-
-
+    this.makeEnemy(7250, 470, "thug", .7);
+    this.hachiko = this.add.image(7350, 550, "hachiko").setScale(.2);
     //player
     this.player = this.add.sprite(50, 500, "player").setScale(.3);
-
-
-
-    //player
-    //this.player = this.physics.add.sprite(60, 550, "alien");
-    //this.player.setCollideWorldBounds(true);
     //gun
     this.nerf = this.add.sprite(100,520, "nerf");
     this.nerf.setScale(.03);
-    //Gun and Bullets
-
-
-
   }
 
   update (time, delta) {
-
-
-
     //Scrolling screen
     this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4700, 550);
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
 
     this.time.addEvent({
-      delay:400,
+      delay:600,
       callback: this.text,
       callbackScope: this,
-      loop: false,
     })
 
     this.time.addEvent({
-      delay:1000,
+      delay:2000,
       callback:this.delay,
       callbackScope: this,
-      loop: false,
     });
 
     this.time.addEvent({
-      delay:8300,
+      delay:7000,
       callback:this.story,
       callbackScope: this,
-      loop: false,
     });
 
     this.time.addEvent({
-      delay:9300,
+      delay:8100,
       callback:this.story1,
       callbackScope: this,
-      loop: false,
     });
 
     this.time.addEvent({
-      delay:10300,
+      delay:9000,
       callback:this.story2,
       callbackScope: this,
-      loop: false,
     });
 
     this.time.addEvent({
-      delay:14000,
+      delay:13000,
       callback:this.sceneChange,
       callbackScope: this,
-      loop: false,
     });
-
-
-  }
-
-  enemyShoot(playerX, playerY, e){
-    var betweenPoints = Phaser.Math.Angle.BetweenPoints;
-    var angle = betweenPoints(e, this.player);
-    //var angle = betweenPoints(e,this.player);
-
-    var velocityFromRotation = this.physics.velocityFromRotation;
-    var velocity = new Phaser.Math.Vector2();
-    velocityFromRotation(angle, -400, velocity);
-    var bullet = this.enemyBullets.get();
-    bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
-    //if (direction == 'Flip'){
-    bullet//right
-      .enableBody(true, e.x, e.y, true, true)
-      .setVelocity(velocity.x, velocity.y);
-  }
-
-  //shooting the gun
-  shoot(direction){
-    var velocity = new Phaser.Math.Vector2();
-    var bullet = this.bullets.get();
-    if (direction == 'Flip'){
-      bullet//right
-        .enableBody(true, this.nerf.x, this.nerf.y, true, true)
-        .setVelocity(velocity.x - 1000, velocity.y);
-    }else if (direction == 'Reg') {
-      bullet//left
-        .enableBody(true, this.nerf.x, this.nerf.y, true, true)
-        .setVelocity(velocity.x + 1000, velocity.y);
-    }
   }
 
   story(){
-    this.add.text(225, 250, "Hachiko has been taken by thugs!");
+    this.add.text(120, 250, "Hachikō has been taken by thugs!").setStyle({fontSize: "30px", color: "#000", align: "center"});
+    //????new Phaser.Geom.Rectangle(50, 250, 400, 100);
   }
 
   story1(){
-    this.add.text(245, 300, "He has forgotten his past!");
+    this.add.text(190, 300, "He has forgotten his past.").setStyle({fontSize: "28px", color: "#000", align: "center"});
   }
 
   story2(){
-    this.add.text(150, 350, "Collect all of his memories so he remebers you!");
+    this.add.text(7, 350, "Collect all of his memories so he remebers you.").setStyle({fontSize: "28px", color: "#000", align: "center"});
   }
 
   text(){
-    this.add.text(4500, 520, "Hachiko");
-    this.add.image(4565, 485, "arrow").setScale(.1);
+    this.add.text(7380, 400, "Hachikō").setStyle({fontSize: "30px", color: "#000"});
+    this.add.image(7385, 475, "arrow").setScale(.2);
   }
 
   sceneChange(){
@@ -220,53 +146,11 @@ export default class PreGameScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scrollCam.scrollX -= 10;
-  }
-
-  //when hit by an enemy
-  takeDamage(enemy, player){
-    this.health -= 5;
-    console.log(this.health, "health");
-    //enemy.setImmovable();
-    //enemy.setVelocity = -(player.velocity);
-    //add a red tint later to indicate damage
+    this.scrollCam.scrollX -= 35;
   }
 
   //creating thugs
   makeEnemy(x, y, image, scale){
     this.thug = this.enemyGroup.create(x, y, image).setScale(scale);
-    var thug = this.thug;
-
   }
-
-  // make item dissapear when collecting it
-  collectDogItem(player, dogItem) {
-  dogItem.disableBody(true, true);
-  this.itemsCollected += 1;
-  console.log(this.itemsCollected);
-  }
-
-  //winning condition
-  gotHachiko(player, hachiko){
-    this.condition = 'Win';
-    this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
-    //this.scene.start('EndScene', {condition: this.condition});
-  }
-
-  //damaging the enemy
-  hitEnemy (bullet, enemy) {
-    //switch to health later
-    console.log('hit');
-    enemy.disableBody(true, true);
-    bullet.disableBody(true, true);
-  }
-
-  zeroPad(number, size){
-    var stringNumber = String(number);
-    while(stringNumber.length < (size || 2)){
-      stringNumber = "0" + stringNumber;
-    }
-    return stringNumber;
-  }
-
 }

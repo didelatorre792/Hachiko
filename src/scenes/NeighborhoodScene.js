@@ -64,8 +64,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
     //player
     this.player = this.physics.add.sprite(50, 500, "player").setScale(.3);
-    this.player.setCollideWorldBounds(true);
-    this.player.setActive(true);
+    this.player.setCollideWorldBounds(true).setActive(true);
 
     //gun
     this.nerf = this.add.sprite(100 ,520, "nerf");
@@ -106,11 +105,6 @@ export default class NeighborhoodScene extends Phaser.Scene {
   }
 
   update (time, delta) {
-    //console.log(this.player.x);
-
-
-    //this.healthLabel = this.add.text(this.scrollCam.worldView.x, 5,"SCORE: " + this.scoreFormated);
-
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       this.shoot(this.gunDir);
@@ -249,7 +243,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     if (this.player.x > 2465) {
       this.position = this.player.x;
       this.neighborhoodMusic.stop();
-      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, scoreFormated: this.scoreFormated, position: this.position});
+      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected});
       console.log("scene switch")
       console.log("player x in scene 1: ", this.player.x)
     }
