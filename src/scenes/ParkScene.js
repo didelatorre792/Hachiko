@@ -39,7 +39,7 @@ export default class ParkScene extends Phaser.Scene {
     this.scrollCam.scrollX = 0;
 
     //player
-    this.player = this.physics.add.sprite(50, 300, "player").setScale(.3);
+    this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
     console.log("player x in scene 2: ", this.player.x)
     console.log(this.cameras.main.width + ", " + this.cameras.main.height);
@@ -54,21 +54,21 @@ export default class ParkScene extends Phaser.Scene {
     this.enemyGroup = this.physics.add.group();
 
     //park
-    this.collectables.create(917, 525, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(580, 50);
-    this.trashcan4 = this.add.image(650, 545, "trashcan").setScale(.12);
-    this.box17 = this.platforms.create(650, 543, "box").setSize(60, 90); this.box17.alpha = 0;
-    this.lamppost3 = this.add.image(800, 463, "lamppost").setScale(.097);
-    this.box18 = this.platforms.create(733, 340, "box").setSize(22, 9); this.box18.alpha = 0;
-    this.box19 = this.platforms.create(868, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    this.bench = this.add.image(1000, 490, "bench").setScale(.5);
-    this.box20 = this.platforms.create(996, 490, "box").setSize(202, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(1300, 400, "tree").setScale(.5);
-    this.box21 = this.platforms.create(1300, 390, "box").setSize(250, 5); this.box21.alpha = 0;
+    this.collectables.create(717, 525, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(380, 50);
+    this.trashcan4 = this.add.image(450, 545, "trashcan").setScale(.12);
+    this.box17 = this.platforms.create(450, 543, "box").setSize(60, 90); this.box17.alpha = 0;
+    this.lamppost3 = this.add.image(600, 463, "lamppost").setScale(.097);
+    this.box18 = this.platforms.create(533, 340, "box").setSize(22, 9); this.box18.alpha = 0;
+    this.box19 = this.platforms.create(668, 340, "box").setSize(22, 9); this.box19.alpha = 0;
+    this.bench = this.add.image(800, 490, "bench").setScale(.5);
+    this.box20 = this.platforms.create(796, 490, "box").setSize(202, 5); this.box20.alpha = 0;
+    this.tree = this.add.image(1100, 370, "tree").setScale(.35);
+    this.box21 = this.platforms.create(1100, 360, "box").setSize(250, 5); this.box21.alpha = 0;
 
     // boss
-    this.makeEnemy(2250, 470, "thug", .7);
+    this.makeEnemy(2250, 470, .7);
 
-    this.hachiko = this.physics.add.image(2400, 620, "hachiko").setScale(.14);
+    this.hachiko = this.physics.add.image(2300, 540, "hachiko").setScale(.2);
     this.hachiko.setCollideWorldBounds(true);
 
     //gun
@@ -317,8 +317,8 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   //creating thugs
-  makeEnemy(x, y, image, scale){
-    this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true).setActive(true);
+  makeEnemy(x, y, scale){
+    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
     var thug = this.thug;
     this.tweens.add({
         targets: thug,
