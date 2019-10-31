@@ -34,11 +34,11 @@ export default class NeighborhoodScene extends Phaser.Scene {
     });
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 2520, 300);
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 3500, 600);
     this.scrollCam.scrollX = 0;
 
     //background
-    this.background = this.add.image(3900, 300, "background");
+    this.add.image(1750, 300, "neighborhood");
 
     //groups
     this.platforms = this.physics.add.staticGroup();
@@ -46,28 +46,31 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.enemyGroup = this.physics.add.group();
 
     // neighborhood platforms
-    this.mailbox1 = this.add.image(842, 475, "mailbox").setScale(.08);
-    this.box2 = this.platforms.create(837, 440, "box").setSize(40,10); this.box2.alpha = 0; //this.box2.setTint(#ed0e04);
-    this.lamppost1 = this.add.image(1050, 408, "lamppost").setScale(.085);
-    this.box3 = this.platforms.create(992, 300, "box").setSize(18, 8); this.box3.alpha = 0;
-    this.box4 = this.platforms.create(1110, 300, "box").setSize(18, 8); this.box4.alpha = 0;
-    this.car2 = this.add.image(1700, 490, "car2").setScale(.45);
-    this.box5 = this.platforms.create(1720, 494, "box").setSize(135); this.box5.alpha = 0;
-    this.mailbox2 = this.add.image(1867, 475, "mailbox").setScale(.08);
-    this.box6 = this.platforms.create(1862, 440, "box").setSize(40, 10); this.box6.alpha = 0;
-    this.lamppost2 = this.add.image(2000, 408, "lamppost").setScale(.085);
-    this.box7 = this.platforms.create(1942, 300, "box").setSize(18, 8); this.box7.alpha = 0;
-    this.box8 = this.platforms.create(2060, 300, "box").setSize(18, 8); this.box8.alpha = 0;
-    this.collectables.create(1766, 120, "dogBone").setScale(.2).setSize(42, 15).setPosition(1670, 50);
-    this.mailbox3 = this.add.image(2317, 485, "mailbox").setScale(.062);
-    this.box9 = this.platforms.create(2315, 457, "box").setSize(30, 10); this.box9.alpha = 0;
+    this.car1 = this.add.image(1200, 490, "car1").setScale(.45);
+    this.box1 = this.platforms.create(1220, 494, "box").setSize(135); this.box1.alpha = 0;
+    //add in tutorial text right here to jump
+    this.mailbox1 = this.add.image(1842, 475, "mailbox").setScale(.08);
+    this.box2 = this.platforms.create(1837, 440, "box").setSize(40,10); this.box2.alpha = 0; //this.box2.setTint(#ed0e04);
+    this.lamppost1 = this.add.image(2050, 408, "lamppost").setScale(.085);
+    this.box3 = this.platforms.create(1992, 300, "box").setSize(18, 8); this.box3.alpha = 0;
+    this.box4 = this.platforms.create(2110, 300, "box").setSize(18, 8); this.box4.alpha = 0;
+    this.car2 = this.add.image(2700, 490, "car2").setScale(.45);
+    this.box5 = this.platforms.create(2720, 494, "box").setSize(135); this.box5.alpha = 0;
+    this.mailbox2 = this.add.image(2867, 475, "mailbox").setScale(.08);
+    this.box6 = this.platforms.create(2862, 440, "box").setSize(40, 10); this.box6.alpha = 0;
+    this.lamppost2 = this.add.image(3000, 408, "lamppost").setScale(.085);
+    this.box7 = this.platforms.create(2942, 300, "box").setSize(18, 8); this.box7.alpha = 0;
+    this.box8 = this.platforms.create(3060, 300, "box").setSize(18, 8); this.box8.alpha = 0;
+    this.collectables.create(2766, 120, "dogBone").setScale(.2).setSize(42, 15).setPosition(2670, 50);
+    this.mailbox3 = this.add.image(3317, 485, "mailbox").setScale(.062);
+    this.box9 = this.platforms.create(3315, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     //player
-    this.player = this.physics.add.sprite(50, 500, "player").setScale(.3);
+    this.player = this.physics.add.sprite(250, 550, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true);
 
     //gun
-    this.nerf = this.add.sprite(100 ,520, "nerf");
+    this.nerf = this.add.sprite(280, 560, "nerf");
     this.nerf.setScale(.03);
     var bullets;
     var enemyBullets;
@@ -112,7 +115,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(0, 0, 7800, 550);
+    this.physics.world.setBounds(0, 0, 4000, 550);
     this.scrollCam.scrollX += 1.25;
 
     //If player is off screen
@@ -130,14 +133,14 @@ export default class NeighborhoodScene extends Phaser.Scene {
     //moving with velocity and the gun
      if (cursors.left.isDown) {
       this.player.setVelocityX(-200);
-      this.nerf.x = this.player.x - 40;
+      this.nerf.x = this.player.x - 35;
       this.player.anims.play("walk", true);
       this.player.flipX = true;
       this.nerf.flipX = true;
       this.gunDir = "Flip";
     } else if (cursors.right.isDown) {
       this.player.setVelocityX(200);
-      this.nerf.x = this.player.x + 40;
+      this.nerf.x = this.player.x + 35;
       this.player.anims.play("walk", true);
       this.player.flipX = false;
       this.nerf.flipX = false;
@@ -157,12 +160,12 @@ export default class NeighborhoodScene extends Phaser.Scene {
       this.jumpSound.play("jumpSound");
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
-      this.nerf.y = this.player.y + 30;
+      this.nerf.y = this.player.y + 35;
       this.player.anims.play("crouch", true);
 
     }
     if (cursors.up.isUp) {
-      this.nerf.y = this.player.y;
+      this.nerf.y = this.player.y + 15;
     }
     if (this.nerf.x < this.scrollCam.worldView.x - 5){
       this.nerf.x = this.player.x + 10;
@@ -240,7 +243,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
         }
       }.bind(this)//for can't read property 'physics' of undefined
     );
-    if (this.player.x > 2465) {
+    if (this.player.x > 3485) {
       this.position = this.player.x;
       this.neighborhoodMusic.stop();
       this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected});

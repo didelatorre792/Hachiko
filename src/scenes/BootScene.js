@@ -3,6 +3,9 @@ export default class BootScene extends Phaser.Scene {
   preload () {
     // Preload assets
     this.load.image("background", "./assets/images/background.png");
+    this.load.image("neighborhood", "./assets/images/neighborhood.png");
+    this.load.image("alley", "./assets/images/alley.png");
+    this.load.image("park", "./assets/images/park.png");
     this.load.image("tutorial", "./assets/images/hachiko backdrop.png");
     this.load.image("car1", "./assets/images/car11.png");
     this.load.image("car2", "./assets/images/car12.png");
@@ -28,7 +31,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("arrow", "./assets/images/arrow.png");
     this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheetwithCrouch.png", {
       frameWidth:545/3,
-      frameHeight: 794/3
+      frameHeight: 790/3
     });
     this.load.audio("collect", "./assets/sounds/collect.wav");
     this.load.audio("enemyGrunt", "./assets/sounds/enemyGrunt.wav");
