@@ -45,15 +45,25 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.group();
 
+    //tutorial
+    this.add.text(400, 450, "Use         to move").setStyle({fontSize: "30px", color: "#000"});
+    this.add.image(538, 450, "arrows");
+
+    this.add.text(1100, 350, "Jump on platforms").setStyle({fontSize: "23px", color: "#000"});
+    this.add.image(1250, 400, "arrow2").setScale(0.1);
+    this.car1 = this.add.image(1300, 490, "car1").setScale(.45);
+    this.box1 = this.platforms.create(1320, 494, "box").setSize(135); this.box1.alpha = 0;
+
+    this.mailbox1 = this.add.image(1742, 475, "mailbox").setScale(.08);
+    this.box2 = this.platforms.create(1737, 440, "box").setSize(40,10); this.box2.alpha = 0;
+    this.add.text(1700, 150, "Collect Hachikō's memories").setStyle({fontSize: "23px", color: "#000"});
+    this.add.image(1850, 200, "arrow2").setScale(0.1);
+    this.collectables.create(2182, 494, "dogCollar").setScale(.05).setSize(30, 25).setPosition(1910, 250);
+
     // neighborhood platforms
-    this.car1 = this.add.image(1200, 490, "car1").setScale(.45);
-    this.box1 = this.platforms.create(1220, 494, "box").setSize(135); this.box1.alpha = 0;
-    //add in tutorial text right here to jump
-    this.mailbox1 = this.add.image(1842, 475, "mailbox").setScale(.08);
-    this.box2 = this.platforms.create(1837, 440, "box").setSize(40,10); this.box2.alpha = 0; //this.box2.setTint(#ed0e04);
-    this.lamppost1 = this.add.image(2050, 408, "lamppost").setScale(.085);
-    this.box3 = this.platforms.create(1992, 300, "box").setSize(18, 8); this.box3.alpha = 0;
-    this.box4 = this.platforms.create(2110, 300, "box").setSize(18, 8); this.box4.alpha = 0;
+    this.lamppost1 = this.add.image(2450, 408, "lamppost").setScale(.085);
+    this.box3 = this.platforms.create(2392, 300, "box").setSize(18, 8); this.box3.alpha = 0;
+    this.box4 = this.platforms.create(2510, 300, "box").setSize(18, 8); this.box4.alpha = 0;
     this.car2 = this.add.image(2700, 490, "car2").setScale(.45);
     this.box5 = this.platforms.create(2720, 494, "box").setSize(135); this.box5.alpha = 0;
     this.mailbox2 = this.add.image(2867, 475, "mailbox").setScale(.08);
