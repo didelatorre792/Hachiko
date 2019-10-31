@@ -7,19 +7,19 @@ export default class AlleyScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
-    //this.scoreFormatted = data.scoreFormatted;
-    this.neighborhoodMusic = data.neighborhoodMusic;
   }
 
   create(){
-    //this.neighborhoodMusic.stop();
+    //music
     this.alleyMusic = this.sound.add("alleyBackgroundMusic");
     this.alleyMusic.addMarker({
-      name: "alleyMusic",
       start: 0,
-      duration: 16
+      duration: 20
     });
-    this.alleyMusic.play("alleyMusic");
+    var alleyMusicCongif = {
+      loop: true
+    };
+    this.alleyMusic.play(alleyMusicCongif);
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
@@ -73,32 +73,27 @@ export default class AlleyScene extends Phaser.Scene {
 
     //player
     this.player = this.physics.add.sprite(2600, 300, "player").setScale(.3);
-    this.player.setCollideWorldBounds(true);
-    this.player.setActive(true);
-    this.player.setDepth(1);
-    console.log("player x in scene 2: ", this.player.x)
-    console.log(this.cameras.main.width + ", " + this.cameras.main.height);
+    this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
+    console.log("player x in scene 2: ", this.player.x);
 
-    this.makeEnemy(3400, 530, "thug", .3);
-    this.makeEnemy(3690, 525, "thug", .3);
-    this.makeEnemy(4150, 505, "thug", .3);
+    this.makeEnemy(3400, 530, .3);
+    this.makeEnemy(3690, 525, .3);
+    this.makeEnemy(4150, 505, .3);
 
     //gun
     this.nerf = this.add.sprite(this.player.x + 10, 520, "nerf");
     this.nerf.setScale(.03);
-    //Gun and Bullets
+
+    //bullets
     var bullets;
     var enemyBullets;
-
     this.nextFire = 0;
     this.fireRate = 200;
     this.speed = 1000;
-
     this.bullets = this.physics.add.group({
       defaultKey:"bullet",
       maxSize: 100
     });
-
     this.enemyBullets = this.physics.add.group({
       defaultKey:"bullet",
       maxSize: 100
@@ -116,8 +111,7 @@ export default class AlleyScene extends Phaser.Scene {
     //collectables
     this.physics.add.overlap(this.player, this.collectables, this.collectDogItem, null, this);
 
-    //conditions and health variables
-    var condition;
+    //health variables
     var gunDir;
     var scoreFormatted = this.zeroPad(this.health, 6);
     this.healthLabel = this.add.text(5, 5, "Health: " + scoreFormatted);
@@ -134,23 +128,21 @@ export default class AlleyScene extends Phaser.Scene {
     //Scrolling screen
     this.physics.world.setBounds(2520, 0, 7800, 550);
     this.time.addEvent({
-      delay:300,
-      callback:this.delay,
+      delay: 300,
+      callback: this.delay,
       callbackScope: this,
       loop: false,
     });
 
-    //If player has below 0 health. LOSE condition
+    //If player has below 0 health
     if (this.health < 0){
-      this.condition = 'Lose';
       console.log("Negative health");
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+      this.alleyMusic.stop();
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
 
     //Create cursor keys and assign events
     var cursors = this.input.keyboard.createCursorKeys();
-    var velocity = -400;
-    var stopped = 0;
 
     //moving with velocity and the gun
     if (cursors.left.isDown) {
@@ -264,7 +256,8 @@ export default class AlleyScene extends Phaser.Scene {
 
     );
     if (this.player.x > 4995) {
-      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, alleyMusic: this.alleyMusic});
+      this.alleyMusic.stop();
+      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected});
       console.log("scene switch 2")
     };
   }
@@ -273,16 +266,14 @@ export default class AlleyScene extends Phaser.Scene {
     this.scrollCam.scrollX += 1.25;
     if(this.player.x < this.scrollCam.scrollX - 75){
       console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
-      this.condition = 'Lose';
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+      this.alleyMusic.stop()
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
   }
 
   enemyShoot(playerX, playerY, e){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(e, this.player);
-    //var angle = betweenPoints(e,this.player);
-
     var velocityFromRotation = this.physics.velocityFromRotation;
     var velocity = new Phaser.Math.Vector2();
     velocityFromRotation(angle, 400, velocity);
@@ -302,7 +293,7 @@ export default class AlleyScene extends Phaser.Scene {
       bullet//right
         .enableBody(true, this.nerf.x, this.nerf.y, true, true)
         .setVelocity(velocity.x - 1000, velocity.y);
-    }else if (direction == 'Reg') {
+    } else if (direction == 'Reg') {
       bullet//left
         .enableBody(true, this.nerf.x, this.nerf.y, true, true)
         .setVelocity(velocity.x + 1000, velocity.y);
@@ -312,9 +303,8 @@ export default class AlleyScene extends Phaser.Scene {
   //when hit by an enemy
   takeDamage(enemy, player){
     this.health -= 5;
-    console.log(this.health, "health");
-    var scoreFormatted = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "Health: " + scoreFormatted;
+    //console.log(this.health, "health");
+    this.healthLabel.text = "Health: " + this.scoreFormatted;
     //enemy.setImmovable();
     //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
@@ -330,8 +320,8 @@ export default class AlleyScene extends Phaser.Scene {
   }
 
   //creating thugs
-  makeEnemy(x, y, image, scale){
-    this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+  makeEnemy(x, y, scale){
+    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
     console.log("enemy coordinates:", x, y);
     var thug = this.thug;
     this.tweens.add({
@@ -342,7 +332,8 @@ export default class AlleyScene extends Phaser.Scene {
         delay: 2000,
         duration: 1500,
         yoyo: true,
-        repeat: -1});
+        repeat: -1
+      });
   }
 
 

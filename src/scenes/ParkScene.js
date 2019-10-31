@@ -7,19 +7,14 @@ export default class ParkScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
-    //this.scoreformatted = data.scoreformatted;
-    this.alleyMusic = data.alleyMusic;
   }
 
   create(){
-    //this.alleyMusic.stop();
     this.parkMusic = this.sound.add("parkBackgroundMusic");
-    this.parkMusic.addMarker({
-      name: "parkMusic",
-      start: 0,
-      duration: 3
-    });
-    this.parkMusic.play("parkMusic");
+    var parkMusicCongif = {
+      loop: true
+    };
+    this.parkMusic.play(parkMusicCongif);
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
@@ -112,8 +107,7 @@ export default class ParkScene extends Phaser.Scene {
     //collectables
     this.physics.add.overlap(this.player, this.collectables, this.collectDogItem, null, this);
 
-    //conditions and health variables
-    var condition;
+    //health variables
     var gunDir;
     var scoreFormatted = this.zeroPad(this.health, 6);
     this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormatted);
@@ -143,11 +137,11 @@ export default class ParkScene extends Phaser.Scene {
       this.scrollCam.scrollX -= 1.25;
     }
 
-    //If player has below 0 health. LOSE condition
+    //If player has below 0 health
     if (this.health < 0){
-      this.condition = 'Lose';
       console.log("died by damage");
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+      this.parkMusic.stop();
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
     //Create cursor keys and assign events
     var cursors = this.input.keyboard.createCursorKeys();
@@ -271,8 +265,8 @@ export default class ParkScene extends Phaser.Scene {
     this.scrollCam.scrollX += 1.25;
     if(this.player.x < this.scrollCam.scrollX - 75){
       console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
-      this.condition = 'Lose';
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+      this.parkMusic.stop();
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
   }
 
@@ -326,7 +320,7 @@ export default class ParkScene extends Phaser.Scene {
 
   //creating thugs
   makeEnemy(x, y, image, scale){
-    this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
+    this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true).setActive(true);
     var thug = this.thug;
     this.tweens.add({
         targets: thug,
@@ -337,14 +331,7 @@ export default class ParkScene extends Phaser.Scene {
         duration: 1500,
         yoyo: true,
         repeat: -1});
-
-
-
   }
-    // makeEnemy(x, y, image, scale){
-    //   this.thug = this.enemyGroup.create(x, y, image).setScale(scale).setCollideWorldBounds(true);
-    //
-
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {
@@ -357,9 +344,8 @@ export default class ParkScene extends Phaser.Scene {
   //winning condition
   gotHachiko(player, hachiko){
     if (this.player.x > 7397 && this.player.x < 7403){
-      this.condition = 'Win';
       console.log("got hachiko");
-      this.scene.start('EndScene', {condition: this.condition, itemsCollected: this.itemsCollected});
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
   }
 
