@@ -6,8 +6,8 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("neighborhood", "./assets/images/neighborhood.png");
     this.load.image("alley", "./assets/images/alley.png");
     this.load.image("park", "./assets/images/park.png");
-    this.load.image("tutorial", "./assets/images/hachiko backdrop.png");
     this.load.image("arrows", "./assets/images/arrows.png");
+    //this.load.image("spacebar", "./assets/images/spacebar.png");
     this.load.image("car1", "./assets/images/car11.png");
     this.load.image("car2", "./assets/images/car12.png");
     this.load.image("mailbox", "./assets/images/mailbox.png");
@@ -37,6 +37,7 @@ export default class BootScene extends Phaser.Scene {
     });
     this.load.audio("collect", "./assets/sounds/collect.wav");
     this.load.audio("enemyGrunt", "./assets/sounds/enemyGrunt.wav");
+    this.load.audio("girlOuch", "./assets/sounds/girlOuch.mp3");
     this.load.audio("mcGrunt", "./assets/sounds/mcGrunt.mp3");
     this.load.audio("neighborhoodBackgroundMusic", "./assets/sounds/neighborhoodBackground.wav");
     this.load.audio("nerfShoot", "./assets/sounds/nerfGunShot.wav");

@@ -16,6 +16,7 @@ export default class PreGameScene extends Phaser.Scene {
 
     //building the scene
     this.background = this.add.image(4695, 300, "background");
+    this.background.alpha = 0.5;
     //groups
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
@@ -70,10 +71,10 @@ export default class PreGameScene extends Phaser.Scene {
     this.lamppost3 = this.add.image(7700, 463, "lamppost").setScale(.097);
     this.box18 = this.platforms.create(7633, 340, "box").setSize(22, 9); this.box18.alpha = 0;
     this.box19 = this.platforms.create(7768, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    this.bench = this.add.image(7900, 490, "bench").setScale(.5);
-    this.box20 = this.platforms.create(7896, 490, "box").setSize(202, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(8200, 400, "tree").setScale(.5);
-    this.box21 = this.platforms.create(8200, 390, "box").setSize(250, 5); this.box21.alpha = 0;
+    this.bench = this.add.image(7900, 470, "bench").setScale(.5);
+    this.box20 = this.platforms.create(7896, 470, "box").setSize(202, 5); this.box20.alpha = 0;
+    this.tree = this.add.image(8200, 350, "tree").setScale(.35);
+    this.box21 = this.platforms.create(8200, 340, "box").setSize(250, 5); this.box21.alpha = 0;
 
     // boss
     this.makeEnemy(8950, 470, .7);
@@ -159,7 +160,7 @@ export default class PreGameScene extends Phaser.Scene {
   }
 
   sceneChange(){
-    this.scene.start('TutorialScene');
+    this.scene.start('NeighborhoodScene');
   }
 
   delay(){

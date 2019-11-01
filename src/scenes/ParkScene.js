@@ -33,6 +33,13 @@ export default class ParkScene extends Phaser.Scene {
       start: 0.1,
       duration: 0.3
     });
+    this.enemyGrunt = this.sound.add("enemyGrunt");
+    this.girlOuch = this.sound.add("girlOuch");
+    this.girlOuch.addMarker({
+      name: "girlOuch",
+      start: 3,
+      duration: 1
+    });
 
     //camera
     this.scrollCam = this.cameras.main.setBounds(0, 0, 2400, 600);
@@ -46,7 +53,7 @@ export default class ParkScene extends Phaser.Scene {
 
 
     //background
-    this.background = this.add.image(1245, 300, "park");
+    this.add.image(1245, 300, "park");
 
     //groups
     this.platforms = this.physics.add.staticGroup();
@@ -60,10 +67,10 @@ export default class ParkScene extends Phaser.Scene {
     this.lamppost3 = this.add.image(600, 463, "lamppost").setScale(.097);
     this.box18 = this.platforms.create(533, 340, "box").setSize(22, 9); this.box18.alpha = 0;
     this.box19 = this.platforms.create(668, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    this.bench = this.add.image(800, 490, "bench").setScale(.5);
-    this.box20 = this.platforms.create(796, 490, "box").setSize(202, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(1100, 370, "tree").setScale(.35);
-    this.box21 = this.platforms.create(1100, 360, "box").setSize(250, 5); this.box21.alpha = 0;
+    this.bench = this.add.image(800, 470, "bench").setScale(.5);
+    this.box20 = this.platforms.create(796, 470, "box").setSize(202, 5); this.box20.alpha = 0;
+    this.tree = this.add.image(1100, 350, "tree").setScale(.35);
+    this.box21 = this.platforms.create(1100, 340, "box").setSize(250, 5); this.box21.alpha = 0;
 
     // boss
     this.makeEnemy(2250, 470, .7);
@@ -304,6 +311,7 @@ export default class ParkScene extends Phaser.Scene {
     this.health -= 5;
     console.log(this.health, "health");
     this.healthLabel.text = "SCORE " + this.scoreformatted;
+    this.girlOuch.play("girlOuch");
     //enemy.setImmovable();
     //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
@@ -311,6 +319,7 @@ export default class ParkScene extends Phaser.Scene {
 
   takeDamageFromEnemyBullets(bullet, player){
     this.health -= 10;
+    this.girlOuch.play("girlOuch");
     bullet.disableBody(true, true);
     var scoreformatted = this.zeroPad(this.health, 6);
     this.healthLabel.text = "SCORE " + this.scoreformatted;
@@ -350,10 +359,13 @@ export default class ParkScene extends Phaser.Scene {
 
   //damaging the enemy
   hitEnemy (bullet, enemy) {
-    //switch to health later
-    console.log('hit');
-    enemy.disableBody(true, true);
     bullet.disableBody(true, true);
+    //only kill them if they are on screen
+    if (bullet.x < this.scrollCam.scrollX + 800) {
+      console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
+      enemy.disableBody(true, true);
+      this.enemyGrunt.play();
+    };
   }
 
   zeroPad(number, size){
