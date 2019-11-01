@@ -56,7 +56,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
     this.mailbox1 = this.add.image(1742, 475, "mailbox").setScale(.08);
     this.box2 = this.platforms.create(1737, 440, "box").setSize(40,10); this.box2.alpha = 0;
-    this.add.text(1700, 150, "Collect Hachikō's memories").setStyle({fontSize: "23px", color: "#000"});
+    this.add.text(1700, 150, "Collect Hachikō's memory").setStyle({fontSize: "23px", color: "#000"});
     this.add.image(1850, 200, "arrow2").setScale(0.1);
     this.collectables.create(2182, 494, "dogCollar").setScale(.05).setSize(30, 25).setPosition(1910, 250);
 

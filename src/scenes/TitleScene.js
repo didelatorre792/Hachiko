@@ -15,7 +15,7 @@ export default class TutorialScene extends Phaser.Scene {
 
     var cursors = this.input.keyboard.createCursorKeys();
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      this.scene.start('NeighborhoodScene')
+      this.scene.start('PreGameScene')
     }
   }
 }

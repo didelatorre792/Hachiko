@@ -38,37 +38,49 @@ export default class AlleyScene extends Phaser.Scene {
       start: 0.1,
       duration: 0.3
     });
+    this.enemyGrunt = this.sound.add("enemyGrunt");
+    this.girlOuch = this.sound.add("girlOuch");
+    this.girlOuch.addMarker({
+      name: "girlOuch",
+      start: 3,
+      duration: 1
+    });
 
     //camera
     this.scrollCam = this.cameras.main.setBounds(0, 0, 3400, 600);
     this.scrollCam.scrollX = 0;
 
     //background
-    this.background = this.add.image(1700, 300, "alley");
+    this.add.image(1700, 300, "alley");
 
     //groups
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.group();
 
+    // Tutorial
+    this.makeEnemy(1000, 530, .3);
+    this.add.text(300, 370, "Press space to shoot").setStyle({fontSize: "30px", color: "#000"});
+    // this.add.image(630, 450, "spacebar"); can't find one lol
+
     // alley platforms
-    this.trashcan1 = this.add.image(1650, 540, "trashcan").setScale(.08);
-    this.box10 = this.platforms.create(1650, 540, "box").setSize(40, 60); this.box10.alpha = 0;
-    this.trashcan2 = this.add.image(1720, 520, "trashcan").setScale(.12);
-    this.box11 = this.platforms.create(1720, 520, "box").setSize(60, 90); this.box11.alpha = 0;
-    this.sign1 = this.add.image(1850, 350, "sign1").setScale(.1);
-    this.box12 = this.platforms.create(1850, 364, "box").setSize(70, 30); this.box12.alpha = 0;
-    this.collectables.create(2800, 1048, "dogToy").setScale(.04).setSize(29, 35).setPosition(2320, 530);
-    this.dumpster = this.add.image(2200, 480, "dumpster").setScale(.26);
-    this.box13 = this.platforms.create(2200, 520, "box").setSize(155, 110); this.box13.alpha = 0;
-    this.box14 = this.platforms.create(2200, 417, "box").setSize(120, 50); this.box14.alpha = 0;
-    this.trashcan3 = this.add.image(2450, 540, "trashcan").setScale(.08);
-    this.box15 = this.platforms.create(2450, 540, "box").setSize(40, 60); this.box15.alpha = 0;
-    this.sign2 = this.add.image(2630, 444, "sign2").setScale(.08);
-    this.box16 = this.platforms.create(2630, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.sign3 = this.add.image(2950, 270, "sign3").setScale(.1);
-    this.box17 = this.platforms.create(2950, 270, "box").setSize(100, 25); this.box17.alpha = 0;
-    this.collectables.create(3340, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3250, 15);
+    this.trashcan1 = this.add.image(1450, 540, "trashcan").setScale(.08);
+    this.box10 = this.platforms.create(1450, 540, "box").setSize(40, 60); this.box10.alpha = 0;
+    this.trashcan2 = this.add.image(1520, 520, "trashcan").setScale(.12);
+    this.box11 = this.platforms.create(1520, 520, "box").setSize(60, 90); this.box11.alpha = 0;
+    this.sign1 = this.add.image(1650, 350, "sign1").setScale(.1);
+    this.box12 = this.platforms.create(1650, 364, "box").setSize(70, 30); this.box12.alpha = 0;
+    this.collectables.create(2600, 1048, "dogToy").setScale(.04).setSize(29, 35).setPosition(2120, 530);
+    this.dumpster = this.add.image(2000, 480, "dumpster").setScale(.26);
+    this.box13 = this.platforms.create(2000, 520, "box").setSize(155, 110); this.box13.alpha = 0;
+    this.box14 = this.platforms.create(2000, 417, "box").setSize(120, 50); this.box14.alpha = 0;
+    this.trashcan3 = this.add.image(2250, 540, "trashcan").setScale(.08);
+    this.box15 = this.platforms.create(2250, 540, "box").setSize(40, 60); this.box15.alpha = 0;
+    this.sign2 = this.add.image(2430, 444, "sign2").setScale(.08);
+    this.box16 = this.platforms.create(2430, 455, "box").setSize(60, 20); this.box16.alpha = 0;
+    this.sign3 = this.add.image(2750, 270, "sign3").setScale(.1);
+    this.box17 = this.platforms.create(2750, 270, "box").setSize(100, 25); this.box17.alpha = 0;
+    this.collectables.create(3140, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 15);
 
     //player
     this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
@@ -196,9 +208,9 @@ export default class AlleyScene extends Phaser.Scene {
             b.setActive(false);
           }else if (b.y > this.cameras.main.height) {
             b.setActive(false);
-          }else if(b.x <0){
+          }else if(b.x < 0){
             b.setActive(false);
-          }else if (b.x > this.cameras.main.width) {
+          }else if (b.x > this.scrollCam.scrollX + 800) {
             b.setActive(false);
           }
         }
@@ -221,7 +233,7 @@ export default class AlleyScene extends Phaser.Scene {
             b.setActive(false);
           }else if(b.x <0){
             b.setActive(false);
-          }else if (b.x > this.cameras.main.width) {
+          }else if (b.x > this.scrollCam.scrollX) {
             b.setActive(false);
           }
         }
@@ -301,6 +313,7 @@ export default class AlleyScene extends Phaser.Scene {
   //when hit by an enemy
   takeDamage(enemy, player){
     this.health -= 5;
+    this.girlOuch.play("girlOuch");
     //console.log(this.health, "health");
     this.healthLabel.text = "Health: " + this.scoreFormatted;
     //enemy.setImmovable();
@@ -310,7 +323,8 @@ export default class AlleyScene extends Phaser.Scene {
 
   takeDamageFromEnemyBullets(bullet, player){
     this.health -= 10;
-
+    this.girlOuch.play("girlOuch");
+    bullet.disableBody(true, true);
     var scoreFormatted = this.zeroPad(this.health, 6);
     this.healthLabel.text = "Health: " + scoreFormatted;
     console.log(this.health, "is current health");
@@ -345,10 +359,13 @@ export default class AlleyScene extends Phaser.Scene {
 
   //damaging the enemy
   hitEnemy (bullet, enemy) {
-    //switch to health later
-    console.log('hit');
-    enemy.disableBody(true, true);
     bullet.disableBody(true, true);
+    //only kill them if they are on screen
+    if (bullet.x < this.scrollCam.scrollX + 800) {
+      console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
+      enemy.disableBody(true, true);
+      this.enemyGrunt.play();
+    };
   }
 
   zeroPad(number, size){
