@@ -10,10 +10,10 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
   create(){
     this.neighborhoodMusic = this.sound.add("neighborhoodBackgroundMusic");
-    var neighborhoodMusicCongif = {
+    this.neighborhoodMusicConfig = {
       loop: true
     };
-    this.neighborhoodMusic.play(neighborhoodMusicCongif);
+    this.neighborhoodMusic.play(this.neighborhoodMusicConfig);
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
@@ -129,8 +129,8 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.scrollCam.scrollX += 1.25;
 
     //If player is off screen
-    if(this.player.x < this.scrollCam.worldView.x - 75){
-      this.neighborhoodMusic.stop();
+    if(this.player.x < this.scrollCam.scrollX - 75){
+      this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
       console.log("death by scroll")
     }
@@ -255,7 +255,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     );
     if (this.player.x > 3485) {
       this.position = this.player.x;
-      this.neighborhoodMusic.stop();
+      this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
       this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected});
       console.log("scene switch")
       console.log("player x in scene 1: ", this.player.x)

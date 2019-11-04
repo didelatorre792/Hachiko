@@ -11,10 +11,10 @@ export default class ParkScene extends Phaser.Scene {
 
   create(){
     this.parkMusic = this.sound.add("parkBackgroundMusic");
-    var parkMusicCongif = {
+    this.parkMusicConfig = {
       loop: true
     };
-    this.parkMusic.play(parkMusicCongif);
+    this.parkMusic.play(this.parkMusicConfig);
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
@@ -145,7 +145,7 @@ export default class ParkScene extends Phaser.Scene {
     //If player has below 0 health
     if (this.health < 0){
       console.log("died by damage");
-      this.parkMusic.stop();
+      this.parkMusic.stop(this.parkMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
     //Create cursor keys and assign events
@@ -270,7 +270,7 @@ export default class ParkScene extends Phaser.Scene {
     this.scrollCam.scrollX += 1.25;
     if(this.player.x < this.scrollCam.scrollX - 75){
       console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
-      this.parkMusic.stop();
+      this.parkMusic.stop(this.parkMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
   }

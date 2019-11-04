@@ -16,10 +16,10 @@ export default class AlleyScene extends Phaser.Scene {
       start: 0,
       duration: 20
     });
-    var alleyMusicCongif = {
+    this.alleyMusicConfig = {
       loop: true
     };
-    this.alleyMusic.play(alleyMusicCongif);
+    this.alleyMusic.play(this.alleyMusicConfig);
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
@@ -148,7 +148,7 @@ export default class AlleyScene extends Phaser.Scene {
     //If player has below 0 health
     if (this.health < 0){
       console.log("Negative health");
-      this.alleyMusic.stop();
+      this.alleyMusic.stop(this.alleyMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
 
@@ -266,7 +266,7 @@ export default class AlleyScene extends Phaser.Scene {
 
     );
     if (this.player.x > 3395) {
-      this.alleyMusic.stop();
+      this.alleyMusic.stop(this.alleyMusicConfig);
       this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected});
       console.log("scene switch 2")
     };
@@ -276,7 +276,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.scrollCam.scrollX += 1.25;
     if(this.player.x < this.scrollCam.scrollX - 75){
       console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
-      this.alleyMusic.stop()
+      this.alleyMusic.stop(this.alleyMusicConfig)
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
   }
