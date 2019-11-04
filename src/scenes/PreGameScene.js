@@ -90,7 +90,7 @@ export default class PreGameScene extends Phaser.Scene {
 
   update (time, delta) {
     //Scrolling screen
-    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 4700, 550);
+    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 9390, 550);
     //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
 
     this.time.addEvent({
