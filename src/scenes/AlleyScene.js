@@ -70,7 +70,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.box11 = this.platforms.create(1520, 520, "box").setSize(60, 90); this.box11.alpha = 0;
     this.sign1 = this.add.image(1650, 350, "sign1").setScale(.1);
     this.box12 = this.platforms.create(1650, 364, "box").setSize(70, 30); this.box12.alpha = 0;
-    this.collectables.create(2600, 1048, "dogToy").setScale(.04).setSize(29, 35).setPosition(2120, 530);
+    this.collectables.create(2600, 1000, "dogToy").setScale(.04).setSize(29, 35).setPosition(2120, 530);
     this.dumpster = this.add.image(2000, 480, "dumpster").setScale(.26);
     this.box13 = this.platforms.create(2000, 520, "box").setSize(155, 110); this.box13.alpha = 0;
     this.box14 = this.platforms.create(2000, 417, "box").setSize(120, 50); this.box14.alpha = 0;
@@ -87,9 +87,11 @@ export default class AlleyScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
     console.log("player x in scene 2: ", this.player.x);
 
+    this.makeEnemy(1600, 530, .3);
     this.makeEnemy(2100, 530, .3);
     this.makeEnemy(2390, 525, .3);
     this.makeEnemy(2850, 505, .3);
+    this.makeEnemy(3100, 505, .3);
 
     //gun
     this.nerf = this.add.sprite(this.player.x + 10, 520, "nerf");
@@ -127,6 +129,8 @@ export default class AlleyScene extends Phaser.Scene {
     var scoreFormatted = this.zeroPad(this.health, 6);
     this.healthLabel = this.add.text(5, 5, "Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
+
+    this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
   }
 
   update (time, delta) {
@@ -316,9 +320,8 @@ export default class AlleyScene extends Phaser.Scene {
     this.girlOuch.play("girlOuch");
     //console.log(this.health, "health");
     this.healthLabel.text = "Health: " + this.scoreFormatted;
-    //enemy.setImmovable();
-    //enemy.setVelocity = -(player.velocity);
-    //add a red tint later to indicate damage
+
+
   }
 
   takeDamageFromEnemyBullets(bullet, player){
@@ -326,8 +329,9 @@ export default class AlleyScene extends Phaser.Scene {
     this.girlOuch.play("girlOuch");
     bullet.disableBody(true, true);
     var scoreFormatted = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "Health: " + this.scoreFormatted;
+    this.healthLabel.text = "Health: " + scoreFormatted;
     console.log(this.health, "is current health");
+    bullet.disableBody(true, true);
   }
 
   //creating thugs
@@ -335,16 +339,16 @@ export default class AlleyScene extends Phaser.Scene {
     this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
     console.log("enemy coordinates:", x, y);
     var thug = this.thug;
-    this.tweens.add({
-        targets: thug,
-        x: x-50,
-        y: y,
-        ease: "Linear",
-        delay: 2000,
-        duration: 1500,
-        yoyo: true,
-        repeat: -1
-      });
+    // this.tweens.add({
+    //     targets: thug,
+    //     x: x-50,
+    //     y: y,
+    //     ease: "Linear",
+    //     delay: 2000,
+    //     duration: 1500,
+    //     yoyo: true,
+    //     repeat: -1
+    //   });
   }
 
 
@@ -352,6 +356,7 @@ export default class AlleyScene extends Phaser.Scene {
   collectDogItem(player, dogItem) {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
+  this.collectedText.text = "Memories: " + this.itemsCollected;
   console.log("number of items collected is " + this.itemsCollected);
   this.collectSound.play("collectSound");
   }
@@ -361,7 +366,7 @@ export default class AlleyScene extends Phaser.Scene {
     bullet.disableBody(true, true);
     //only kill them if they are on screen
     if (bullet.x < this.scrollCam.scrollX + 800) {
-      console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
+      // console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
       enemy.disableBody(true, true);
       this.enemyGrunt.play();
     };

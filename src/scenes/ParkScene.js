@@ -68,11 +68,14 @@ export default class ParkScene extends Phaser.Scene {
     this.box18 = this.platforms.create(533, 340, "box").setSize(22, 9); this.box18.alpha = 0;
     this.box19 = this.platforms.create(668, 340, "box").setSize(22, 9); this.box19.alpha = 0;
     this.bench = this.add.image(800, 470, "bench").setScale(.5);
-    this.box20 = this.platforms.create(796, 470, "box").setSize(202, 5); this.box20.alpha = 0;
+    this.box20 = this.platforms.create(796, 475, "box").setSize(202, 5); this.box20.alpha = 0;
     this.tree = this.add.image(1100, 350, "tree").setScale(.35);
     this.box21 = this.platforms.create(1100, 340, "box").setSize(250, 5); this.box21.alpha = 0;
 
     // boss
+    this.makeEnemy(1000, 470, .3);
+    this.makeEnemy(1500, 470, .3);
+    this.makeEnemy(1900, 470, .3);
     this.makeEnemy(2250, 470, .7);
 
     this.hachiko = this.physics.add.image(2300, 540, "hachiko").setScale(.2);
@@ -114,9 +117,11 @@ export default class ParkScene extends Phaser.Scene {
 
     //health variables
     var gunDir;
-    var scoreformatted = this.zeroPad(this.health, 6);
-    this.healthLabel = this.add.text(5, 5,"Health: " + scoreformatted);
+    var scoreFormatted = this.zeroPad(this.health, 6);
+    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
+
+    this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
   }
 
   update (time, delta) {
@@ -324,27 +329,29 @@ export default class ParkScene extends Phaser.Scene {
     var scoreformatted = this.zeroPad(this.health, 6);
     this.healthLabel.text = "SCORE " + this.scoreformatted;
     console.log(this.health, "health");
+    bullet.disableBody(true, true);
   }
 
   //creating thugs
   makeEnemy(x, y, scale){
     this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
     var thug = this.thug;
-    this.tweens.add({
-        targets: thug,
-        x: x+10,
-        y: y,
-        ease: "Linear",
-        delay: 2000,
-        duration: 1500,
-        yoyo: true,
-        repeat: -1});
+    // this.tweens.add({
+    //     targets: thug,
+    //     x: x+10,
+    //     y: y,
+    //     ease: "Linear",
+    //     delay: 2000,
+    //     duration: 1500,
+    //     yoyo: true,
+    //     repeat: -1});
   }
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
+  this.collectedText.text = "Memories: " + this.itemsCollected;
   console.log(this.itemsCollected);
   this.collectSound.play("collectSound");
   }
@@ -352,6 +359,7 @@ export default class ParkScene extends Phaser.Scene {
   //winning condition
   gotHachiko(player, hachiko){
     //if (this.player.x > 7397 && this.player.x < 7403){
+      this.parkMusic.stop();
       console.log("got hachiko");
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
