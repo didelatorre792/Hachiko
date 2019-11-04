@@ -2,10 +2,10 @@ export default class BootScene extends Phaser.Scene {
 
   preload () {
     // Preload assets
-    this.load.image("background", "./assets/images/background.png");
-    this.load.image("neighborhood", "./assets/images/neighborhood.png");
-    this.load.image("alley", "./assets/images/alley.png");
-    this.load.image("park", "./assets/images/park.png");
+    this.load.image("background", "./assets/images/2.0/finalbackground.png");
+    this.load.image("neighborhood", "./assets/images/2.0/neighbourhood3.0.jpg");
+    this.load.image("alley", "./assets/images/2.0/alley3.0.png");
+    this.load.image("park", "./assets/images/2.0/park3.0.png");
     this.load.image("arrows", "./assets/images/arrows.png");
     //this.load.image("spacebar", "./assets/images/spacebar.png");
     this.load.image("car1", "./assets/images/car11.png");
