@@ -24,7 +24,6 @@ export default class PreGameScene extends Phaser.Scene {
     // neighborhood
     this.car1 = this.add.image(1200, 490, "car1").setScale(.45);
     this.box1 = this.platforms.create(1220, 494, "box").setSize(135); this.box1.alpha = 0;
-    //add in tutorial text right here to jump
     this.mailbox1 = this.add.image(1842, 475, "mailbox").setScale(.08);
     this.box2 = this.platforms.create(1837, 440, "box").setSize(40,10); this.box2.alpha = 0;
     this.lamppost1 = this.add.image(2050, 408, "lamppost").setScale(.085);
