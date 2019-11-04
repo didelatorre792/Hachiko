@@ -61,7 +61,7 @@ export default class AlleyScene extends Phaser.Scene {
 
     // Tutorial
     this.makeEnemy(1000, 530, .3);
-    this.add.text(300, 370, "Press space to shoot").setStyle({fontSize: "30px", color: "#000"});
+    this.add.text(300, 400, "Press space to shoot").setStyle({fontSize: "23px", color: "#fff"});
     // this.add.image(630, 450, "spacebar"); can't find one lol
 
     // alley platforms
@@ -82,6 +82,8 @@ export default class AlleyScene extends Phaser.Scene {
     this.sign3 = this.add.image(2750, 270, "sign3").setScale(.1);
     this.box17 = this.platforms.create(2750, 270, "box").setSize(100, 25); this.box17.alpha = 0;
     this.collectables.create(3140, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 40);
+    this.add.text(3290, 400, "This way").setStyle({fontSize: "20px", color: "#fff"});
+    this.add.image(3350, 450, "arrow3").setScale(.08);
 
     //player
     this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);

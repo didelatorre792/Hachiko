@@ -31,6 +31,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("box", "./assets/sprites/box.png");
     this.load.image("arrow1", "./assets/images/arrow1.png");
     this.load.image("arrow2", "./assets/images/arrow2.png");
+    this.load.image("arrow3", "./assets/images/arrow3.png");
     this.load.image("collarShadow", "./assets/images/dogCollarShadowed.png");
     this.load.image("boneShadow", "./assets/images/dogBoneShadowed.png");
     this.load.image("toyShadow", "./assets/images/dogToyShadowed.png");
@@ -70,7 +71,7 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 3,
     });
 
-    this.scene.start('NeighborhoodScene');
+    this.scene.start('PreGameScene');
 
   }
 }

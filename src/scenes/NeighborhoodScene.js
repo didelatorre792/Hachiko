@@ -47,17 +47,17 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.enemyGroup = this.physics.add.group();
 
     //tutorial
-    this.add.text(400, 450, "Use         to move").setStyle({fontSize: "30px", color: "#000"});
+    this.add.text(400, 450, "Use         to move").setStyle({fontSize: "30px", color: "#fff"});
     this.add.image(538, 450, "arrows");
 
-    this.add.text(1100, 350, "Jump on platforms").setStyle({fontSize: "23px", color: "#000"});
+    this.add.text(1100, 350, "Jump on platforms").setStyle({fontSize: "23px", color: "#fff"});
     this.add.image(1250, 400, "arrow2").setScale(0.1);
     this.car1 = this.add.image(1300, 490, "car1").setScale(.45);
     this.box1 = this.platforms.create(1300, 494, "box").setSize(135); this.box1.alpha = 0;
 
     this.mailbox1 = this.add.image(1742, 475, "mailbox").setScale(.08);
     this.box2 = this.platforms.create(1737, 440, "box").setSize(40,10); this.box2.alpha = 0;
-    this.add.text(1700, 150, "Collect Hachikō's memory").setStyle({fontSize: "23px", color: "#000"});
+    this.add.text(1700, 150, "Collect Hachikō's memory").setStyle({fontSize: "23px", color: "#fff"});
     this.add.image(1850, 200, "arrow2").setScale(0.1);
     this.collectables.create(2182, 494, "dogCollar").setScale(.05).setSize(30, 25).setPosition(1910, 250);
 
@@ -75,6 +75,8 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.collectables.create(2766, 120, "dogBone").setScale(.2).setSize(42, 15).setPosition(2670, 50);
     this.mailbox3 = this.add.image(3317, 485, "mailbox").setScale(.062);
     this.box9 = this.platforms.create(3315, 457, "box").setSize(30, 10); this.box9.alpha = 0;
+    this.add.text(3390, 400, "This way").setStyle({fontSize: "20px", color: "#fff"});
+    this.add.image(3450, 450, "arrow3").setScale(.08);
 
     //player
     this.player = this.physics.add.sprite(250, 550, "player").setScale(.3);
@@ -112,7 +114,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
     //health variables
     var gunDir;
-    this.health = 500;
+    this.health = 300;
     var scoreFormated = this.zeroPad(this.health, 6);
     this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
     this.healthLabel.setScrollFactor(0);

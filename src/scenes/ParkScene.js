@@ -68,15 +68,15 @@ export default class ParkScene extends Phaser.Scene {
     this.lamppost3 = this.add.image(600, 463, "lamppost").setScale(.097);
     this.box18 = this.platforms.create(533, 340, "box").setSize(22, 9); this.box18.alpha = 0;
     this.box19 = this.platforms.create(668, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    this.bench = this.add.image(800, 470, "bench").setScale(.5);
-    this.box20 = this.platforms.create(796, 475, "box").setSize(202, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(1100, 350, "tree").setScale(.35);
-    this.box21 = this.platforms.create(1100, 340, "box").setSize(250, 5); this.box21.alpha = 0;
+    this.bench = this.add.image(1000, 470, "bench").setScale(.5);
+    this.box20 = this.platforms.create(996, 475, "box").setSize(202, 5); this.box20.alpha = 0;
+    this.tree = this.add.image(1300, 350, "tree").setScale(.35);
+    this.box21 = this.platforms.create(1300, 340, "box").setSize(250, 5); this.box21.alpha = 0;
 
     // boss
-    this.makeEnemy(1000, 470, .3);
-    this.makeEnemy(1500, 470, .3);
-    this.makeEnemy(1900, 470, .3);
+    //this.makeEnemy(1000, 470, .3);
+    //this.makeEnemy(1500, 470, .3);
+    //this.makeEnemy(1900, 470, .3);
     this.makeEnemy(2250, 470, .7);
 
     this.hachiko = this.physics.add.image(2300, 540, "hachiko").setScale(.2);

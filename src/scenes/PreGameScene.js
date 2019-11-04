@@ -116,15 +116,10 @@ export default class PreGameScene extends Phaser.Scene {
 
     this.time.addEvent({
       delay:13000,
-      callback:this.story,
-      callbackScope: this,
-    });
-
-    this.time.addEvent({
-      delay:14000,
       callback:this.story1,
       callbackScope: this,
     });
+
 
     this.time.addEvent({
       delay:15000,
@@ -138,6 +133,18 @@ export default class PreGameScene extends Phaser.Scene {
       callbackScope: this,
     });
 
+    this.time.addEvent({
+      delay:17000,
+      callback:this.story4,
+      callbackScope: this,
+    });
+
+    this.time.addEvent({
+      delay:18000,
+      callback:this.story5,
+      callbackScope: this,
+    });
+
     var cursors = this.input.keyboard.createCursorKeys();
     if (Phaser.Input.Keyboard.JustDown(this.enter)) {
       this.scene.start('NeighborhoodScene')
@@ -147,29 +154,34 @@ export default class PreGameScene extends Phaser.Scene {
   }
 
   text1(){
-    this.add.text(9000, 400, "Hachikō").setStyle({fontSize: "30px", color: "#000"});
-    this.add.image(9040, 475, "arrow1").setScale(.2);
+    this.add.text(9020, 400, "Hachikō").setStyle({fontSize: "30px", color: "#fff"});
+    this.add.image(9040, 475, "arrow1").setScale(.15);
   }
 
   text2(){
-    this.add.text(8735, 290, "Leader of thugs holding \nHachikō captive").setStyle({fontSize: "20px", color: "#000"});
-    this.add.image(8860, 375, "arrow2").setScale(.2);
-  }
-
-  story(){
-    this.add.text(120, 250, "Hachikō has been taken by thugs!").setStyle({fontSize: "30px", color: "#000"});
+    this.add.text(8735, 290, "Leader of thugs holding \nHachikō captive").setStyle({fontSize: "20px", color: "#fff"});
+    this.add.image(8860, 375, "arrow2").setScale(.15);
   }
 
   story1(){
-    this.add.text(190, 300, "He has forgotten his past.").setStyle({fontSize: "30px", color: "#000"});
+    this.add.text(140, 410, "You").setStyle({fontSize: "23px", color: "#fff"});
+    this.add.image(190, 460, "arrow2").setScale(.1);
   }
 
   story2(){
-    this.add.text(10, 350, "Collect all of his memories so he remembers you.").setStyle({fontSize: "27px", color: "#000"});
+    this.add.text(150, 160, "Hachikō has been taken by thugs!").setStyle({fontSize: "27px", color: "#000"});
   }
 
   story3(){
-    this.add.text(250, 400, "Press enter to start.").setStyle({fontSize: "20px", color: "#000"});
+    this.add.text(230, 210, "They wiped his memory.").setStyle({fontSize: "27px", color: "#000"});
+  }
+
+  story4(){
+    this.add.text(10, 260, "Collect all of his memories so he remembers you.").setStyle({fontSize: "27px", color: "#000"});
+  }
+
+  story5(){
+    this.add.text(270, 350, "Press enter to start.").setStyle({fontSize: "20px", color: "#fff"});
   }
 
   //sceneChange(){
