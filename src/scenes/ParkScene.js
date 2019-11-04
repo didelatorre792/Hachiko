@@ -48,12 +48,13 @@ export default class ParkScene extends Phaser.Scene {
     //player
     this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
-    console.log("player x in scene 2: ", this.player.x)
-    console.log(this.cameras.main.width + ", " + this.cameras.main.height);
+    //console.log("player x in scene 2: ", this.player.x)
+    //console.log(this.cameras.main.width + ", " + this.cameras.main.height);
 
 
     //background
-    this.add.image(1245, 300, "park");
+    this.background = this.add.image(1245, 300, "park");
+    this.background.alpha = 0.5;
 
     //groups
     this.platforms = this.physics.add.staticGroup();
@@ -142,14 +143,14 @@ export default class ParkScene extends Phaser.Scene {
     });
 
     if(this.scrollCam.scrollX > 2490){
-      console.log("done scrolling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      //console.log("done scrolling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       //this.scrollCam = this.cameras.main.setBounds(3050, 0, 4800, 300);
-      this.scrollCam.scrollX -= 1.25;
+      this.scrollCam.scrollX -= 1.5;
     }
 
     //If player has below 0 health
     if (this.health < 0){
-      console.log("died by damage");
+      //console.log("died by damage");
       this.parkMusic.stop(this.parkMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
@@ -262,7 +263,7 @@ export default class ParkScene extends Phaser.Scene {
       function(e){
         if (e.active){
           if (Phaser.Math.Distance.Between(e.x,e.y,this.player.x,this.player.y) < 300){
-            console.log("within shooting distance");
+            //console.log("within shooting distance");
             this.enemyShoot(this.player.x, this.player.y, e);
           }
         }
@@ -272,9 +273,9 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scrollCam.scrollX += 1.25;
+    this.scrollCam.scrollX += 1.5;
     if(this.player.x < this.scrollCam.scrollX - 75){
-      console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
+      //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.parkMusic.stop(this.parkMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
@@ -314,7 +315,7 @@ export default class ParkScene extends Phaser.Scene {
   //when hit by an enemy
   takeDamage(enemy, player){
     this.health -= 5;
-    console.log(this.health, "health");
+    //console.log(this.health, "health");
     this.healthLabel.text = "SCORE " + this.scoreformatted;
     this.girlOuch.play("girlOuch");
     //enemy.setImmovable();
@@ -328,7 +329,7 @@ export default class ParkScene extends Phaser.Scene {
     bullet.disableBody(true, true);
     var scoreformatted = this.zeroPad(this.health, 6);
     this.healthLabel.text = "SCORE " + this.scoreformatted;
-    console.log(this.health, "health");
+    //console.log(this.health, "health");
     bullet.disableBody(true, true);
   }
 
@@ -352,7 +353,7 @@ export default class ParkScene extends Phaser.Scene {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
   this.collectedText.text = "Memories: " + this.itemsCollected;
-  console.log(this.itemsCollected);
+  //console.log(this.itemsCollected);
   this.collectSound.play("collectSound");
   }
 
@@ -360,7 +361,7 @@ export default class ParkScene extends Phaser.Scene {
   gotHachiko(player, hachiko){
     //if (this.player.x > 7397 && this.player.x < 7403){
       this.parkMusic.stop();
-      console.log("got hachiko");
+      //console.log("got hachiko");
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
   //}
@@ -370,7 +371,7 @@ export default class ParkScene extends Phaser.Scene {
     bullet.disableBody(true, true);
     //only kill them if they are on screen
     if (bullet.x < this.scrollCam.scrollX + 800) {
-      console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
+      //console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
       enemy.disableBody(true, true);
       this.enemyGrunt.play();
     };

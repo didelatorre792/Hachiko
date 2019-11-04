@@ -86,6 +86,9 @@ export default class PreGameScene extends Phaser.Scene {
     //gun
     this.nerf = this.add.sprite(280, 520, "nerf");
     this.nerf.setScale(.03);
+
+    this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
   }
 
   update (time, delta) {
@@ -130,10 +133,17 @@ export default class PreGameScene extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay:19000,
-      callback:this.sceneChange,
+      delay:16000,
+      callback:this.story3,
       callbackScope: this,
     });
+
+    var cursors = this.input.keyboard.createCursorKeys();
+    if (Phaser.Input.Keyboard.JustDown(this.enter)) {
+      this.scene.start('NeighborhoodScene')
+    }
+
+
   }
 
   text1(){
@@ -158,9 +168,13 @@ export default class PreGameScene extends Phaser.Scene {
     this.add.text(10, 350, "Collect all of his memories so he remembers you.").setStyle({fontSize: "27px", color: "#000"});
   }
 
-  sceneChange(){
-    this.scene.start('NeighborhoodScene');
+  story3(){
+    this.add.text(250, 400, "Press enter to start.").setStyle({fontSize: "20px", color: "#000"});
   }
+
+  //sceneChange(){
+  //  this.scene.start('NeighborhoodScene');
+  //}
 
   delay(){
     this.scrollCam.scrollX -= 35;

@@ -24,6 +24,7 @@ export default class EndScene extends Phaser.Scene {
       this.add.text(this.centerX - 128, this.centerY + 200, "Press ENTER to restart")
     } else if (this.itemsCollected == 5) {
       this.cameras.main.setBackgroundColor(0xECCE00);
+      this.add.image(this.centerX, 150, "hachiko").setScale();
       this.add.text(this.centerX - 175, this.centerY, "You collected all of Hachikō's things!", 40);
       this.add.text(this.centerX - 230, this.centerY + 80, "You got an A+ and Hachikō is coming home with you!");
       this.add.text(this.centerX - 128, this.centerY + 200, "Press ENTER to restart")

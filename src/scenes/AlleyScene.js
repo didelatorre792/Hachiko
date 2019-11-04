@@ -51,7 +51,8 @@ export default class AlleyScene extends Phaser.Scene {
     this.scrollCam.scrollX = 0;
 
     //background
-    this.add.image(1700, 300, "alley");
+    this.background = this.add.image(1700, 300, "alley");
+    this.background.alpha = 0.5;
 
     //groups
     this.platforms = this.physics.add.staticGroup();
@@ -80,12 +81,12 @@ export default class AlleyScene extends Phaser.Scene {
     this.box16 = this.platforms.create(2430, 455, "box").setSize(60, 20); this.box16.alpha = 0;
     this.sign3 = this.add.image(2750, 270, "sign3").setScale(.1);
     this.box17 = this.platforms.create(2750, 270, "box").setSize(100, 25); this.box17.alpha = 0;
-    this.collectables.create(3140, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 15);
+    this.collectables.create(3140, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 40);
 
     //player
     this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
-    console.log("player x in scene 2: ", this.player.x);
+    ////console.log("player x in scene 2: ", this.player.x);
 
     this.makeEnemy(1600, 530, .3);
     this.makeEnemy(2100, 530, .3);
@@ -151,7 +152,7 @@ export default class AlleyScene extends Phaser.Scene {
 
     //If player has below 0 health
     if (this.health < 0){
-      console.log("Negative health");
+      ////console.log("Negative health");
       this.alleyMusic.stop(this.alleyMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
@@ -272,14 +273,14 @@ export default class AlleyScene extends Phaser.Scene {
     if (this.player.x > 3395) {
       this.alleyMusic.stop(this.alleyMusicConfig);
       this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected});
-      console.log("scene switch 2")
+      //console.log("scene switch 2")
     };
   }
 
   delay(){
-    this.scrollCam.scrollX += 1.25;
+    this.scrollCam.scrollX += 1.5;
     if(this.player.x < this.scrollCam.scrollX - 75){
-      console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
+      //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.alleyMusic.stop(this.alleyMusicConfig)
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
@@ -330,14 +331,14 @@ export default class AlleyScene extends Phaser.Scene {
     bullet.disableBody(true, true);
     var scoreFormatted = this.zeroPad(this.health, 6);
     this.healthLabel.text = "Health: " + scoreFormatted;
-    console.log(this.health, "is current health");
+    //console.log(this.health, "is current health");
     bullet.disableBody(true, true);
   }
 
   //creating thugs
   makeEnemy(x, y, scale){
     this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
-    console.log("enemy coordinates:", x, y);
+    //console.log("enemy coordinates:", x, y);
     var thug = this.thug;
     // this.tweens.add({
     //     targets: thug,
@@ -357,16 +358,16 @@ export default class AlleyScene extends Phaser.Scene {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
   this.collectedText.text = "Memories: " + this.itemsCollected;
-  console.log("number of items collected is " + this.itemsCollected);
+  //console.log("number of items collected is " + this.itemsCollected);
   this.collectSound.play("collectSound");
   }
-
+//console.log
   //damaging the enemy
   hitEnemy (bullet, enemy) {
     bullet.disableBody(true, true);
     //only kill them if they are on screen
     if (bullet.x < this.scrollCam.scrollX + 800) {
-      // console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
+      // //console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
       enemy.disableBody(true, true);
       this.enemyGrunt.play();
     };

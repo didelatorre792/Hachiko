@@ -10,7 +10,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
   create(){
     this.neighborhoodMusic = this.sound.add("neighborhoodBackgroundMusic", {volume: 0.5});
-    var neighborhoodMusicCongif = {
+    this.neighborhoodMusicConfig = {
       loop: true
     };
     this.neighborhoodMusic.play(this.neighborhoodMusicConfig);
@@ -38,7 +38,8 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.scrollCam.scrollX = 0;
 
     //background
-    this.add.image(1750, 300, "neighborhood");
+    this.background = this.add.image(1750, 300, "neighborhood");
+    this.background.alpha = 0.5;
 
     //groups
     this.platforms = this.physics.add.staticGroup();
@@ -52,7 +53,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.add.text(1100, 350, "Jump on platforms").setStyle({fontSize: "23px", color: "#000"});
     this.add.image(1250, 400, "arrow2").setScale(0.1);
     this.car1 = this.add.image(1300, 490, "car1").setScale(.45);
-    this.box1 = this.platforms.create(1320, 494, "box").setSize(135); this.box1.alpha = 0;
+    this.box1 = this.platforms.create(1300, 494, "box").setSize(135); this.box1.alpha = 0;
 
     this.mailbox1 = this.add.image(1742, 475, "mailbox").setScale(.08);
     this.box2 = this.platforms.create(1737, 440, "box").setSize(40,10); this.box2.alpha = 0;
@@ -133,13 +134,13 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
     //Scrolling screen
     this.physics.world.setBounds(0, 0, 4000, 550);
-    this.scrollCam.scrollX += 1.25;
+    this.scrollCam.scrollX += 1.5;
 
     //If player is off screen
     if(this.player.x < this.scrollCam.scrollX - 75){
       this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
-      console.log("death by scroll")
+      //console.log("death by scroll")
     }
 
     //Create cursor keys and assign events
@@ -254,7 +255,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
       function(e){
         if (e.active){
           if (Phaser.Math.Distance.Between(e.x,e.y,this.player.x,this.player.y) < 300){
-            console.log("woo");
+            //console.log("woo");
             this.enemyShoot(this.player.x, this.player.y, e);
           }
         }
@@ -264,8 +265,8 @@ export default class NeighborhoodScene extends Phaser.Scene {
       this.position = this.player.x;
       this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
       this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected});
-      console.log("scene switch")
-      console.log("player x in scene 1: ", this.player.x)
+      //console.log("scene switch")
+      //console.log("player x in scene 1: ", this.player.x)
     }
   }
 
@@ -289,7 +290,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     dogItem.disableBody(true, true);
     this.itemsCollected += 1;
     this.collectedText.text = "Memories: " + this.itemsCollected;
-    console.log("number of items collected is " + this.itemsCollected);
+    //console.log("number of items collected is " + this.itemsCollected);
     this.collectSound.play("collectSound");
   }
 
