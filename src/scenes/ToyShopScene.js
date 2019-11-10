@@ -1,6 +1,6 @@
-export default class ParkScene extends Phaser.Scene {
+export default class ToyShopScene extends Phaser.Scene {
   constructor () {
-    super('ParkScene');
+    super('ToyShopScene');
   }
   init (data) {
     // Initialization code goes here
@@ -10,11 +10,16 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   create(){
-    this.parkMusic = this.sound.add("parkBackgroundMusic");
-    this.parkMusicConfig = {
+    //music
+    /*this.toyShopMusic = this.sound.add("toyShopBackgroundMusic");
+    this.toyShopMusic.addMarker({
+      start: 0,
+      duration: 20
+    });
+    this.toyShopMusicConfig = {
       loop: true
     };
-    this.parkMusic.play(this.parkMusicConfig);
+    this.toyShopMusic.play(this.toyShopMusicConfig);*/
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
@@ -42,62 +47,37 @@ export default class ParkScene extends Phaser.Scene {
     });
 
     //camera
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 2400, 600);
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 3500, 600);
     this.scrollCam.scrollX = 0;
 
-    //player
-    this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
-    this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
-    //console.log("player x in scene 2: ", this.player.x)
-    //console.log(this.cameras.main.width + ", " + this.cameras.main.height);
-
-
     //background
-    this.background = this.add.image(1245, 300, "park");
+    this.background = this.add.image(1750, 300, "toyShop");
     this.background.alpha = 0.5;
 
     //groups
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.group();
+    this.movingCar = this.physics.add.staticGroup();
 
-    //park
-    this.collectables.create(717, 525, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(380, 50);
-    this.trashcan4 = this.add.image(450, 545, "trashcan").setScale(.12);
-    this.box17 = this.platforms.create(450, 543, "box").setSize(60, 90); this.box17.alpha = 0;
-    this.lamppost3 = this.add.image(600, 463, "lamppost").setScale(.097);
-    this.box18 = this.platforms.create(533, 340, "box").setSize(22, 9); this.box18.alpha = 0;
-    this.box19 = this.platforms.create(668, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    this.bench = this.add.image(1000, 470, "bench").setScale(.5);
-    this.box20 = this.platforms.create(996, 475, "box").setSize(202, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(1300, 350, "tree").setScale(.35);
-    this.box21 = this.platforms.create(1300, 340, "box").setSize(250, 5); this.box21.alpha = 0;
-
-    // boss
-    //this.makeEnemy(1000, 470, .3);
-    //this.makeEnemy(1500, 470, .3);
-    //this.makeEnemy(1900, 470, .3);
-    this.makeEnemy(2250, 470, .7);
-
-    this.hachiko = this.physics.add.image(2300, 540, "hachiko").setScale(.2);
-    this.hachiko.setCollideWorldBounds(true);
+    //player
+    this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
+    this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
 
     //gun
-    this.nerf = this.add.sprite(this.player.x + 10 ,520, "nerf");
+    this.nerf = this.add.sprite(this.player.x + 10, 520, "nerf");
     this.nerf.setScale(.03);
-    //Gun and Bullets
+
+    //bullets
     var bullets;
     var enemyBullets;
-
     this.nextFire = 0;
     this.fireRate = 200;
     this.speed = 1000;
-
     this.bullets = this.physics.add.group({
       defaultKey:"bullet",
       maxSize: 100
     });
-
     this.enemyBullets = this.physics.add.group({
       defaultKey:"bullet",
       maxSize: 100
@@ -105,7 +85,6 @@ export default class ParkScene extends Phaser.Scene {
 
     //to shoot
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
 
     // make platform and player collid
     this.physics.add.collider(this.player, this.platforms);
@@ -119,7 +98,7 @@ export default class ParkScene extends Phaser.Scene {
     //health variables
     var gunDir;
     var scoreFormatted = this.zeroPad(this.health, 6);
-    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormatted);
+    this.healthLabel = this.add.text(5, 5, "Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
 
     this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
@@ -134,30 +113,22 @@ export default class ParkScene extends Phaser.Scene {
 
     //Scrolling screen
     this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
-
     this.time.addEvent({
-      delay:300,
-      callback:this.delay,
+      delay: 300,
+      callback: this.delay,
       callbackScope: this,
       loop: false,
     });
 
-    if(this.scrollCam.scrollX > 2490){
-      //console.log("done scrolling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      //this.scrollCam = this.cameras.main.setBounds(3050, 0, 4800, 300);
-      this.scrollCam.scrollX -= 1.5;
-    }
-
     //If player has below 0 health
     if (this.health < 0){
-      //console.log("died by damage");
-      this.parkMusic.stop(this.parkMusicConfig);
+      ////console.log("Negative health");
+      //this.toyShopMusic.stop(this.toyShopMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
+
     //Create cursor keys and assign events
     var cursors = this.input.keyboard.createCursorKeys();
-    var velocity = -400;
-    var stopped = 0;
 
     //moving with velocity and the gun
     if (cursors.left.isDown) {
@@ -187,15 +158,15 @@ export default class ParkScene extends Phaser.Scene {
       this.jumpSound.play("jumpSound");
     } else if (cursors.down.isDown) {
       this.player.setVelocityY(400);
-      this.nerf.y = this.player.y;
+      this.nerf.y = this.player.y + 30;
       this.player.anims.play("crouch", true);
     }
     if (cursors.up.isUp) {
       this.nerf.y = this.player.y;
     }
-    /*if (this.nerf.x < this.scrollCam.worldView.x - 5){
-      this.nerf.x = this.player.x + 10;
-    }*/
+    //if (this.nerf.x < this.scrollCam.worldView.x - 5){
+    //  this.nerf.x = this.player.x + 10;
+   // }
 
     //bullets detection
     this.bullets.children.each(
@@ -212,9 +183,9 @@ export default class ParkScene extends Phaser.Scene {
             b.setActive(false);
           }else if (b.y > this.cameras.main.height) {
             b.setActive(false);
-          }else if(b.x <0){
+          }else if(b.x < 0){
             b.setActive(false);
-          }else if (b.x > this.cameras.main.width) {
+          }else if (b.x > this.scrollCam.scrollX + 800) {
             b.setActive(false);
           }
         }
@@ -237,7 +208,7 @@ export default class ParkScene extends Phaser.Scene {
             b.setActive(false);
           }else if(b.x <0){
             b.setActive(false);
-          }else if (b.x > this.cameras.main.width) {
+          }else if (b.x > this.scrollCam.scrollX) {
             b.setActive(false);
           }
         }
@@ -263,20 +234,24 @@ export default class ParkScene extends Phaser.Scene {
       function(e){
         if (e.active){
           if (Phaser.Math.Distance.Between(e.x,e.y,this.player.x,this.player.y) < 300){
-            //console.log("within shooting distance");
             this.enemyShoot(this.player.x, this.player.y, e);
           }
         }
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
+    if (this.player.x > 3350) {
+      //this.toyShopMusic.stop(this.toyShopMusicConfig);
+      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected});
+      //console.log("scene switch 2")
+    };
   }
 
   delay(){
     this.scrollCam.scrollX += 1.5;
-    if(this.player.x < this.scrollCam.scrollX - 100){
+    if(this.player.x < this.scrollCam.scrollX - 75){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
-      this.parkMusic.stop(this.parkMusicConfig);
+      //this.toyShopMusic.stop(this.toyShopMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
   }
@@ -284,8 +259,6 @@ export default class ParkScene extends Phaser.Scene {
   enemyShoot(playerX, playerY, e){
     var betweenPoints = Phaser.Math.Angle.BetweenPoints;
     var angle = betweenPoints(e, this.player);
-    //var angle = betweenPoints(e,this.player);
-
     var velocityFromRotation = this.physics.velocityFromRotation;
     var velocity = new Phaser.Math.Vector2();
     velocityFromRotation(angle, 400, velocity);
@@ -305,7 +278,7 @@ export default class ParkScene extends Phaser.Scene {
       bullet//right
         .enableBody(true, this.nerf.x, this.nerf.y, true, true)
         .setVelocity(velocity.x - 1000, velocity.y);
-    }else if (direction == 'Reg') {
+    } else if (direction == 'Reg') {
       bullet//left
         .enableBody(true, this.nerf.x, this.nerf.y, true, true)
         .setVelocity(velocity.x + 1000, velocity.y);
@@ -315,63 +288,56 @@ export default class ParkScene extends Phaser.Scene {
   //when hit by an enemy
   takeDamage(enemy, player){
     this.health -= 5;
-    //console.log(this.health, "health");
-    this.healthLabel.text = "SCORE " + this.scoreformatted;
     this.girlOuch.play("girlOuch");
-    //enemy.setImmovable();
-    //enemy.setVelocity = -(player.velocity);
-    //add a red tint later to indicate damage
+    //console.log(this.health, "health");
+    this.healthLabel.text = "Health: " + this.scoreFormatted;
+
+
   }
 
   takeDamageFromEnemyBullets(bullet, player){
     this.health -= 10;
     this.girlOuch.play("girlOuch");
     bullet.disableBody(true, true);
-    var scoreformatted = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "SCORE " + this.scoreformatted;
-    //console.log(this.health, "health");
+    var scoreFormatted = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "Health: " + scoreFormatted;
+    //console.log(this.health, "is current health");
     bullet.disableBody(true, true);
   }
 
   //creating thugs
   makeEnemy(x, y, scale){
     this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
+    //console.log("enemy coordinates:", x, y);
     var thug = this.thug;
     // this.tweens.add({
     //     targets: thug,
-    //     x: x+10,
+    //     x: x-50,
     //     y: y,
     //     ease: "Linear",
     //     delay: 2000,
     //     duration: 1500,
     //     yoyo: true,
-    //     repeat: -1});
+    //     repeat: -1
+    //   });
   }
+
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
   this.collectedText.text = "Memories: " + this.itemsCollected;
-  //console.log(this.itemsCollected);
+  //console.log("number of items collected is " + this.itemsCollected);
   this.collectSound.play("collectSound");
   }
-
-  //winning condition
-  gotHachiko(player, hachiko){
-    //if (this.player.x > 7397 && this.player.x < 7403){
-      this.parkMusic.stop();
-      //console.log("got hachiko");
-      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
-    }
-  //}
-
+//console.log
   //damaging the enemy
   hitEnemy (bullet, enemy) {
     bullet.disableBody(true, true);
     //only kill them if they are on screen
     if (bullet.x < this.scrollCam.scrollX + 800) {
-      //console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
+      // //console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
       enemy.disableBody(true, true);
       this.enemyGrunt.play();
     };

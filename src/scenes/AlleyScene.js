@@ -144,7 +144,7 @@ export default class AlleyScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(0, 0, 4000, 550);
+    this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
     this.time.addEvent({
       delay: 300,
       callback: this.delay,
@@ -272,9 +272,9 @@ export default class AlleyScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
-    if (this.player.x > 3395) {
+    if (this.player.x > 3350) {
       this.alleyMusic.stop(this.alleyMusicConfig);
-      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected});
+      this.scene.start('ToyShopScene', {health: this.health, itemsCollected: this.itemsCollected});
       //console.log("scene switch 2")
     };
   }

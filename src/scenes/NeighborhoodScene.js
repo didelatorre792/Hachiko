@@ -135,11 +135,11 @@ export default class NeighborhoodScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(0, 0, 4000, 550);
+    this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
     this.scrollCam.scrollX += 1.5;
 
     //If player is off screen
-    if(this.player.x < this.scrollCam.scrollX - 75){
+    if(this.player.x < this.scrollCam.scrollX){
       this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
       //console.log("death by scroll")
@@ -263,7 +263,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
         }
       }.bind(this)//for can't read property 'physics' of undefined
     );
-    if (this.player.x > 3485) {
+    if (this.player.x > 3450) {
       this.position = this.player.x;
       this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
       this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected});

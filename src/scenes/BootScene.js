@@ -6,6 +6,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("neighborhood", "./assets/images/2.0/neighbourhood3.0.jpg");
     this.load.image("alley", "./assets/images/2.0/alley3.0.png");
     this.load.image("park", "./assets/images/2.0/park3.0.png");
+    this.load.image("toyShop", "./assets/images/toyShop.png")
     this.load.image("arrows", "./assets/images/arrows.png");
     //this.load.image("spacebar", "./assets/images/spacebar.png");
     this.load.image("car1", "./assets/images/car11.png");
@@ -71,7 +72,7 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 3,
     });
 
-    this.scene.start('PreGameScene');
+    this.scene.start('NeighborhoodScene');
 
   }
 }
