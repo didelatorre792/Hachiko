@@ -13,7 +13,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     var neighborhoodMusicCongif = {
       loop: true
     };
-    this.neighborhoodMusic.play(neighborhoodMusicCongif);
+    //this.neighborhoodMusic.play(neighborhoodMusicCongif);
     this.nerfShootSound = this.sound.add("nerfShoot");
     this.nerfShootSound.addMarker({
       name: 'nerfShootSound',
