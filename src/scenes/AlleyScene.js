@@ -57,10 +57,10 @@ export default class AlleyScene extends Phaser.Scene {
     //groups
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
-    this.enemyGroup = this.physics.add.group();
+    this.enemyGroup = this.physics.add.staticGroup();
 
     // Tutorial
-    //this.makeEnemy(1000, 530, .3);
+    this.makeEnemy(1000, 530, .3, 100, 100);
     this.add.text(300, 370, "Press space to shoot").setStyle({fontSize: "30px", color: "#000"});
     // this.add.image(630, 450, "spacebar"); can't find one lol
 
@@ -88,18 +88,18 @@ export default class AlleyScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
     console.log("player x in scene 2: ", this.player.x);
 
-    // this.makeEnemy(1600, 530, .3);
-    // this.makeEnemy(2100, 530, .3);
-    // this.makeEnemy(2390, 525, .3);
-    // this.makeEnemy(2850, 505, .3);
-    // this.makeEnemy(3100, 505, .3);
+    this.makeEnemy(1600, 530, .3, .5, 100, 100, 1600, 530);
+    this.makeEnemy(2100, 530, .3, .5, 100, 100, 2100, 530);
+    this.makeEnemy(2390, 525, .3, .5, 100, 100, 2390, 525);
+    this.makeEnemy(2850, 505, .3, .5, 100, 100, 2850, 505);
+    this.makeEnemy(3100, 505, .3, .5, 100, 100, 3100, 505);
 
-    this.add.image(1000, 530, "thug").setScale(.3);
-    this.add.image(1600, 530, "thug").setScale(.3);
-    this.add.image(2100, 530, "thug").setScale(.3);
-    this.add.image(2390, 525, "thug").setScale(.3);
-    this.add.image(2850, 505, "thug").setScale(.3);
-    this.add.image(3100, 505, "thug").setScale(.3);
+    // this.add.image(1000, 530, "thug").setScale(.3);
+    // this.add.image(1600, 530, "thug").setScale(.3);
+    // this.add.image(2100, 530, "thug").setScale(.3);
+    // this.add.image(2390, 525, "thug").setScale(.3);
+    // this.add.image(2850, 505, "thug").setScale(.3);
+    // this.add.image(3100, 505, "thug").setScale(.3);
 
     //gun
     this.nerf = this.add.sprite(this.player.x + 10, 520, "nerf");
@@ -144,7 +144,7 @@ export default class AlleyScene extends Phaser.Scene {
   }
 
   update (time, delta) {
-    console.log("Enter update");
+    // console.log("Enter update");
     // this.enemyGroup.children.each(
     //   function(b){
     //     if (b.active){
@@ -216,7 +216,7 @@ export default class AlleyScene extends Phaser.Scene {
     //  this.nerf.x = this.player.x + 10;
    // }
 
-   console.log("Middle of update");
+   // console.log("Middle of update");
    // this.enemyGroup.children.each(
    //   function(b){
    //     if (b.active){
@@ -272,7 +272,7 @@ export default class AlleyScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
     );
 
-    //enemy detection again player
+    //enemy hits player
     this.enemyGroup.children.each(
       function(e){
         if (e.active){
@@ -303,7 +303,7 @@ export default class AlleyScene extends Phaser.Scene {
       console.log("scene switch 2")
     };
 
-    console.log("Exiting update");
+    // console.log("Exiting update");
     // this.enemyGroup.children.each(
     //   function(b){
     //     if (b.active){
@@ -360,7 +360,8 @@ export default class AlleyScene extends Phaser.Scene {
     this.health -= 5;
     this.girlOuch.play("girlOuch");
     //console.log(this.health, "health");
-    this.healthLabel.text = "Health: " + this.scoreFormatted;
+    var scoreFormatted = this.zeroPad(this.health, 6);
+    this.healthLabel.text = "Health: " + scoreFormatted;
 
 
   }
@@ -377,21 +378,23 @@ export default class AlleyScene extends Phaser.Scene {
   }
 
   //creating thugs
-  makeEnemy(x, y, scale){
+  makeEnemy(x, y, scale, sizeX, sizeY, posX, posY){
     console.log("enter makeEnemy");
-    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
+    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setActive(true).setSize(sizeX, sizeY);
+    //this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
+
     //console.log("enemy coordinates:", x, y);
     var thug = this.thug;
-    // this.tweens.add({
-    //     targets: thug,
-    //     x: x-50,
-    //     y: y,
-    //     ease: "Linear",
-    //     delay: 2000,
-    //     duration: 1500,
-    //     yoyo: true,
-    //     repeat: -1
-    //   });
+    this.tweens.add({
+        targets: thug,
+        x: x-50,
+        y: y,
+        ease: "Linear",
+        delay: 2000,
+        duration: 1500,
+        yoyo: true,
+        repeat: -1
+      });
   }
 
 

@@ -117,11 +117,11 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.healthLabel.setScrollFactor(0);
 
     this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
-    // this.add.image(200, 20, "collarShadow").setScale(.25).setScrollFactor(0);
-    // this.add.image(250, 15, "boneShadow").setScale(.25).setScrollFactor(0);
-    // this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
-    // this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
-    // this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
+    this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
+    this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0).setTint(0);
+    this.add.image(300, 20, "dogToy").setScale(.04).setScrollFactor(0).setTint(0);
+    this.add.image(350, 20, "dogBowl").setScale(.18).setScrollFactor(0).setTint(0);
+    this.add.image(410, 25, "dogPicture").setScale(0.05).setScrollFactor(0).setTint(0);
   }
 
   update (time, delta) {
