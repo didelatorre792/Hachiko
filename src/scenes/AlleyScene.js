@@ -154,7 +154,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.healthLabel = this.add.text(5, 5, "Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
 
-    this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
+    //this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
 
     var deathScene;
 
@@ -422,7 +422,7 @@ export default class AlleyScene extends Phaser.Scene {
   collectDogItem(player, dogItem) {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
-  this.collectedText.text = "Memories: " + this.itemsCollected;
+  //this.collectedText.text = "Memories: " + this.itemsCollected;
   console.log(this.player.x)
   if (this.player.x > 2100 && this.player.x < 2200) {
     this.add.image(300, 20, "dogToy").setScale(.04).setScrollFactor(0);

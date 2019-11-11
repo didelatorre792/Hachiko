@@ -142,7 +142,7 @@ export default class ParkScene extends Phaser.Scene {
     this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
 
-    this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
+    //this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
 
     var deathScene;
   }
@@ -377,7 +377,7 @@ export default class ParkScene extends Phaser.Scene {
   collectDogItem(player, dogItem) {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
-  this.collectedText.text = "Memories: " + this.itemsCollected;
+  //this.collectedText.text = "Memories: " + this.itemsCollected;
   if (this.player.x < 500 && this.player.x > 450) {
     this.add.image(410, 25, "dogPicture").setScale(0.1).setScrollFactor(0);
   }
