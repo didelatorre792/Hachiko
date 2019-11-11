@@ -94,9 +94,10 @@ export default class AlleyScene extends Phaser.Scene {
     this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
     this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
     this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
-    if (this.dogCollarCollect) {
+    if (this.dogCollarCollect == true) {
       this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
-    } if (this.dogBoneCollect) {
+    }
+    if (this.dogBoneCollect == true) {
       this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0);
     };
 

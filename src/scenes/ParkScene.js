@@ -63,7 +63,7 @@ export default class ParkScene extends Phaser.Scene {
     //groups
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
-    this.enemyGroup = this.physics.add.group();
+    this.enemyGroup = this.physics.add.staticGroup();
 
     //park
     this.collectables.create(632, 250, "dogPicture").setScale(0.1).setSize(35, 45).setPosition(480, 50);
@@ -83,13 +83,13 @@ export default class ParkScene extends Phaser.Scene {
     this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
     this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
     this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
-    if (this.dogCollarCollect) {
+    if (this.dogCollarCollect == true) {
       this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
-    } if (this.dogBoneCollect) {
+    } if (this.dogBoneCollect == true) {
       this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0);
-    } if (this.dogToyCollect) {
+    } if (this.dogToyCollect == true) {
       this.add.image(300, 20, "dogToy").setScale(.05).setScrollFactor(0);
-    } if (this.dogBowlCollect) {
+    } if (this.dogBowlCollect == true) {
       this.add.image(350, 20, "dogBowl").setScale(.2).setScrollFactor(0);
     };
 
@@ -355,7 +355,7 @@ export default class ParkScene extends Phaser.Scene {
 
   //creating thugs
   makeEnemy(x, y, scale){
-    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
+    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setActive(true);
     var thug = this.thug;
     // this.tweens.add({
     //     targets: thug,
