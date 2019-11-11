@@ -84,8 +84,6 @@ export default class AlleyScene extends Phaser.Scene {
     this.sign3 = this.add.image(2750, 270, "sign3").setScale(.1);
     this.box17 = this.platforms.create(2750, 270, "box").setSize(100, 25); this.box17.alpha = 0;
     this.collectables.create(3140, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 40);
-    this.add.text(3290, 400, "This way").setStyle({fontSize: "20px", color: "#fff"});
-    this.add.image(3350, 450, "arrow3").setScale(.08);
 
     // display collectables
     this.add.image(200, 20, "collarShadow").setScale(.05).setScrollFactor(0);
