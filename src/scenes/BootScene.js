@@ -24,6 +24,8 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("dogBowl", "./assets/images/dogBowl.png");
     this.load.image("dogCollar", "./assets/images/dogCollar.png");
     this.load.image("dogToy", "./assets/images/dogToy.png");
+    this.load.image("dogToy2", "./assets/images/dogToy2.png");
+    this.load.image("dogToy3", "./assets/images/dogToy3.png");
     this.load.image("dogPicture", "./assets/images/dogPicture.png");
     this.load.image("thug", "./assets/images/ThugAlive.png");
     this.load.image("hachiko", "./assets/images/hachikogif.gif");
@@ -33,15 +35,22 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("arrow1", "./assets/images/arrow1.png");
     this.load.image("arrow2", "./assets/images/arrow2.png");
     this.load.image("arrow3", "./assets/images/arrow3.png");
-    this.load.image("collarShadow", "./assets/images/dogCollarShadowed.png");
-    this.load.image("boneShadow", "./assets/images/dogBoneShadowed.png");
-    this.load.image("toyShadow", "./assets/images/dogToyShadowed.png");
-    this.load.image("bowlShadow", "./assets/images/dogBowlShadowed.png");
-    this.load.image("picShadow", "./assets/images/dogPictureShadowed.png");
+
+    //this.load.video("titleVideo", "./assets/images/titleVideo.mp4");
+
     this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheetwithCrouch.png", {
       frameWidth:545/3,
       frameHeight: 790/3
     });
+    this.load.spritesheet("movingCar", "./assets/spritesheet/movingCar.png", {
+      frameWidth: 200,
+      frameHeight: 150
+    });
+    this.load.spritesheet("movingCar2", "./assets/spritesheet/movingCar2.png", {
+      frameWidth: 200,
+      frameHeight: 150
+    });
+
     this.load.audio("collect", "./assets/sounds/collect.wav");
     this.load.audio("enemyGrunt", "./assets/sounds/enemyGrunt.wav");
     this.load.audio("girlOuch", "./assets/sounds/girlOuch.mp3");
@@ -70,6 +79,19 @@ export default class BootScene extends Phaser.Scene {
       key: "crouch",
       frames: this.anims.generateFrameNumbers("player", {start: 7, end: 9 }),
       frameRate: 3,
+    });
+
+    this.anims.create({
+      key: "drive",
+      frames: this.anims.generateFrameNumbers("movingCar", {start: 0, end: 3}),
+      frameRate: 10,
+      repeat: -1
+    });
+    this.anims.create({
+      key: "drive2",
+      frames: this.anims.generateFrameNumbers("movingCar2", {start: 0, end: 3}),
+      frameRate: 10,
+      repeat: -1
     });
 
     this.scene.start('NeighborhoodScene');

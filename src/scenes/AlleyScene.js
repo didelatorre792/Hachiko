@@ -84,14 +84,16 @@ export default class AlleyScene extends Phaser.Scene {
     this.box16 = this.platforms.create(2430, 455, "box").setSize(60, 20); this.box16.alpha = 0;
     this.sign3 = this.add.image(2750, 270, "sign3").setScale(.1);
     this.box17 = this.platforms.create(2750, 270, "box").setSize(100, 25); this.box17.alpha = 0;
-    this.collectables.create(3140, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 40);
+    this.collectables.create(3140, 205, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 140);
 
     // display collectables
-    this.add.image(200, 20, "collarShadow").setScale(.05).setScrollFactor(0);
-    this.add.image(250, 15, "boneShadow").setScale(.2).setScrollFactor(0);
-    this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
-    this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
-    this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
+    this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
+    this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0).setTint(0);
+    this.add.image(300, 20, "dogToy").setScale(.04).setScrollFactor(0).setTint(0);
+    this.add.image(350, 20, "dogBowl").setScale(.18).setScrollFactor(0).setTint(0);
+    this.add.image(410, 25, "dogToy3").setScale(0.3).setScrollFactor(0).setTint(0);
+    this.add.image(455, 20, "dogToy2").setScale(0.3).setScrollFactor(0).setTint(0);
+    this.add.image(500, 25, "dogPicture").setScale(0.1).setScrollFactor(0).setTint(0);
     if (this.dogCollarCollect == true) {
       this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
     }
@@ -334,7 +336,7 @@ export default class AlleyScene extends Phaser.Scene {
 
   delay(){
     console.log("enter delay");
-    this.scrollCam.scrollX += 1.25;
+    this.scrollCam.scrollX += 2;
     if(this.player.x < this.scrollCam.scrollX - 75){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.alleyMusic.stop(this.alleyMusicConfig)

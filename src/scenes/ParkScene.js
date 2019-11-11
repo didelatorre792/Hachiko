@@ -10,6 +10,8 @@ export default class ParkScene extends Phaser.Scene {
     this.dogCollarCollect = data.dogCollarCollect;
     this.dogBoneCollect = data.dogBoneCollect;
     this.dogToyCollect = data.dogToyCollect;
+    this.dogToy2Collect = data.dogToy2Collect;
+    this.dogToy3Collect = data.dogToy3Collect;
     this.dogBowlCollect = data.dogBowlCollect;
   }
 
@@ -78,20 +80,27 @@ export default class ParkScene extends Phaser.Scene {
     this.box21 = this.platforms.create(1300, 340, "box").setSize(250, 5); this.box21.alpha = 0;
 
     // display collectables
-    this.add.image(200, 20, "collarShadow").setScale(.05).setScrollFactor(0);
-    this.add.image(250, 15, "boneShadow").setScale(.2).setScrollFactor(0);
-    this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
-    this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
-    this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
+    this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
+    this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0).setTint(0);
+    this.add.image(300, 20, "dogToy").setScale(.04).setScrollFactor(0).setTint(0);
+    this.add.image(350, 20, "dogBowl").setScale(.18).setScrollFactor(0).setTint(0);
+    this.add.image(410, 25, "dogToy3").setScale(0.3).setScrollFactor(0).setTint(0);
+    this.add.image(455, 20, "dogToy2").setScale(0.3).setScrollFactor(0).setTint(0);
+    this.add.image(500, 25, "dogPicture").setScale(0.1).setScrollFactor(0).setTint(0);
     if (this.dogCollarCollect == true) {
       this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
     } if (this.dogBoneCollect == true) {
       this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0);
     } if (this.dogToyCollect == true) {
       this.add.image(300, 20, "dogToy").setScale(.05).setScrollFactor(0);
-    } if (this.dogBowlCollect == true) {
+    }  if (this.dogBowlCollect == true) {
       this.add.image(350, 20, "dogBowl").setScale(.2).setScrollFactor(0);
+    } if (this.dogToy2Collect == true) {
+      this.add.image(455, 20, "dogToy2").setScale(.3).setScrollFactor(0);
+    } if (this.dogToy3Collect == true) {
+      this.add.image(410, 25, "dogToy3").setScale(.3).setScrollFactor(0);
     };
+
 
     // boss
     this.makeEnemy(1100, 570, .3, 50, 100, 1000, 470);
@@ -167,7 +176,7 @@ export default class ParkScene extends Phaser.Scene {
     if(this.scrollCam.scrollX > 2490){
       //console.log("done scrolling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       //this.scrollCam = this.cameras.main.setBounds(3050, 0, 4800, 300);
-      this.scrollCam.scrollX -= 1.5;
+      this.scrollCam.scrollX -= 2;
     }
 
     //If player has below 0 health
@@ -296,7 +305,7 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scrollCam.scrollX += 1.5;
+    this.scrollCam.scrollX += 2;
     if(this.player.x < this.scrollCam.scrollX - 100){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.parkMusic.stop(this.parkMusicConfig);
@@ -379,7 +388,7 @@ export default class ParkScene extends Phaser.Scene {
   this.itemsCollected += 1;
   //this.collectedText.text = "Memories: " + this.itemsCollected;
   if (this.player.x < 500 && this.player.x > 450) {
-    this.add.image(410, 25, "dogPicture").setScale(0.1).setScrollFactor(0);
+    this.add.image(500, 25, "dogPicture").setScale(0.1).setScrollFactor(0);
   }
   this.collectSound.play("collectSound");
   }

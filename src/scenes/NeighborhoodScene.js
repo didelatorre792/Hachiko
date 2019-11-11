@@ -123,7 +123,9 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0).setTint(0);
     this.add.image(300, 20, "dogToy").setScale(.04).setScrollFactor(0).setTint(0);
     this.add.image(350, 20, "dogBowl").setScale(.18).setScrollFactor(0).setTint(0);
-    this.add.image(410, 25, "dogPicture").setScale(0.1).setScrollFactor(0).setTint(0);
+    this.add.image(410, 25, "dogToy3").setScale(0.3).setScrollFactor(0).setTint(0);
+    this.add.image(455, 20, "dogToy2").setScale(0.3).setScrollFactor(0).setTint(0);
+    this.add.image(500, 25, "dogPicture").setScale(0.1).setScrollFactor(0).setTint(0);
   }
 
   update (time, delta) {
@@ -135,7 +137,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
     //Scrolling screen
     this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
-    this.scrollCam.scrollX += 1.5;
+    this.scrollCam.scrollX += 2;
 
     //If player is off screen
     if(this.player.x < this.scrollCam.scrollX){

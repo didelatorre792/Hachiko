@@ -6,16 +6,24 @@ export default class TutorialScene extends Phaser.Scene {
 
   create() {
     this.background = this.add.image(400, 300, "tutorial").setScale(2)
-
-    this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
+    this.add.video(400, 300, "titleVideo");
   }
 
   update(){
+    this.titleVideo.play(true)
+    this.time.addEvent({
+      delay:6000,
+      callback:this.delay,
+      callbackScope: this,
+    });
 
-    var cursors = this.input.keyboard.createCursorKeys();
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      this.scene.start('PreGameScene')
-    }
+
+
   }
+
+  delay(){
+    this.scene.start('PreGameScene');
+  }
+
+
 }
