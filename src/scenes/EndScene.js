@@ -7,6 +7,7 @@ export default class EndScene extends Phaser.Scene {
     // Initialization code goes here
     // Pass parameters between scenes - get data from another scene
     this.itemsCollected = data.itemsCollected;
+    this.deathScene = data.deathScene;
   }
 
   preload(){
@@ -34,14 +35,39 @@ export default class EndScene extends Phaser.Scene {
       var scoreArray = ["F", "D", "C", "B", "A", "A+"];
       this.add.text(this.centerX - 115, this.centerY + 80, "You got a "+scoreArray[this.itemsCollected]+". TRY AGAIN!");
       this.add.text(this.centerX - 128, this.centerY + 200, "Press ENTER to restart")
-    };
+    }
+
+    console.log(this.deathScene);
+
   }
 
   update(){
+    //console.log(this.deathScene);
+
     var cursors = this.input.keyboard.createCursorKeys();
-    if (Phaser.Input.Keyboard.JustDown(this.enter)) {
-      this.scene.start('NeighborhoodScene')
+    if (Phaser.Input.Keyboard.JustDown(this.enter)){
+      if(this.deathScene == "Alley"){
+        this.scene.start('AlleyScene');
+        console.log("back to alley");
+      }
+      else if(this.deathScene == "Toy"){
+        this.scene.start('ToyShopScene');
+        console.log("back to toy shop");
+      }
+      else if(this.deathScene == "Park"){
+        this.scene.start('ParkScene');
+        console.log("back to park");
+      }
+      else{
+        this.scene.start('NeighborhoodScene');
+        console.log("back to neighborhood");
+      }
     }
+
+    // else if (Phaser.Input.Keyboard.JustDown(this.enter)) {
+    //
+    // }
+
   }
 
 }

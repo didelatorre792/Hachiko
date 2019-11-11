@@ -143,6 +143,8 @@ export default class ParkScene extends Phaser.Scene {
     this.healthLabel.setScrollFactor(0);
 
     this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
+
+    var deathScene;
   }
 
   update (time, delta) {
@@ -172,7 +174,8 @@ export default class ParkScene extends Phaser.Scene {
     if (this.health < 0){
       //console.log("died by damage");
       this.parkMusic.stop(this.parkMusicConfig);
-      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
+      this.deathScene = "Park";
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected, deathScene: this.deathScene});
     }
     //Create cursor keys and assign events
     var cursors = this.input.keyboard.createCursorKeys();
@@ -297,7 +300,9 @@ export default class ParkScene extends Phaser.Scene {
     if(this.player.x < this.scrollCam.scrollX - 100){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.parkMusic.stop(this.parkMusicConfig);
-      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
+      this.deathScene = "Park";
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected, deathScene: this.deathScene});
+
     }
   }
 

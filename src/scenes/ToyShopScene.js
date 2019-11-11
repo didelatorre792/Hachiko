@@ -122,6 +122,8 @@ export default class ToyShopScene extends Phaser.Scene {
     this.healthLabel.setScrollFactor(0);
 
     this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
+
+    var deathScene;
   }
 
   update (time, delta) {
@@ -144,7 +146,9 @@ export default class ToyShopScene extends Phaser.Scene {
     if (this.health < 0){
       ////console.log("Negative health");
       //this.toyShopMusic.stop(this.toyShopMusicConfig);
-      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
+      this.deathScene = "Toy";
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected, deathScene: this.deathScene});
+
     }
 
     //Create cursor keys and assign events
@@ -272,7 +276,9 @@ export default class ToyShopScene extends Phaser.Scene {
     if(this.player.x < this.scrollCam.scrollX - 75){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       //this.toyShopMusic.stop(this.toyShopMusicConfig);
-      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
+      this.deathScene = "Toy";
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected, deathScene: this.deathScene});
+
     }
   }
 

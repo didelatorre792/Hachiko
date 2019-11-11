@@ -158,6 +158,8 @@ export default class AlleyScene extends Phaser.Scene {
 
     this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
 
+    var deathScene;
+
     console.log("exit create");
   }
 
@@ -190,7 +192,8 @@ export default class AlleyScene extends Phaser.Scene {
     if (this.health < 0){
       ////console.log("Negative health");
       this.alleyMusic.stop(this.alleyMusicConfig);
-      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
+      this.deathScene = "Alley";
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected, deathScene: this.deathScene});
     }
 
     //Create cursor keys and assign events
@@ -337,7 +340,8 @@ export default class AlleyScene extends Phaser.Scene {
     if(this.player.x < this.scrollCam.scrollX - 75){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.alleyMusic.stop(this.alleyMusicConfig)
-      this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
+      this.deathScene = "Alley";
+      this.scene.start('EndScene', {itemsCollected: this.itemsCollected, deathScene: this.deathScene});
     }
   }
 
