@@ -7,6 +7,8 @@ export default class AlleyScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
+    this.dogCollarCollect = data.dogCollarCollect;
+    this.dogBoneCollect = data.dogBoneCollect;
   }
 
   create(){
@@ -85,6 +87,18 @@ export default class AlleyScene extends Phaser.Scene {
     this.collectables.create(3140, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 40);
     this.add.text(3290, 400, "This way").setStyle({fontSize: "20px", color: "#fff"});
     this.add.image(3350, 450, "arrow3").setScale(.08);
+
+    // display collectables
+    this.add.image(200, 20, "collarShadow").setScale(.05).setScrollFactor(0);
+    this.add.image(250, 15, "boneShadow").setScale(.2).setScrollFactor(0);
+    this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
+    this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
+    this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
+    if (this.dogCollarCollect) {
+      this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
+    } if (this.dogBoneCollect) {
+      this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0);
+    };
 
     //player
     this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
@@ -302,7 +316,7 @@ export default class AlleyScene extends Phaser.Scene {
     );
     if (this.player.x > 3350) {
       this.alleyMusic.stop(this.alleyMusicConfig);
-      this.scene.start('ToyShopScene', {health: this.health, itemsCollected: this.itemsCollected});
+      this.scene.start('ToyShopScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, dogToyCollect: this.dogToyCollect, dogBowlCollect: this.dogBowlCollect});
       //console.log("scene switch 2")
     };
 
@@ -403,12 +417,18 @@ export default class AlleyScene extends Phaser.Scene {
 
   // make item dissapear when collecting it
   collectDogItem(player, dogItem) {
-    console.log("enter collectDogItem");
-    dogItem.disableBody(true, true);
-    this.itemsCollected += 1;
-    this.collectedText.text = "Memories: " + this.itemsCollected;
-    console.log("number of items collected is " + this.itemsCollected);
-    this.collectSound.play("collectSound");
+  dogItem.disableBody(true, true);
+  this.itemsCollected += 1;
+  this.collectedText.text = "Memories: " + this.itemsCollected;
+  console.log(this.player.x)
+  if (this.player.x > 2100 && this.player.x < 2200) {
+    this.add.image(300, 20, "dogToy").setScale(.04).setScrollFactor(0);
+    this.dogToyCollect = true;
+  } if (this.player.x > 2950 && this.player.x < 3050) {
+    this.add.image(350, 20, "dogBowl").setScale(.18).setScrollFactor(0);
+    this.dogBowlCollect = true;
+  }
+  this.collectSound.play("collectSound");
   }
 //console.log
   //damaging the enemy
