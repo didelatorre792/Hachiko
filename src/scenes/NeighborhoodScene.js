@@ -297,7 +297,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     if (this.player.x < 1900 && this.player.x > 1800) {
       this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
       this.dogCollarCollect = true;
-    } else if (this.player.x < 2700 && this.player.x > 2600) {
+    } if (this.player.x < 2700 && this.player.x > 2600) {
       this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0);
       this.dogBoneCollect = true;
     }

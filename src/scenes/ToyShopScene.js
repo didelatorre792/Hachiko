@@ -77,13 +77,13 @@ export default class ToyShopScene extends Phaser.Scene {
     this.add.image(410, 25, "dogToy3").setScale(0.3).setScrollFactor(0).setTint(0);
     this.add.image(455, 20, "dogToy2").setScale(0.3).setScrollFactor(0).setTint(0);
     this.add.image(500, 25, "dogPicture").setScale(0.1).setScrollFactor(0).setTint(0);
-    if (this.dogCollarCollect) {
+    if (this.dogCollarCollect == true) {
       this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
-    } if (this.dogBoneCollect) {
+    } if (this.dogBoneCollect == true) {
       this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0);
-    } if (this.dogToyCollect) {
+    } if (this.dogToyCollect == true) {
       this.add.image(300, 20, "dogToy").setScale(.05).setScrollFactor(0);
-    } if (this.dogBowlCollect) {
+    } if (this.dogBowlCollect == true) {
       this.add.image(350, 20, "dogBowl").setScale(.2).setScrollFactor(0);
     };
 
