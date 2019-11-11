@@ -94,10 +94,10 @@ export default class ParkScene extends Phaser.Scene {
     };
 
     // boss
-    //this.makeEnemy(1000, 470, .3);
-    //this.makeEnemy(1500, 470, .3);
-    //this.makeEnemy(1900, 470, .3);
-    this.makeEnemy(2250, 470, .7);
+    this.makeEnemy(1100, 570, .3, 50, 100, 1000, 470);
+    this.makeEnemy(1600, 570, .3, 50, 100, 1500, 470);
+    this.makeEnemy(2000, 570, .3, 50, 100, 1900, 470);
+    this.makeEnemy(2300, 570, .7, 100, 200, 2250, 470);
 
     this.hachiko = this.physics.add.image(2300, 540, "hachiko").setScale(.2);
     this.hachiko.setCollideWorldBounds(true);
@@ -354,8 +354,8 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   //creating thugs
-  makeEnemy(x, y, scale){
-    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setActive(true);
+  makeEnemy(x, y, scale, sizeX, sizeY, posX, posY){
+    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setActive(true).setSize(sizeX, sizeY).setPosition(posX, posY);
     var thug = this.thug;
     // this.tweens.add({
     //     targets: thug,

@@ -63,7 +63,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.enemyGroup = this.physics.add.staticGroup();
 
     // Tutorial
-    this.makeEnemy(1000, 530, .3, 100, 100);
+    this.makeEnemy(1100, 600, .3, 50, 100, 1000, 500);
     this.add.text(300, 370, "Press space to shoot").setStyle({fontSize: "30px", color: "#000"});
     // this.add.image(630, 450, "spacebar"); can't find one lol
 
@@ -106,11 +106,11 @@ export default class AlleyScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
     ////console.log("player x in scene 2: ", this.player.x);
 
-    this.makeEnemy(1600, 530, .3, .5, 100, 100, 1600, 530);
-    this.makeEnemy(2100, 530, .3, .5, 100, 100, 2100, 530);
-    this.makeEnemy(2390, 525, .3, .5, 100, 100, 2390, 525);
-    this.makeEnemy(2850, 505, .3, .5, 100, 100, 2850, 505);
-    this.makeEnemy(3100, 505, .3, .5, 100, 100, 3100, 505);
+    this.makeEnemy(1700, 630, .3, 50, 100, 1600, 530);
+    this.makeEnemy(2200, 630, .3, 50, 100, 2100, 530);
+    this.makeEnemy(2490, 625, .3, 50, 100, 2390, 525);
+    this.makeEnemy(2950, 605, .3, 50, 100, 2850, 505);
+    this.makeEnemy(3200, 605, .3, 50, 100, 3100, 505);
 
     // this.add.image(1000, 530, "thug").setScale(.3);
     // this.add.image(1600, 530, "thug").setScale(.3);
@@ -398,21 +398,21 @@ export default class AlleyScene extends Phaser.Scene {
   //creating thugs
   makeEnemy(x, y, scale, sizeX, sizeY, posX, posY){
     console.log("enter makeEnemy");
-    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setActive(true).setSize(sizeX, sizeY);
+    this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setActive(true).setSize(sizeX, sizeY).setPosition(posX, posY);
     //this.thug = this.enemyGroup.create(x, y, "thug").setScale(scale).setCollideWorldBounds(true).setActive(true);
 
     //console.log("enemy coordinates:", x, y);
-    var thug = this.thug;
-    this.tweens.add({
-        targets: thug,
-        x: x-50,
-        y: y,
-        ease: "Linear",
-        delay: 2000,
-        duration: 1500,
-        yoyo: true,
-        repeat: -1
-      });
+    // var thug = this.thug;
+    // this.tweens.add({
+    //     targets: thug,
+    //     x: x-50,
+    //     y: y,
+    //     ease: "Linear",
+    //     delay: 2000,
+    //     duration: 1500,
+    //     yoyo: true,
+    //     repeat: -1
+    //   });
   }
 
 

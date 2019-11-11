@@ -72,7 +72,7 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 3,
     });
 
-    this.scene.start('NeighborhoodScene');
+    this.scene.start('ParkScene');
 
   }
 }
