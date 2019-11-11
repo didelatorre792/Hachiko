@@ -118,13 +118,14 @@ export default class NeighborhoodScene extends Phaser.Scene {
     var scoreFormated = this.zeroPad(this.health, 6);
     this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
     this.healthLabel.setScrollFactor(0);
-
     this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
-    // this.add.image(200, 20, "collarShadow").setScale(.25).setScrollFactor(0);
-    // this.add.image(250, 15, "boneShadow").setScale(.25).setScrollFactor(0);
-    // this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
-    // this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
-    // this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
+
+    // display collectables
+    this.add.image(200, 20, "collarShadow").setScale(.05).setScrollFactor(0);
+    this.add.image(250, 15, "boneShadow").setScale(.2).setScrollFactor(0);
+    this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
+    this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
+    this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
   }
 
   update (time, delta) {
@@ -266,7 +267,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     if (this.player.x > 3450) {
       this.position = this.player.x;
       this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
-      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected});
+      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect});
       //console.log("scene switch")
       //console.log("player x in scene 1: ", this.player.x)
     }
@@ -292,7 +293,14 @@ export default class NeighborhoodScene extends Phaser.Scene {
     dogItem.disableBody(true, true);
     this.itemsCollected += 1;
     this.collectedText.text = "Memories: " + this.itemsCollected;
-    //console.log("number of items collected is " + this.itemsCollected);
+    console.log(this.player.x)
+    if (this.player.x < 1900 && this.player.x > 1800) {
+      this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
+      this.dogCollarCollect = true;
+    } else if (this.player.x < 2700 && this.player.x > 2600) {
+      this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0);
+      this.dogBoneCollect = true;
+    }
     this.collectSound.play("collectSound");
   }
 

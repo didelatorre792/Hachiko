@@ -7,6 +7,10 @@ export default class ToyShopScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
+    this.dogCollarCollect = data.dogCollarCollect;
+    this.dogBoneCollect = data.dogBoneCollect;
+    this.dogToyCollect = data.dogToyCollect;
+    this.dogBowlCollect = data.dogBowlCollect;
   }
 
   create(){
@@ -59,6 +63,22 @@ export default class ToyShopScene extends Phaser.Scene {
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.group();
     this.movingCar = this.physics.add.staticGroup();
+
+    // display collectables
+    this.add.image(200, 20, "collarShadow").setScale(.05).setScrollFactor(0);
+    this.add.image(250, 15, "boneShadow").setScale(.2).setScrollFactor(0);
+    this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
+    this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
+    this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
+    if (this.dogCollarCollect) {
+      this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
+    } if (this.dogBoneCollect) {
+      this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0);
+    } if (this.dogToyCollect) {
+      this.add.image(300, 20, "dogToy").setScale(.05).setScrollFactor(0);
+    } if (this.dogBowlCollect) {
+      this.add.image(350, 20, "dogBowl").setScale(.2).setScrollFactor(0);
+    };
 
     //player
     this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
@@ -242,7 +262,7 @@ export default class ToyShopScene extends Phaser.Scene {
     );
     if (this.player.x > 3350) {
       //this.toyShopMusic.stop(this.toyShopMusicConfig);
-      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected});
+      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, dogToyCollect: this.dogToyCollect, dogBowlCollect: this.dogBowlCollect});
       //console.log("scene switch 2")
     };
   }

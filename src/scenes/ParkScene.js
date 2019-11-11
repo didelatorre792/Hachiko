@@ -7,6 +7,10 @@ export default class ParkScene extends Phaser.Scene {
     // Pass parameters between scenes - get data from another scene
     this.health = data.health;
     this.itemsCollected = data.itemsCollected;
+    this.dogCollarCollect = data.dogCollarCollect;
+    this.dogBoneCollect = data.dogBoneCollect;
+    this.dogToyCollect = data.dogToyCollect;
+    this.dogBowlCollect = data.dogBowlCollect;
   }
 
   create(){
@@ -62,7 +66,7 @@ export default class ParkScene extends Phaser.Scene {
     this.enemyGroup = this.physics.add.group();
 
     //park
-    this.collectables.create(717, 525, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(380, 50);
+    this.collectables.create(632, 250, "dogPicture").setScale(0.1).setSize(35, 45).setPosition(480, 50);
     this.trashcan4 = this.add.image(450, 545, "trashcan").setScale(.12);
     this.box17 = this.platforms.create(450, 543, "box").setSize(60, 90); this.box17.alpha = 0;
     this.lamppost3 = this.add.image(600, 463, "lamppost").setScale(.097);
@@ -72,6 +76,22 @@ export default class ParkScene extends Phaser.Scene {
     this.box20 = this.platforms.create(996, 475, "box").setSize(202, 5); this.box20.alpha = 0;
     this.tree = this.add.image(1300, 350, "tree").setScale(.35);
     this.box21 = this.platforms.create(1300, 340, "box").setSize(250, 5); this.box21.alpha = 0;
+
+    // display collectables
+    this.add.image(200, 20, "collarShadow").setScale(.05).setScrollFactor(0);
+    this.add.image(250, 15, "boneShadow").setScale(.2).setScrollFactor(0);
+    this.add.image(300, 20, "toyShadow").setScale(.04).setScrollFactor(0);
+    this.add.image(350, 20, "bowlShadow").setScale(.18).setScrollFactor(0);
+    this.add.image(410, 25, "picShadow").setScale(0.1).setScrollFactor(0);
+    if (this.dogCollarCollect) {
+      this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
+    } if (this.dogBoneCollect) {
+      this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0);
+    } if (this.dogToyCollect) {
+      this.add.image(300, 20, "dogToy").setScale(.05).setScrollFactor(0);
+    } if (this.dogBowlCollect) {
+      this.add.image(350, 20, "dogBowl").setScale(.2).setScrollFactor(0);
+    };
 
     // boss
     //this.makeEnemy(1000, 470, .3);
@@ -353,7 +373,9 @@ export default class ParkScene extends Phaser.Scene {
   dogItem.disableBody(true, true);
   this.itemsCollected += 1;
   this.collectedText.text = "Memories: " + this.itemsCollected;
-  //console.log(this.itemsCollected);
+  if (this.player.x < 500 && this.player.x > 450) {
+    this.add.image(410, 25, "dogPicture").setScale(0.1).setScrollFactor(0);
+  }
   this.collectSound.play("collectSound");
   }
 
