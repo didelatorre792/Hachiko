@@ -66,6 +66,7 @@ export default class ParkScene extends Phaser.Scene {
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.staticGroup();
+    this.hachikoGroup = this.physics.add.staticGroup();
 
     //park
     this.collectables.create(632, 250, "dogPicture").setScale(0.1).setSize(35, 45).setPosition(480, 50);
@@ -108,8 +109,9 @@ export default class ParkScene extends Phaser.Scene {
     this.makeEnemy(2000, 570, .3, 50, 100, 1900, 470);
     this.makeEnemy(2300, 570, .7, 100, 200, 2250, 470);
 
-    this.hachiko = this.physics.add.image(2300, 540, "hachiko").setScale(.2);
-    this.hachiko.setCollideWorldBounds(true);
+    this.hachiko = this.add.image(2300, 540, "hachiko").setScale(.2);
+    this.box22 = this.hachikoGroup.create(2300, 540, "box").setSize(22, 9); this.box22.alpha = 0;
+    //this.hachiko.setCollideWorldBounds(true);
 
     //gun
     this.nerf = this.add.sprite(this.player.x + 10 ,520, "nerf");
@@ -140,7 +142,7 @@ export default class ParkScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.platforms);
 
     //if hachiko and player touch
-    this.physics.add.overlap(this.player, this.hachiko, this.gotHachiko, null, this);
+    this.physics.add.overlap(this.player, this.box22, this.gotHachiko, null, this);
 
     //collectables
     this.physics.add.overlap(this.player, this.collectables, this.collectDogItem, null, this);
