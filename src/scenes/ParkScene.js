@@ -149,11 +149,16 @@ export default class ParkScene extends Phaser.Scene {
 
     //health variables
     var gunDir;
-    var scoreFormatted = this.zeroPad(this.health, 6);
+    var scoreFormatted = this.zeroPad(this.health, 3);
     this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
 
     //this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
+
+    this.bulletCount = 10;
+    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
+    // var totalBullets = 10;
+    this.bulletAmount = this.add.text(5, 45,"Ammo: " + displayBulletCount).setScrollFactor(0);
 
     var deathScene;
   }
@@ -161,8 +166,13 @@ export default class ParkScene extends Phaser.Scene {
   update (time, delta) {
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      this.shoot(this.gunDir);
-      this.nerfShootSound.play("nerfShootSound");
+      if (this.bulletCount <= 0){
+        console.log("no more bullets");
+      }
+      else{
+        this.shoot(this.gunDir);
+        this.nerfShootSound.play("nerfShootSound");
+      }
     }
 
     //Scrolling screen
@@ -335,6 +345,9 @@ export default class ParkScene extends Phaser.Scene {
 
   //shooting the gun
   shoot(direction){
+    this.bulletCount -= 1;
+    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
+    this.bulletAmount.text = "Ammo: " + displayBulletCount;
     var velocity = new Phaser.Math.Vector2();
     var bullet = this.bullets.get();
     if (direction == 'Flip'){
@@ -351,8 +364,9 @@ export default class ParkScene extends Phaser.Scene {
   //when hit by an enemy
   takeDamage(enemy, player){
     this.health -= 5;
+    var scoreformatted = this.zeroPad(this.health, 3);
     //console.log(this.health, "health");
-    this.healthLabel.text = "SCORE " + this.scoreformatted;
+    this.healthLabel.text = "Health:" + this.scoreformatted;
     this.girlOuch.play("girlOuch");
     //enemy.setImmovable();
     //enemy.setVelocity = -(player.velocity);
@@ -363,8 +377,8 @@ export default class ParkScene extends Phaser.Scene {
     this.health -= 10;
     this.girlOuch.play("girlOuch");
     bullet.disableBody(true, true);
-    var scoreformatted = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "SCORE " + this.scoreformatted;
+    var scoreformatted = this.zeroPad(this.health, 3);
+    this.healthLabel.text = "Health:" + scoreformatted;
     //console.log(this.health, "health");
     bullet.disableBody(true, true);
   }

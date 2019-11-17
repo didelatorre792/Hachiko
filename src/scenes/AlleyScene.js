@@ -131,7 +131,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.speed = 1000;
     this.bullets = this.physics.add.group({
       defaultKey:"bullet",
-      maxSize: 100
+      maxSize: 20
     });
     this.enemyBullets = this.physics.add.group({
       defaultKey:"bullet",
@@ -152,11 +152,16 @@ export default class AlleyScene extends Phaser.Scene {
 
     //health variables
     var gunDir;
-    var scoreFormatted = this.zeroPad(this.health, 6);
+    var scoreFormatted = this.zeroPad(this.health, 3);
     this.healthLabel = this.add.text(5, 5, "Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
 
     //this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
+
+    this.bulletCount = 10;
+    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
+    // var totalBullets = 10;
+    this.bulletAmount = this.add.text(5, 45,"Ammo: " + displayBulletCount).setScrollFactor(0);
 
     var deathScene;
 
@@ -175,8 +180,13 @@ export default class AlleyScene extends Phaser.Scene {
 
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      this.shoot(this.gunDir);
-      this.nerfShootSound.play("nerfShootSound");
+      if (this.bulletCount <= 0){
+        console.log("no more bullets");
+      }
+      else{
+        this.shoot(this.gunDir);
+        this.nerfShootSound.play("nerfShootSound");
+      }
     }
 
     //Scrolling screen
@@ -363,6 +373,9 @@ export default class AlleyScene extends Phaser.Scene {
   //shooting the gun
   shoot(direction){
     console.log("enter shoot");
+    this.bulletCount -= 1;
+    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
+    this.bulletAmount.text = "Ammo: " + displayBulletCount;
     var velocity = new Phaser.Math.Vector2();
     var bullet = this.bullets.get();
     if (direction == 'Flip'){
@@ -382,7 +395,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.health -= 5;
     this.girlOuch.play("girlOuch");
     //console.log(this.health, "health");
-    var scoreFormatted = this.zeroPad(this.health, 6);
+    var scoreFormatted = this.zeroPad(this.health, 3);
     this.healthLabel.text = "Health: " + scoreFormatted;
 
 
@@ -393,7 +406,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.health -= 10;
     this.girlOuch.play("girlOuch");
     bullet.disableBody(true, true);
-    var scoreFormatted = this.zeroPad(this.health, 6);
+    var scoreFormatted = this.zeroPad(this.health, 3);
     this.healthLabel.text = "Health: " + scoreFormatted;
     //console.log(this.health, "is current health");
     bullet.disableBody(true, true);
