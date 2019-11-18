@@ -4,7 +4,7 @@ export default class BootScene extends Phaser.Scene {
     // Preload assets
     this.load.image("background", "./assets/images/2.0/finalbackground.png");
     this.load.image("neighborhood", "./assets/images/2.0/neighbourhood3.0.jpg");
-    this.load.image("alley", "./assets/images/2.0/alley3.0.png");
+    this.load.image("alley", "./assets/images/2.0/alley.png");
     this.load.image("park", "./assets/images/2.0/park3.0.png");
     this.load.image("toyShop", "./assets/images/toyShop.png")
     this.load.image("arrows", "./assets/images/arrows.png");
