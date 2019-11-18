@@ -132,11 +132,9 @@ export default class ToyShopScene extends Phaser.Scene {
 
     //health variables
     var gunDir;
-    var scoreFormatted = this.zeroPad(this.health, 6);
+    var scoreFormatted = this.zeroPad(this.health, 3);
     this.healthLabel = this.add.text(5, 5, "Health: " + scoreFormatted);
     this.healthLabel.setScrollFactor(0);
-
-    this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
 
     this.bulletCount = 10;
     var displayBulletCount = this.zeroPad(this.bulletCount, 2);
@@ -367,6 +365,7 @@ export default class ToyShopScene extends Phaser.Scene {
       callback: this.normalColor,
       callbackScope: this,
     });
+    var scoreFormatted = this.zeroPad(this.health, 3);
     this.healthLabel.text = "Health: " + this.scoreFormatted;
 
 
@@ -376,7 +375,7 @@ export default class ToyShopScene extends Phaser.Scene {
     this.health -= 10;
     this.girlOuch.play("girlOuch");
     bullet.disableBody(true, true);
-    var scoreFormatted = this.zeroPad(this.health, 6);
+    var scoreFormatted = this.zeroPad(this.health, 3);
     this.healthLabel.text = "Health: " + scoreFormatted;
     this.player.setTint(0xf44A48);
     this.time.addEvent({
@@ -414,7 +413,7 @@ export default class ToyShopScene extends Phaser.Scene {
   if (this.player.x < 1000 && this.player.x > 500) {
     this.dogToy3Collect = true;
     this.add.image(410, 25, "dogToy3").setScale(.3).setScrollFactor(0);
-  } if (this.player.x < 2700 && this.player.x > 2600) {
+  } if (this.player.x > 1500) {
     this.dogToy2Collect = true;
     this.add.image(455, 20, "dogToy2").setScale(.3).setScrollFactor(0);
   }

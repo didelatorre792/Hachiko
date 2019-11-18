@@ -64,7 +64,7 @@ export default class AlleyScene extends Phaser.Scene {
 
     // Tutorial
     this.makeEnemy(1100, 600, .3, 50, 100, 1000, 500);
-    this.add.text(300, 370, "Press space to shoot").setStyle({fontSize: "30px", color: "#000"});
+    this.add.text(300, 370, "Press space to shoot").setStyle({fontSize: "30px", color: "#fff"});
     // this.add.image(630, 450, "spacebar"); can't find one lol
 
     // alley platforms
@@ -400,7 +400,7 @@ export default class AlleyScene extends Phaser.Scene {
       callback: this.normalColor,
       callbackScope: this,
     });
-    var scoreFormatted = this.zeroPad(this.health, 6);
+    var scoreFormatted = this.zeroPad(this.health, 3);
     this.healthLabel.text = "Health: " + scoreFormatted;
 
 
