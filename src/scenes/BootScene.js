@@ -26,14 +26,17 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("dogToy", "./assets/images/dogToyOutlined.png");
     this.load.image("dogToy2", "./assets/images/dogToy2Outlined.png");
     this.load.image("dogToy3", "./assets/images/dogToy3Outlined.png");
+    this.load.image("dogToy4", "./assets/images/dogToy4.png");
     this.load.image("dogPicture", "./assets/images/dogPictureOutlined.png");
     this.load.image("thug", "./assets/images/ThugAlive.png");
     this.load.image("hachiko", "./assets/images/hachikogif.gif");
     this.load.image("nerf", "./assets/images/nerf.png");
     this.load.image("bullet", "./assets/images/bullet.png");
     this.load.image("box", "./assets/images/box.png");
-    this.load.image("boxCopy", "./assets/images/box copy.png");
-    this.load.image("boxCopy2", "./assets/images/box copy 2.png");
+    this.load.image("boxCopy", "./assets/images/box2Outlined.png");
+    this.load.image("boxCopy2", "./assets/images/box3Outlined.png");
+    this.load.image("boxCopy3", "./assets/images/box4Outlined.png");
+    this.load.image("boxCopy4", "./assets/images/box5Outlined.png");
     this.load.image("arrow1", "./assets/images/arrow1.png");
     this.load.image("arrow2", "./assets/images/arrow2.png");
     this.load.image("arrow3", "./assets/images/arrow3.png");
@@ -66,6 +69,8 @@ export default class BootScene extends Phaser.Scene {
     this.load.audio("jump", "./assets/sounds/jump.wav");
     this.load.audio("alleyBackgroundMusic", "./assets/sounds/alleyBackground.ogg");
     this.load.audio("parkBackgroundMusic", "./assets/sounds/parkMusic.wav");
+    this.load.audio("toyShopBackgroundMusic", "./assets/sounds/toyShopBackground.wav");
+    this.load.audio("carHorn", "./assets/sounds/carHorn.wav");
   }
 
 
