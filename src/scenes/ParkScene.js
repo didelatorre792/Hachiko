@@ -76,9 +76,10 @@ export default class ParkScene extends Phaser.Scene {
     this.box18 = this.platforms.create(533, 280, "box").setSize(22, 9); this.box18.alpha = 0;
     this.box19 = this.platforms.create(668, 280, "box").setSize(22, 9); this.box19.alpha = 0;
     this.bench = this.add.image(1200, 470, "bench").setScale(.5);
-    this.box20 = this.platforms.create(1196, 475, "box").setSize(202, 5); this.box20.alpha = 0;
+    this.box20 = this.platforms.create(1196, 475, "box").setSize(202, 100); this.box20.alpha = 0;
     this.tree = this.add.image(1700, 350, "tree").setScale(.35);
-    this.box21 = this.platforms.create(1700, 340, "box").setSize(250, 5); this.box21.alpha = 0;
+    this.platforms.create(1700, 340, "boxCopy4");
+    this.collectables.create(2405, 600, "dogToy4").setScale(0.02).setSize(20, 20).setPosition(1900, 100);
 
     // display collectables
     this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
@@ -88,6 +89,7 @@ export default class ParkScene extends Phaser.Scene {
     this.add.image(410, 25, "dogToy3").setScale(0.3).setScrollFactor(0).setTint(0);
     this.add.image(455, 20, "dogToy2").setScale(0.3).setScrollFactor(0).setTint(0);
     this.add.image(500, 25, "dogPicture").setScale(0.1).setScrollFactor(0).setTint(0);
+    this.add.image(550, 25, "dogToy4").setScale(0.02).setScrollFactor(0).setTint(0);
     if (this.dogCollarCollect == true) {
       this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0);
     } if (this.dogBoneCollect == true) {
@@ -317,7 +319,7 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scrollCam.scrollX += 2;
+    this.scrollCam.scrollX += 2.2;
     if(this.player.x < this.scrollCam.scrollX - 100){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.parkMusic.stop(this.parkMusicConfig);
@@ -416,6 +418,9 @@ export default class ParkScene extends Phaser.Scene {
   //this.collectedText.text = "Memories: " + this.itemsCollected;
   if (this.player.x < 500 && this.player.x > 450) {
     this.add.image(500, 25, "dogPicture").setScale(0.1).setScrollFactor(0);
+  }
+  if (this.player.x > 1800) {
+    this.add.image(550, 25, "dogToy4").setScale(0.02).setScrollFactor(0);
   }
   this.collectSound.play("collectSound");
   }

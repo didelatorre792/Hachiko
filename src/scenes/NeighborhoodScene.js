@@ -53,7 +53,9 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.add.text(1100, 350, "Jump on platforms").setStyle({fontSize: "23px", color: "#fff"});
     this.add.image(1250, 400, "arrow2").setScale(0.1);
     this.car1 = this.add.image(1300, 490, "car1").setScale(.45);
-    this.box1 = this.platforms.create(1300, 494, "box").setSize(135); this.box1.alpha = 0;
+    this.box1 = this.platforms.create(1320, 490, "box").setSize(155); this.box1.alpha = 0;
+    this.box11 = this.platforms.create(1320, 460, "box").setSize(120, 20); this.box11.alpha = 0;
+    this.box111 = this.platforms.create(1320, 440, "box").setSize(70, 20); this.box111.alpha = 0;
 
     this.mailbox1 = this.add.image(1742, 475, "mailbox").setScale(.08);
     this.box2 = this.platforms.create(1737, 440, "box").setSize(40,10); this.box2.alpha = 0;
@@ -66,7 +68,9 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.box3 = this.platforms.create(2392, 300, "box").setSize(18, 8); this.box3.alpha = 0;
     this.box4 = this.platforms.create(2510, 300, "box").setSize(18, 8); this.box4.alpha = 0;
     this.car2 = this.add.image(2700, 490, "car2").setScale(.45);
-    this.box5 = this.platforms.create(2720, 494, "box").setSize(135); this.box5.alpha = 0;
+    this.box5 = this.platforms.create(2720, 510, "box").setSize(155); this.box5.alpha = 0;
+    this.box55 = this.platforms.create(2720, 480, "box").setSize(120, 20); this.box55.alpha = 0;
+    this.box555 = this.platforms.create(2720, 460, "box").setSize(70, 20); this.box555.alpha = 0;
     this.mailbox2 = this.add.image(2867, 475, "mailbox").setScale(.08);
     this.box6 = this.platforms.create(2862, 440, "box").setSize(40, 10); this.box6.alpha = 0;
     this.lamppost2 = this.add.image(3000, 408, "lamppost").setScale(.085);
@@ -126,6 +130,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.add.image(410, 25, "dogToy3").setScale(0.3).setScrollFactor(0).setTint(0);
     this.add.image(455, 20, "dogToy2").setScale(0.3).setScrollFactor(0).setTint(0);
     this.add.image(500, 25, "dogPicture").setScale(0.1).setScrollFactor(0).setTint(0);
+    this.add.image(550, 25, "dogToy4").setScale(0.02).setScrollFactor(0).setTint(0);
 
     this.bulletCount = 10;
     var displayBulletCount = this.zeroPad(this.bulletCount, 2);
@@ -147,7 +152,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
     //Scrolling screen
     this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
-    this.scrollCam.scrollX += 2;
+    this.scrollCam.scrollX += 2.2;
 
     //If player is off screen
     if(this.player.x < this.scrollCam.scrollX){
