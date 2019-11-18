@@ -83,11 +83,11 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.add.image(3450, 450, "arrow3").setScale(.08);
 
     //player
-    this.player = this.physics.add.sprite(250, 550, "player").setScale(.3);
+    this.player = this.physics.add.sprite(350, 550, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true);
 
     //gun
-    this.nerf = this.add.sprite(280, 560, "nerf");
+    this.nerf = this.add.sprite(380, 560, "nerf");
     this.nerf.setScale(.03);
     var bullets;
     var enemyBullets;
@@ -152,7 +152,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
     //Scrolling screen
     this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
-    this.scrollCam.scrollX += 2.2;
+    this.scrollCam.scrollX += 0.7;
 
     //If player is off screen
     if(this.player.x < this.scrollCam.scrollX){

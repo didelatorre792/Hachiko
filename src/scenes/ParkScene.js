@@ -319,7 +319,7 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scrollCam.scrollX += 2.2;
+    this.scrollCam.scrollX += 0.8;
     if(this.player.x < this.scrollCam.scrollX - 100){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.parkMusic.stop(this.parkMusicConfig);

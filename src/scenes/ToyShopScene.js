@@ -15,7 +15,7 @@ export default class ToyShopScene extends Phaser.Scene {
 
   create(){
     //music
-    this.toyShopMusic = this.sound.add("toyShopBackgroundMusic");
+    this.toyShopMusic = this.sound.add("toyShopBackgroundMusic", {volume: 0.5}  );
     this.toyShopMusicConfig = {
       loop: true
     };
@@ -45,7 +45,7 @@ export default class ToyShopScene extends Phaser.Scene {
       start: 3,
       duration: 1
     });
-    this.carHornSound = this.sound.add("carHorn", {volume: 10});
+    this.carHornSound = this.sound.add("carHorn", {volume: 100});
     this.carHornSound.addMarker({
       name: 'carHornSound',
       start: 0.5,
@@ -325,7 +325,7 @@ export default class ToyShopScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scrollCam.scrollX += 2.2;
+    this.scrollCam.scrollX +=0.8;
     if(this.player.x < this.scrollCam.scrollX - 75){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.toyShopMusic.stop(this.toyShopMusicConfig);
