@@ -366,7 +366,7 @@ export default class ParkScene extends Phaser.Scene {
     this.health -= 5;
     var scoreformatted = this.zeroPad(this.health, 3);
     //console.log(this.health, "health");
-    this.healthLabel.text = "Health:" + this.scoreformatted;
+    this.healthLabel.text = "Health:" + scoreformatted;
     this.girlOuch.play("girlOuch");
     this.player.setTint(0xf44A48);
     this.time.addEvent({
@@ -384,7 +384,7 @@ export default class ParkScene extends Phaser.Scene {
     this.girlOuch.play("girlOuch");
     bullet.disableBody(true, true);
     var scoreformatted = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "SCORE " + this.scoreformatted;
+    this.healthLabel.text = "Health: " + scoreformatted;
     this.player.setTint(0xf44A48);
     this.time.addEvent({
       delay:400,

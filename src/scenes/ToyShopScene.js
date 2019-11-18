@@ -366,7 +366,7 @@ export default class ToyShopScene extends Phaser.Scene {
       callbackScope: this,
     });
     var scoreFormatted = this.zeroPad(this.health, 3);
-    this.healthLabel.text = "Health: " + this.scoreFormatted;
+    this.healthLabel.text = "Health: " + scoreFormatted;
 
 
   }
