@@ -9,36 +9,42 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("toyShop", "./assets/images/toyShop.png")
     this.load.image("arrows", "./assets/images/arrows.png");
     //this.load.image("spacebar", "./assets/images/spacebar.png");
-    this.load.image("car1", "./assets/images/car11.png");
-    this.load.image("car2", "./assets/images/car12.png");
-    this.load.image("mailbox", "./assets/images/mailbox.png");
-    this.load.image("lamppost", "./assets/images/lamppost.png");
-    this.load.image("trashcan", "./assets/images/trashcan.png");
-    this.load.image("dumpster", "./assets/images/dumpster.png");
-    this.load.image("sign1", "./assets/images/sign1.png");
+    this.load.image("car1", "./assets/images/carOutlined.png");
+    this.load.image("car2", "./assets/images/car12Outlined.png");
+    this.load.image("mailbox", "./assets/images/mailboxOutlined.png");
+    this.load.image("lamppost", "./assets/images/lamppostOutlined.png");
+    this.load.image("trashcan", "./assets/images/trashcanOutlined.png");
+    this.load.image("dumpster", "./assets/images/dumpsterOutlined.png");
+    this.load.image("sign1", "./assets/images/sign1Outlined.png");
     this.load.image("sign2", "./assets/images/sign2.png");
-    this.load.image("sign3", "./assets/images/sign3.png");
-    this.load.image("bench", "./assets/images/bench.png");
+    this.load.image("sign3", "./assets/images/sign3Outlined.png");
+    this.load.image("bench", "./assets/images/benchOutlined.png");
     this.load.image("tree", "./assets/images/tree.png");
-    this.load.image("dogBone", "./assets/images/dogBone.png");
-    this.load.image("dogBowl", "./assets/images/dogBowl.png");
-    this.load.image("dogCollar", "./assets/images/dogCollar.png");
-    this.load.image("dogToy", "./assets/images/dogToy.png");
-    this.load.image("dogToy2", "./assets/images/dogToy2.png");
-    this.load.image("dogToy3", "./assets/images/dogToy3.png");
-    this.load.image("dogPicture", "./assets/images/dogPicture.png");
+    this.load.image("dogBone", "./assets/images/dogBoneOutlined.png");
+    this.load.image("dogBowl", "./assets/images/dogBowlOutlined.png");
+    this.load.image("dogCollar", "./assets/images/dogCollarOutlined.png");
+    this.load.image("dogToy", "./assets/images/dogToyOutlined.png");
+    this.load.image("dogToy2", "./assets/images/dogToy2Outlined.png");
+    this.load.image("dogToy3", "./assets/images/dogToy3Outlined.png");
+    this.load.image("dogPicture", "./assets/images/dogPictureOutlined.png");
     this.load.image("thug", "./assets/images/ThugAlive.png");
     this.load.image("hachiko", "./assets/images/hachikogif.gif");
     this.load.image("nerf", "./assets/images/nerf.png");
     this.load.image("bullet", "./assets/images/bullet.png");
-    this.load.image("box", "./assets/sprites/box.png");
+    this.load.image("box", "./assets/images/box.png");
+    this.load.image("boxCopy", "./assets/images/box copy.png");
+    this.load.image("boxCopy2", "./assets/images/box copy 2.png");
     this.load.image("arrow1", "./assets/images/arrow1.png");
     this.load.image("arrow2", "./assets/images/arrow2.png");
     this.load.image("arrow3", "./assets/images/arrow3.png");
 
     //this.load.video("titleVideo", "./assets/images/titleVideo.mp4");
 
-    this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheetwithCrouch.png", {
+    this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheet.png", {
+      frameWidth:545/3,
+      frameHeight: 790/3
+    });
+    this.load.spritesheet("playerDamage", "./assets/spritesheet/playerSpriteSheetwithDamage.png", {
       frameWidth:545/3,
       frameHeight: 790/3
     });
@@ -78,6 +84,11 @@ export default class BootScene extends Phaser.Scene {
     this.anims.create({
       key: "crouch",
       frames: this.anims.generateFrameNumbers("player", {start: 7, end: 9 }),
+      frameRate: 3,
+    });
+    this.anims.create({
+      key: "damage",
+      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 4 }),
       frameRate: 3,
     });
 

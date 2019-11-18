@@ -52,7 +52,7 @@ export default class ParkScene extends Phaser.Scene {
     this.scrollCam.scrollX = 0;
 
     //player
-    this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
+    this.player = this.physics.add.sprite(0, 530, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
     //console.log("player x in scene 2: ", this.player.x)
     //console.log(this.cameras.main.width + ", " + this.cameras.main.height);
@@ -70,15 +70,15 @@ export default class ParkScene extends Phaser.Scene {
 
     //park
     this.collectables.create(632, 250, "dogPicture").setScale(0.1).setSize(35, 45).setPosition(480, 50);
-    this.trashcan4 = this.add.image(450, 545, "trashcan").setScale(.12);
-    this.box17 = this.platforms.create(450, 543, "box").setSize(60, 90); this.box17.alpha = 0;
-    this.lamppost3 = this.add.image(600, 463, "lamppost").setScale(.097);
-    this.box18 = this.platforms.create(533, 340, "box").setSize(22, 9); this.box18.alpha = 0;
-    this.box19 = this.platforms.create(668, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    this.bench = this.add.image(1000, 470, "bench").setScale(.5);
-    this.box20 = this.platforms.create(996, 475, "box").setSize(202, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(1300, 350, "tree").setScale(.35);
-    this.box21 = this.platforms.create(1300, 340, "box").setSize(250, 5); this.box21.alpha = 0;
+    this.trashcan4 = this.add.image(450, 485, "trashcan").setScale(.12);
+    this.box17 = this.platforms.create(450, 483, "box").setSize(60, 90); this.box17.alpha = 0;
+    this.lamppost3 = this.add.image(600, 403, "lamppost").setScale(.097);
+    this.box18 = this.platforms.create(533, 280, "box").setSize(22, 9); this.box18.alpha = 0;
+    this.box19 = this.platforms.create(668, 280, "box").setSize(22, 9); this.box19.alpha = 0;
+    this.bench = this.add.image(1200, 470, "bench").setScale(.5);
+    this.box20 = this.platforms.create(1196, 475, "box").setSize(202, 5); this.box20.alpha = 0;
+    this.tree = this.add.image(1700, 350, "tree").setScale(.35);
+    this.box21 = this.platforms.create(1700, 340, "box").setSize(250, 5); this.box21.alpha = 0;
 
     // display collectables
     this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
@@ -104,13 +104,13 @@ export default class ParkScene extends Phaser.Scene {
 
 
     // boss
-    this.makeEnemy(1100, 570, .3, 50, 100, 1000, 470);
-    this.makeEnemy(1600, 570, .3, 50, 100, 1500, 470);
-    this.makeEnemy(2000, 570, .3, 50, 100, 1900, 470);
-    this.makeEnemy(2300, 570, .7, 100, 200, 2250, 470);
+    this.makeEnemy(1100, 590, .3, 50, 100, 1000, 490);
+    this.makeEnemy(1750, 390, .3, 50, 100, 1650, 290);
+    this.makeEnemy(2350, 590, .3, 50, 100, 2250, 490);
+    this.makeEnemy(2400, 530, .7, 100, 200, 2350, 430);
 
-    this.hachiko = this.add.image(2300, 540, "hachiko").setScale(.2);
-    this.box22 = this.hachikoGroup.create(2300, 540, "box").setSize(22, 9); this.box22.alpha = 0;
+    this.hachiko = this.add.image(2300, 520, "hachiko").setScale(.2);
+    this.box22 = this.hachikoGroup.create(2300, 520, "box").setSize(22, 9); this.box22.alpha = 0;
     //this.hachiko.setCollideWorldBounds(true);
 
     //gun
@@ -166,7 +166,7 @@ export default class ParkScene extends Phaser.Scene {
     }
 
     //Scrolling screen
-    this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
+    this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 530);
 
     this.time.addEvent({
       delay:300,
@@ -354,6 +354,12 @@ export default class ParkScene extends Phaser.Scene {
     //console.log(this.health, "health");
     this.healthLabel.text = "SCORE " + this.scoreformatted;
     this.girlOuch.play("girlOuch");
+    this.player.setTint(0xf44A48);
+    this.time.addEvent({
+      delay:400,
+      callback: this.normalColor,
+      callbackScope: this,
+    });
     //enemy.setImmovable();
     //enemy.setVelocity = -(player.velocity);
     //add a red tint later to indicate damage
@@ -365,7 +371,12 @@ export default class ParkScene extends Phaser.Scene {
     bullet.disableBody(true, true);
     var scoreformatted = this.zeroPad(this.health, 6);
     this.healthLabel.text = "SCORE " + this.scoreformatted;
-    //console.log(this.health, "health");
+    this.player.setTint(0xf44A48);
+    this.time.addEvent({
+      delay:400,
+      callback: this.normalColor,
+      callbackScope: this,
+    });
     bullet.disableBody(true, true);
   }
 
@@ -423,4 +434,5 @@ export default class ParkScene extends Phaser.Scene {
     return stringNumber;
   }
 
+  normalColor(){this.player.clearTint();}
 }

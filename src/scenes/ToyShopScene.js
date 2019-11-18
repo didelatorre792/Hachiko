@@ -65,9 +65,11 @@ export default class ToyShopScene extends Phaser.Scene {
 
     // assets
     this.collectables.create(635, 365, "dogToy3").setScale(.3).setSize(35, 35).setPosition(565, 315);
-    this.box1 = this.platforms.create(2000, 400, "box").setSize(50, 10); this.box1.alpha = 0;
+    this.platforms.create(1740, 500, "boxCopy2");
+    this.platforms.create(1870, 390, "boxCopy");
+    this.platforms.create(1970, 300, "boxCopy");
     this.box2 = this.platforms.create(2340, 235, "box").setSize(550, 10); this.box2.alpha = 0;
-    this.collectables.create(2735, 85, "dogToy2").setScale(.3).setSize(15, 25).setPosition(2700, 50);
+    this.collectables.create(2385, 410, "dogToy2").setScale(.3).setSize(15, 25).setPosition(2350, 375);
 
     // display collectables
     this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
@@ -92,9 +94,9 @@ export default class ToyShopScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
 
     //moving car
-    this.movingCar = this.physics.add.sprite(1500, 500, "movingCar");
+    this.movingCar = this.physics.add.sprite(1900, 500, "movingCar");
     this.movingCar.setActive(true).setDepth(1).setGravity(0, -400);
-    this.movingCar2 = this.physics.add.sprite(4000, 500, "movingCar2");
+    this.movingCar2 = this.physics.add.sprite(4500, 500, "movingCar2");
     this.movingCar2.setActive(true).setDepth(1).setScale(.7).setGravity(0, -400);
 
     //gun
@@ -295,7 +297,7 @@ export default class ToyShopScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
-    if (this.player.x > 3350) {
+    if (this.player.x > 3400) {
       //this.toyShopMusic.stop(this.toyShopMusicConfig);
       this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, dogToyCollect: this.dogToyCollect, dogToy2Collect: this.dogToy2Collect, dogToy3Collect: this.dogToy3Collect, dogBowlCollect: this.dogBowlCollect});
       //console.log("scene switch 2")
@@ -303,7 +305,7 @@ export default class ToyShopScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scrollCam.scrollX += 2;
+    this.scrollCam.scrollX += 2.5;
     if(this.player.x < this.scrollCam.scrollX - 75){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       //this.toyShopMusic.stop(this.toyShopMusicConfig);
@@ -344,7 +346,12 @@ export default class ToyShopScene extends Phaser.Scene {
   takeDamage(enemy, player){
     this.health -= 5;
     this.girlOuch.play("girlOuch");
-    //console.log(this.health, "health");
+    this.player.setTint(0xf44A48);
+    this.time.addEvent({
+      delay:400,
+      callback: this.normalColor,
+      callbackScope: this,
+    });
     this.healthLabel.text = "Health: " + this.scoreFormatted;
 
 
@@ -356,7 +363,12 @@ export default class ToyShopScene extends Phaser.Scene {
     bullet.disableBody(true, true);
     var scoreFormatted = this.zeroPad(this.health, 6);
     this.healthLabel.text = "Health: " + scoreFormatted;
-    //console.log(this.health, "is current health");
+    this.player.setTint(0xf44A48);
+    this.time.addEvent({
+      delay:400,
+      callback: this.normalColor,
+      callbackScope: this,
+    });
     bullet.disableBody(true, true);
   }
 
@@ -411,5 +423,7 @@ export default class ToyShopScene extends Phaser.Scene {
     }
     return stringNumber;
   }
+
+  normalColor(){this.player.clearTint();}
 
 }

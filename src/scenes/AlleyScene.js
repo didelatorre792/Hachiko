@@ -164,6 +164,7 @@ export default class AlleyScene extends Phaser.Scene {
   }
 
   update (time, delta) {
+    //this.player.clearTint();
     // console.log("Enter update");
     // this.enemyGroup.children.each(
     //   function(b){
@@ -316,7 +317,6 @@ export default class AlleyScene extends Phaser.Scene {
           }
         }
       }.bind(this)//for can't read property 'physics' of undefined
-
     );
     if (this.player.x > 3350) {
       this.alleyMusic.stop(this.alleyMusicConfig);
@@ -381,7 +381,12 @@ export default class AlleyScene extends Phaser.Scene {
     console.log("enter takeDamage");
     this.health -= 5;
     this.girlOuch.play("girlOuch");
-    //console.log(this.health, "health");
+    this.player.setTint(0xf44A48);
+    this.time.addEvent({
+      delay:400,
+      callback: this.normalColor,
+      callbackScope: this,
+    });
     var scoreFormatted = this.zeroPad(this.health, 6);
     this.healthLabel.text = "Health: " + scoreFormatted;
 
@@ -392,6 +397,12 @@ export default class AlleyScene extends Phaser.Scene {
     console.log("enter takeDamageFromEnemyBullets");
     this.health -= 10;
     this.girlOuch.play("girlOuch");
+    this.player.setTint(0xf44A48);
+    this.time.addEvent({
+      delay:400,
+      callback: this.normalColor,
+      callbackScope: this,
+    });
     bullet.disableBody(true, true);
     var scoreFormatted = this.zeroPad(this.health, 6);
     this.healthLabel.text = "Health: " + scoreFormatted;
@@ -456,5 +467,7 @@ export default class AlleyScene extends Phaser.Scene {
     }
     return stringNumber;
   }
+
+  normalColor(){this.player.clearTint();}
 
 }
