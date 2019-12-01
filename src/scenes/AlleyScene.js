@@ -5,7 +5,6 @@ export default class AlleyScene extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
     // Pass parameters between scenes - get data from another scene
-    this.health = data.health;
     this.itemsCollected = data.itemsCollected;
     this.dogCollarCollect = data.dogCollarCollect;
     this.dogBoneCollect = data.dogBoneCollect;
@@ -13,6 +12,7 @@ export default class AlleyScene extends Phaser.Scene {
   }
 
   create(){
+    this.health = 10;
     console.log("enter create");
     //music
     this.alleyMusic = this.sound.add("alleyBackgroundMusic");
@@ -49,6 +49,13 @@ export default class AlleyScene extends Phaser.Scene {
       start: 3,
       duration: 1
     });
+    this.alarmSound = this.sound.add("alarm", {volume: 0.05});
+    this.alarmSound.addMarker({
+      name: "alarmSound",
+      start: 0,
+      duration: 0.5,
+      volume: 0.05
+    });
 
     //camera
     this.scrollCam = this.cameras.main.setBounds(0, 0, 3400, 600);
@@ -83,9 +90,9 @@ export default class AlleyScene extends Phaser.Scene {
     this.box15 = this.platforms.create(2250, 540, "box").setSize(40, 60); this.box15.alpha = 0;
     this.sign2 = this.add.image(2430, 444, "sign2").setScale(.08);
     this.box16 = this.platforms.create(2430, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.sign3 = this.add.image(2750, 270, "sign3").setScale(.1);
-    this.box17 = this.platforms.create(2750, 270, "box").setSize(100, 25); this.box17.alpha = 0;
-    this.collectables.create(3140, 205, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 140);
+    this.sign3 = this.add.image(2750, 370, "sign3").setScale(.1);
+    this.box17 = this.platforms.create(2750, 370, "box").setSize(100, 25); this.box17.alpha = 0;
+    this.collectables.create(3140, 305, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 240);
 
     // display collectables
     this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
@@ -106,20 +113,36 @@ export default class AlleyScene extends Phaser.Scene {
     //player
     this.player = this.physics.add.sprite(0, this.y, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
-    ////console.log("player x in scene 2: ", this.player.x);
 
+    // enemies
     this.makeEnemy(1700, 630, .3, 50, 100, 1600, 530);
     this.makeEnemy(2200, 630, .3, 50, 100, 2100, 530);
-    this.makeEnemy(2490, 625, .3, 50, 100, 2390, 525);
+    this.makeEnemy(2490, 615, .3, 50, 100, 2390, 515);
     this.makeEnemy(2950, 605, .3, 50, 100, 2850, 505);
     this.makeEnemy(3200, 605, .3, 50, 100, 3100, 505);
 
-    // this.add.image(1000, 530, "thug").setScale(.3);
-    // this.add.image(1600, 530, "thug").setScale(.3);
-    // this.add.image(2100, 530, "thug").setScale(.3);
-    // this.add.image(2390, 525, "thug").setScale(.3);
-    // this.add.image(2850, 505, "thug").setScale(.3);
-    // this.add.image(3100, 505, "thug").setScale(.3);
+    // bullet display
+    this.bullet10 = this.add.image(718, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet9 = this.add.image(726, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet8 = this.add.image(734, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet7 = this.add.image(742, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet6 = this.add.image(750, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet5 = this.add.image(758, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet4 = this.add.image(766, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet3 = this.add.image(774, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet2 = this.add.image(782, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet1 = this.add.image(790, 40, "bulletVertical").setScrollFactor(0);
+
+    // heart display
+    this.heart9 = this.add.image(654, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart8 = this.add.image(671, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart7 = this.add.image(688, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart6 = this.add.image(705, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart5 = this.add.image(722, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart4 = this.add.image(739, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart3 = this.add.image(756, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart2 = this.add.image(773, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart1 = this.add.image(790, 15, "heart").setScale(0.06).setScrollFactor(0);
 
     //gun
     this.nerf = this.add.sprite(this.player.x + 10, 520, "nerf");
@@ -152,34 +175,35 @@ export default class AlleyScene extends Phaser.Scene {
     //collectables
     this.physics.add.overlap(this.player, this.collectables, this.collectDogItem, null, this);
 
-    //health variables
     var gunDir;
-    var scoreFormatted = this.zeroPad(this.health, 3);
-    this.healthLabel = this.add.text(5, 5, "Health: " + scoreFormatted);
-    this.healthLabel.setScrollFactor(0);
-
-    //this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
-
     this.bulletCount = 10;
-    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
-    // var totalBullets = 10;
-    this.bulletAmount = this.add.text(5, 45,"Ammo: " + displayBulletCount).setScrollFactor(0);
-
     var deathScene;
-
-    console.log("exit create");
   }
 
   update (time, delta) {
-    //this.player.clearTint();
-    // console.log("Enter update");
-    // this.enemyGroup.children.each(
-    //   function(b){
-    //     if (b.active){
-    //       console.log(b.x);
-    //     }
-    //   }.bind(this)//for can't read property 'physics' of undefined
-    // );
+
+    // bullet display
+    if (this.bulletCount == 9) {this.bullet10.destroy();}
+    if (this.bulletCount == 8) {this.bullet9.destroy();}
+    if (this.bulletCount == 7) {this.bullet8.destroy();}
+    if (this.bulletCount == 6) {this.bullet7.destroy();}
+    if (this.bulletCount == 5) {this.bullet6.destroy();}
+    if (this.bulletCount == 4) {this.bullet5.destroy();}
+    if (this.bulletCount == 3) {this.bullet4.destroy();}
+    if (this.bulletCount == 2) {this.bullet3.destroy();}
+    if (this.bulletCount == 1) {this.bullet2.destroy();}
+    if (this.bulletCount == 0) {this.bullet1.destroy();}
+
+    // heart display
+    if (this.health == 9) {this.heart9.destroy();};
+    if (this.health == 8) {this.heart8.destroy();};
+    if (this.health == 7) {this.heart7.destroy();};
+    if (this.health == 6) {this.heart6.destroy();};
+    if (this.health == 5) {this.heart5.destroy();};
+    if (this.health == 4) {this.heart4.destroy();};
+    if (this.health == 3) {this.heart3.destroy();};
+    if (this.health == 2) {this.heart2.destroy();};
+    if (this.health == 1) {this.heart1.destroy();};
 
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
@@ -201,10 +225,27 @@ export default class AlleyScene extends Phaser.Scene {
       loop: false,
     });
 
+    // warning for player is going off screen
+    if (this.i == 0 && (this.player.x < this.scrollCam.scrollX + 60) && (this.player.x > this.scrollCam.scrollX + 58)) {
+      this.i += 1;
+      this.alarmSound.play("alarmSound");
+      // this.flashCamera = this.cameras.add(0, 0, 800, 600);
+      // this.flashCamera.flash(1000, 50, 10, 10, 10, 10);
+      this.text2 = this.add.text(this.scrollCam.scrollX + 300, 300, "MOVE RIGHT").setStyle({fontSize: "50px", color: "#f44A48"});
+      this.time.addEvent({delay:200, callback: this.warning, callbackScope: this}); // destroy text
+      // so the warning only happens every so often
+      this.time.addEvent({
+        delay:450,
+        callback: this.removei,
+        callbackScope: this,
+      });
+    };
+
     //If player has below 0 health
     if (this.health < 0){
       ////console.log("Negative health");
       this.alleyMusic.stop(this.alleyMusicConfig);
+      this.alarmSound.stop();
       this.deathScene = "Alley";
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected, deathScene: this.deathScene});
     }
@@ -332,6 +373,7 @@ export default class AlleyScene extends Phaser.Scene {
     );
     if (this.player.x > 3350) {
       this.alleyMusic.stop(this.alleyMusicConfig);
+      this.alarmSound.stop();
       this.y = this.player.y;
       this.scene.start('ToyShopScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, dogToyCollect: this.dogToyCollect, dogBowlCollect: this.dogBowlCollect, y: this.y});
       //console.log("scene switch 2")
@@ -377,8 +419,6 @@ export default class AlleyScene extends Phaser.Scene {
   shoot(direction){
     console.log("enter shoot");
     this.bulletCount -= 1;
-    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
-    this.bulletAmount.text = "Ammo: " + displayBulletCount;
     var velocity = new Phaser.Math.Vector2();
     var bullet = this.bullets.get();
     if (direction == 'Flip'){
@@ -395,7 +435,7 @@ export default class AlleyScene extends Phaser.Scene {
   //when hit by an enemy
   takeDamage(enemy, player){
     console.log("enter takeDamage");
-    this.health -= 5;
+    this.health -= 1;
     this.girlOuch.play("girlOuch");
     this.player.setTint(0xf44A48);
     this.time.addEvent({
@@ -403,15 +443,15 @@ export default class AlleyScene extends Phaser.Scene {
       callback: this.normalColor,
       callbackScope: this,
     });
-    var scoreFormatted = this.zeroPad(this.health, 3);
-    this.healthLabel.text = "Health: " + scoreFormatted;
+    // var scoreFormatted = this.zeroPad(this.health, 3);
+    // this.healthLabel.text = "Health: " + scoreFormatted;
 
 
   }
 
   takeDamageFromEnemyBullets(bullet, player){
     console.log("enter takeDamageFromEnemyBullets");
-    this.health -= 10;
+    this.health -= 1;
     this.girlOuch.play("girlOuch");
     this.player.setTint(0xf44A48);
     this.time.addEvent({
@@ -420,8 +460,8 @@ export default class AlleyScene extends Phaser.Scene {
       callbackScope: this,
     });
     bullet.disableBody(true, true);
-    var scoreFormatted = this.zeroPad(this.health, 3);
-    this.healthLabel.text = "Health: " + scoreFormatted;
+    // var scoreFormatted = this.zeroPad(this.health, 3);
+    // this.healthLabel.text = "Health: " + scoreFormatted;
     //console.log(this.health, "is current health");
     bullet.disableBody(true, true);
   }

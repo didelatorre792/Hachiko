@@ -47,6 +47,13 @@ export default class ParkScene extends Phaser.Scene {
       start: 3,
       duration: 1
     });
+    this.alarmSound = this.sound.add("alarm", {volume: 0.05});
+    this.alarmSound.addMarker({
+      name: "alarmSound",
+      start: 0,
+      duration: 0.5,
+      volume: 0.05
+    });
 
     //camera
     this.scrollCam = this.cameras.main.setBounds(0, 0, 2400, 600);
@@ -105,8 +112,29 @@ export default class ParkScene extends Phaser.Scene {
       this.add.image(410, 25, "dogToy3").setScale(.3).setScrollFactor(0);
     };
 
+    // bullet display
+    this.bullet10 = this.add.image(718, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet9 = this.add.image(726, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet8 = this.add.image(734, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet7 = this.add.image(742, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet6 = this.add.image(750, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet5 = this.add.image(758, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet4 = this.add.image(766, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet3 = this.add.image(774, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet2 = this.add.image(782, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet1 = this.add.image(790, 40, "bulletVertical").setScrollFactor(0);
 
-    // boss
+    // heart display
+    if (this.health >= 9) {this.heart9 = this.add.image(654, 15, "heart").setScale(0.06).setScrollFactor(0); }
+    if (this.health >= 8) {this.heart8 = this.add.image(671, 15, "heart").setScale(0.06).setScrollFactor(0); }
+    if (this.health >= 7) {this.heart7 = this.add.image(688, 15, "heart").setScale(0.06).setScrollFactor(0); }
+    if (this.health >= 6) {this.heart6 = this.add.image(705, 15, "heart").setScale(0.06).setScrollFactor(0); }
+    if (this.health >= 5) {this.heart5 = this.add.image(722, 15, "heart").setScale(0.06).setScrollFactor(0); }
+    if (this.health >= 4) {this.heart4 = this.add.image(739, 15, "heart").setScale(0.06).setScrollFactor(0); }
+    if (this.health >= 3) {this.heart3 = this.add.image(756, 15, "heart").setScale(0.06).setScrollFactor(0); }
+    if (this.health >= 2) {this.heart2 = this.add.image(773, 15, "heart").setScale(0.06).setScrollFactor(0); }
+    if (this.health >= 1) {this.heart1 = this.add.image(790, 15, "heart").setScale(0.06).setScrollFactor(0); }
+
     this.makeEnemy(1100, 590, .3, 50, 100, 1000, 490);
     this.makeEnemy(1750, 390, .3, 50, 100, 1650, 290);
     this.makeEnemy(2350, 590, .3, 50, 100, 2250, 490);
@@ -150,23 +178,36 @@ export default class ParkScene extends Phaser.Scene {
     //collectables
     this.physics.add.overlap(this.player, this.collectables, this.collectDogItem, null, this);
 
-    //health variables
     var gunDir;
-    var scoreFormatted = this.zeroPad(this.health, 3);
-    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormatted);
-    this.healthLabel.setScrollFactor(0);
-
-    //this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
-
     this.bulletCount = 10;
-    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
-    // var totalBullets = 10;
-    this.bulletAmount = this.add.text(5, 45,"Ammo: " + displayBulletCount).setScrollFactor(0);
 
     var deathScene;
   }
 
   update (time, delta) {
+    // bullet display
+    if (this.bulletCount == 9) {this.bullet10.destroy();}
+    if (this.bulletCount == 8) {this.bullet9.destroy();}
+    if (this.bulletCount == 7) {this.bullet8.destroy();}
+    if (this.bulletCount == 6) {this.bullet7.destroy();}
+    if (this.bulletCount == 5) {this.bullet6.destroy();}
+    if (this.bulletCount == 4) {this.bullet5.destroy();}
+    if (this.bulletCount == 3) {this.bullet4.destroy();}
+    if (this.bulletCount == 2) {this.bullet3.destroy();}
+    if (this.bulletCount == 1) {this.bullet2.destroy();}
+    if (this.bulletCount == 0) {this.bullet1.destroy();}
+
+    // heart display
+    if (this.health == 9) {this.heart9.destroy();};
+    if (this.health == 8) {this.heart8.destroy();};
+    if (this.health == 7) {this.heart7.destroy();};
+    if (this.health == 6) {this.heart6.destroy();};
+    if (this.health == 5) {this.heart5.destroy();};
+    if (this.health == 4) {this.heart4.destroy();};
+    if (this.health == 3) {this.heart3.destroy();};
+    if (this.health == 2) {this.heart2.destroy();};
+    if (this.health == 1) {this.heart1.destroy();};
+
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       if (this.bulletCount <= 0){
@@ -180,13 +221,28 @@ export default class ParkScene extends Phaser.Scene {
 
     //Scrolling screen
     this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 530);
-
     this.time.addEvent({
       delay:300,
       callback:this.delay,
       callbackScope: this,
       loop: false,
     });
+
+    // warning for player is going off screen
+    if (this.i == 0 && (this.player.x < this.scrollCam.scrollX + 60) && (this.player.x > this.scrollCam.scrollX + 58)) {
+      this.i += 1;
+      this.alarmSound.play("alarmSound");
+      // this.flashCamera = this.cameras.add(0, 0, 800, 600);
+      // this.flashCamera.flash(1000, 50, 10, 10, 10, 10);
+      this.text2 = this.add.text(this.scrollCam.scrollX + 300, 300, "MOVE RIGHT").setStyle({fontSize: "50px", color: "#f44A48"});
+      this.time.addEvent({delay:200, callback: this.warning, callbackScope: this}); // destroy text
+      // so the warning only happens every so often
+      this.time.addEvent({
+        delay:450,
+        callback: this.removei,
+        callbackScope: this,
+      });
+    };
 
     if(this.scrollCam.scrollX > 2490){
       //console.log("done scrolling!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -198,6 +254,7 @@ export default class ParkScene extends Phaser.Scene {
     if (this.health < 0){
       //console.log("died by damage");
       this.parkMusic.stop(this.parkMusicConfig);
+      this.alarmSound.stop();
       this.deathScene = "Park";
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected, deathScene: this.deathScene});
     }
@@ -324,6 +381,7 @@ export default class ParkScene extends Phaser.Scene {
     if(this.player.x < this.scrollCam.scrollX - 100){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.parkMusic.stop(this.parkMusicConfig);
+      this.alarmSound.stop();
       this.deathScene = "Park";
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected, deathScene: this.deathScene});
 
@@ -349,8 +407,6 @@ export default class ParkScene extends Phaser.Scene {
   //shooting the gun
   shoot(direction){
     this.bulletCount -= 1;
-    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
-    this.bulletAmount.text = "Ammo: " + displayBulletCount;
     var velocity = new Phaser.Math.Vector2();
     var bullet = this.bullets.get();
     if (direction == 'Flip'){
@@ -366,10 +422,7 @@ export default class ParkScene extends Phaser.Scene {
 
   //when hit by an enemy
   takeDamage(enemy, player){
-    this.health -= 5;
-    var scoreformatted = this.zeroPad(this.health, 3);
-    //console.log(this.health, "health");
-    this.healthLabel.text = "Health:" + scoreformatted;
+    this.health -= 1;
     this.girlOuch.play("girlOuch");
     this.player.setTint(0xf44A48);
     this.time.addEvent({
@@ -383,11 +436,9 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   takeDamageFromEnemyBullets(bullet, player){
-    this.health -= 10;
+    this.health -= 1;
     this.girlOuch.play("girlOuch");
     bullet.disableBody(true, true);
-    var scoreformatted = this.zeroPad(this.health, 6);
-    this.healthLabel.text = "Health: " + scoreformatted;
     this.player.setTint(0xf44A48);
     this.time.addEvent({
       delay:400,
@@ -430,6 +481,7 @@ export default class ParkScene extends Phaser.Scene {
   gotHachiko(player, hachiko){
     //if (this.player.x > 7397 && this.player.x < 7403){
       this.parkMusic.stop();
+      this.alarmSound.stop();
       //console.log("got hachiko");
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }

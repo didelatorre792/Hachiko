@@ -32,6 +32,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("hachiko", "./assets/images/hachikogif.gif");
     this.load.image("nerf", "./assets/images/nerf.png");
     this.load.image("bullet", "./assets/images/bullet.png");
+    this.load.image("bulletVertical", "/assets/images/bulletVertical.png");
     this.load.image("box", "./assets/images/box.png");
     this.load.image("boxCopy", "./assets/images/box2Outlined.png");
     this.load.image("boxCopy2", "./assets/images/box3Outlined.png");
@@ -40,6 +41,9 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("arrow1", "./assets/images/arrow1.png");
     this.load.image("arrow2", "./assets/images/arrow2.png");
     this.load.image("arrow3", "./assets/images/arrow3.png");
+    this.load.image("blocks", "./assets/images/toyBlocksOutlined.png");
+    this.load.image("heart", "./assets/images/heart.png");
+    this.load.image("brokenHeart", "./assets/images/brokenHeart.png");
 
     //this.load.video("titleVideo", "./assets/images/titleVideo.mp4");
 
@@ -111,7 +115,7 @@ export default class BootScene extends Phaser.Scene {
       repeat: -1
     });
 
-    this.scene.start('NeighborhoodScene');
+    this.scene.start('ToyShopScene');
 
   }
 }

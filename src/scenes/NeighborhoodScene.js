@@ -90,6 +90,29 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.add.text(3390, 400, "This way").setStyle({fontSize: "20px", color: "#fff"});
     this.add.image(3450, 450, "arrow3").setScale(.08);
 
+    // bullet display
+    this.bullet10 = this.add.image(718, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet9 = this.add.image(726, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet8 = this.add.image(734, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet7 = this.add.image(742, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet6 = this.add.image(750, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet5 = this.add.image(758, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet4 = this.add.image(766, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet3 = this.add.image(774, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet2 = this.add.image(782, 40, "bulletVertical").setScrollFactor(0);
+    this.bullet1 = this.add.image(790, 40, "bulletVertical").setScrollFactor(0);
+
+    // heart display
+    this.heart9 = this.add.image(654, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart8 = this.add.image(671, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart7 = this.add.image(688, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart6 = this.add.image(705, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart5 = this.add.image(722, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart4 = this.add.image(739, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart3 = this.add.image(756, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart2 = this.add.image(773, 15, "heart").setScale(0.06).setScrollFactor(0);
+    this.heart1 = this.add.image(790, 15, "heart").setScale(0.06).setScrollFactor(0);
+
     //player
     this.player = this.physics.add.sprite(350, 550, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true);
@@ -126,11 +149,11 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
     //health variables
     var gunDir;
-    this.health = 300;
-    var scoreFormated = this.zeroPad(this.health, 3);
-    this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
-    this.healthLabel.setScrollFactor(0);
-    //this.collectedText = this.add.text(5, 25,"Memories: " + this.itemsCollected).setScrollFactor(0);
+    this.health = 10;
+    // var scoreFormated = this.zeroPad(this.health, 3);
+    // this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
+    // this.healthLabel.setScrollFactor(0);
+
     this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
     this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0).setTint(0);
     this.add.image(300, 20, "dogToy").setScale(.04).setScrollFactor(0).setTint(0);
@@ -141,12 +164,21 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.add.image(550, 25, "dogToy4").setScale(0.02).setScrollFactor(0).setTint(0);
 
     this.bulletCount = 10;
-    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
-    // var totalBullets = 10;
-    this.bulletAmount = this.add.text(5, 45,"Ammo: " + displayBulletCount).setScrollFactor(0);
   }
 
   update (time, delta) {
+    // bullet display
+    if (this.bulletCount == 9) {this.bullet10.destroy();}
+    if (this.bulletCount == 8) {this.bullet9.destroy();}
+    if (this.bulletCount == 7) {this.bullet8.destroy();}
+    if (this.bulletCount == 6) {this.bullet7.destroy();}
+    if (this.bulletCount == 5) {this.bullet6.destroy();}
+    if (this.bulletCount == 4) {this.bullet5.destroy();}
+    if (this.bulletCount == 3) {this.bullet4.destroy();}
+    if (this.bulletCount == 2) {this.bullet3.destroy();}
+    if (this.bulletCount == 1) {this.bullet2.destroy();}
+    if (this.bulletCount == 0) {this.bullet1.destroy();}
+
     //Space bar to shoot
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
       if (this.bulletCount <= 0){
@@ -163,7 +195,6 @@ export default class NeighborhoodScene extends Phaser.Scene {
 
 
     // warning for player is going off screen
-    //this.i = 0;
     if (this.i == 0 && (this.player.x < this.scrollCam.scrollX + 60) && (this.player.x > this.scrollCam.scrollX + 58)) {
       this.i += 1;
       this.alarmSound.play("alarmSound");
@@ -171,20 +202,18 @@ export default class NeighborhoodScene extends Phaser.Scene {
       // this.flashCamera.flash(1000, 50, 10, 10, 10, 10);
       this.text2 = this.add.text(this.scrollCam.scrollX + 300, 300, "MOVE RIGHT").setStyle({fontSize: "50px", color: "#f44A48"});
       this.time.addEvent({delay:200, callback: this.warning, callbackScope: this}); // destroy text
+      // so the warning only happens every so often
       this.time.addEvent({
         delay:450,
         callback: this.removei,
         callbackScope: this,
       });
     };
-    // so the warning only happens every so often
-
 
     //If player is off screen
     if(this.player.x < this.scrollCam.scrollX - 10){
       this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
       this.alarmSound.stop();
-      // red screne stop
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
       //console.log("death by scroll")
     }
@@ -321,8 +350,6 @@ export default class NeighborhoodScene extends Phaser.Scene {
   //shooting the gun
   shoot(direction){
     this.bulletCount -= 1;
-    var displayBulletCount = this.zeroPad(this.bulletCount, 2);
-    this.bulletAmount.text = "Ammo: " + displayBulletCount;
     var velocity = new Phaser.Math.Vector2();
     var bullet = this.bullets.get();
     if (direction == 'Flip'){
