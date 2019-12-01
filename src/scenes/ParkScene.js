@@ -13,6 +13,7 @@ export default class ParkScene extends Phaser.Scene {
     this.dogToy2Collect = data.dogToy2Collect;
     this.dogToy3Collect = data.dogToy3Collect;
     this.dogBowlCollect = data.dogBowlCollect;
+    this.y = data.y;
   }
 
   create(){
@@ -52,7 +53,7 @@ export default class ParkScene extends Phaser.Scene {
     this.scrollCam.scrollX = 0;
 
     //player
-    this.player = this.physics.add.sprite(0, 530, "player").setScale(.3);
+    this.player = this.physics.add.sprite(0, this.y, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
     //console.log("player x in scene 2: ", this.player.x)
     //console.log(this.cameras.main.width + ", " + this.cameras.main.height);

@@ -9,6 +9,7 @@ export default class AlleyScene extends Phaser.Scene {
     this.itemsCollected = data.itemsCollected;
     this.dogCollarCollect = data.dogCollarCollect;
     this.dogBoneCollect = data.dogBoneCollect;
+    this.y = data.y;
   }
 
   create(){
@@ -103,7 +104,7 @@ export default class AlleyScene extends Phaser.Scene {
     };
 
     //player
-    this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
+    this.player = this.physics.add.sprite(0, this.y, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
     ////console.log("player x in scene 2: ", this.player.x);
 
@@ -331,7 +332,8 @@ export default class AlleyScene extends Phaser.Scene {
     );
     if (this.player.x > 3350) {
       this.alleyMusic.stop(this.alleyMusicConfig);
-      this.scene.start('ToyShopScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, dogToyCollect: this.dogToyCollect, dogBowlCollect: this.dogBowlCollect});
+      this.y = this.player.y;
+      this.scene.start('ToyShopScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, dogToyCollect: this.dogToyCollect, dogBowlCollect: this.dogBowlCollect, y: this.y});
       //console.log("scene switch 2")
     };
 

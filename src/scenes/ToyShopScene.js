@@ -11,6 +11,7 @@ export default class ToyShopScene extends Phaser.Scene {
     this.dogBoneCollect = data.dogBoneCollect;
     this.dogToyCollect = data.dogToyCollect;
     this.dogBowlCollect = data.dogBowlCollect;
+    this.y = data.y;
   }
 
   create(){
@@ -93,7 +94,7 @@ export default class ToyShopScene extends Phaser.Scene {
     };
 
     //player
-    this.player = this.physics.add.sprite(0, 550, "player").setScale(.3);
+    this.player = this.physics.add.sprite(0, this.y, "player").setScale(.3);
     this.player.setCollideWorldBounds(true).setActive(true).setDepth(1);
 
     //moving car
@@ -319,7 +320,8 @@ export default class ToyShopScene extends Phaser.Scene {
     );
     if (this.player.x > 3400) {
       this.toyShopMusic.stop(this.toyShopMusicConfig);
-      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, dogToyCollect: this.dogToyCollect, dogToy2Collect: this.dogToy2Collect, dogToy3Collect: this.dogToy3Collect, dogBowlCollect: this.dogBowlCollect});
+      this.y = this.player.y;
+      this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, dogToyCollect: this.dogToyCollect, dogToy2Collect: this.dogToy2Collect, dogToy3Collect: this.dogToy3Collect, dogBowlCollect: this.dogBowlCollect, y: this.y});
       //console.log("scene switch 2")
     };
   }

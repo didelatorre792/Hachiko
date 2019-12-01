@@ -311,7 +311,8 @@ export default class NeighborhoodScene extends Phaser.Scene {
       this.position = this.player.x;
       // alarm stop, screen normal
       this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
-      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect});
+      this.y = this.player.y;
+      this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, y: this.y});
       //console.log("scene switch")
       //console.log("player x in scene 1: ", this.player.x)
     }
