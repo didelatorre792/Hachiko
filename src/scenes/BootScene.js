@@ -71,6 +71,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.audio("parkBackgroundMusic", "./assets/sounds/parkMusic.wav");
     this.load.audio("toyShopBackgroundMusic", "./assets/sounds/toyShopBackground.wav");
     this.load.audio("carHorn", "./assets/sounds/carHorn.wav");
+    this.load.audio("alarm", "./assets/sounds/alarm.wav");
   }
 
 

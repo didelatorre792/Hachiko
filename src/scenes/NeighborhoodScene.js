@@ -32,10 +32,18 @@ export default class NeighborhoodScene extends Phaser.Scene {
       start: 0.1,
       duration: 0.3
     });
+    this.alarmSound = this.sound.add("alarm", {volume: 0.05});
+    this.alarmSound.addMarker({
+      name: "alarmSound",
+      start: 0,
+      duration: 0.5,
+      volume: 0.05
+    });
 
     //camera
     this.scrollCam = this.cameras.main.setBounds(0, 0, 3500, 600);
     this.scrollCam.scrollX = 0;
+    this.i = 0;
 
     //background
     this.background = this.add.image(1750, 300, "neighborhood");
@@ -149,14 +157,34 @@ export default class NeighborhoodScene extends Phaser.Scene {
         this.nerfShootSound.play("nerfShootSound");
       }
     }
-
     //Scrolling screen
     this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
-    this.scrollCam.scrollX += 0.7;
+    this.scrollCam.scrollX += 1.7;
+
+
+    // warning for player is going off screen
+    //this.i = 0;
+    if (this.i == 0 && (this.player.x < this.scrollCam.scrollX + 60) && (this.player.x > this.scrollCam.scrollX + 58)) {
+      this.i += 1;
+      this.alarmSound.play("alarmSound");
+      // this.flashCamera = this.cameras.add(0, 0, 800, 600);
+      // this.flashCamera.flash(1000, 50, 10, 10, 10, 10);
+      this.text2 = this.add.text(this.scrollCam.scrollX + 300, 300, "MOVE RIGHT").setStyle({fontSize: "50px", color: "#f44A48"});
+      this.time.addEvent({delay:200, callback: this.warning, callbackScope: this}); // destroy text
+      this.time.addEvent({
+        delay:450,
+        callback: this.removei,
+        callbackScope: this,
+      });
+    };
+    // so the warning only happens every so often
+
 
     //If player is off screen
-    if(this.player.x < this.scrollCam.scrollX){
+    if(this.player.x < this.scrollCam.scrollX - 10){
       this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
+      this.alarmSound.stop();
+      // red screne stop
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
       //console.log("death by scroll")
     }
@@ -281,6 +309,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     );
     if (this.player.x > 3450) {
       this.position = this.player.x;
+      // alarm stop, screen normal
       this.neighborhoodMusic.stop(this.neighborhoodMusicConfig);
       this.scene.start('AlleyScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect});
       //console.log("scene switch")
@@ -328,5 +357,12 @@ export default class NeighborhoodScene extends Phaser.Scene {
       stringNumber = "0" + stringNumber;
     }
     return stringNumber;
+  }
+
+  warning() {
+    this.text2.destroy();
+  }
+  removei() {
+    this.i -= 1;
   }
 }
