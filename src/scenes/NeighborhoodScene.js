@@ -152,7 +152,6 @@ export default class NeighborhoodScene extends Phaser.Scene {
     // var scoreFormated = this.zeroPad(this.health, 3);
     // this.healthLabel = this.add.text(5, 5,"Health: " + scoreFormated);
     // this.healthLabel.setScrollFactor(0);
-
     this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
     this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0).setTint(0);
     this.add.image(300, 20, "dogToy").setScale(.04).setScrollFactor(0).setTint(0);
@@ -190,7 +189,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     }
     //Scrolling screen
     this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
-    this.scrollCam.scrollX += 1.7;
+    this.scrollCam.scrollX += .7;
 
 
     // warning for player is going off screen
