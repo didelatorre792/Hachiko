@@ -1,18 +1,18 @@
-export default class TutorialScene extends Phaser.Scene {
+export default class TitleScene extends Phaser.Scene {
   constructor () {
-    super('TutorialScene');}
+    super('TitleScene');}
 
 
 
   create() {
-    this.background = this.add.image(400, 300, "tutorial").setScale(2)
+    this.add.image(400, 325, "titlePic").setScale(1.1);
     //this.add.image(400, 300, "titleVideo");
   }
 
   update(){
     //this.titleVideo.play(true)
     this.time.addEvent({
-      delay:6000,
+      delay:4000,
       callback:this.delay,
       callbackScope: this,
     });
@@ -22,7 +22,7 @@ export default class TutorialScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scene.start('NeighborhoodScene');
+    this.scene.start('PreGameScene');
   }
 
 

@@ -1,7 +1,7 @@
 export default class BootScene extends Phaser.Scene {
 
   preload () {
-    // Preload assets
+    // assets
     this.load.image("background", "./assets/images/2.0/finalbackground.png");
     this.load.image("neighborhood", "./assets/images/2.0/neighbourhood3.0.jpg");
     this.load.image("alley", "./assets/images/2.0/alley.png");
@@ -45,9 +45,23 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("heart", "./assets/images/heart.png");
     this.load.image("brokenHeart", "./assets/images/brokenHeart.png");
     this.load.image("lego", "./assets/images/legoOutlined.png");
+    this.load.image("titlePic", "./assets/images/heart copy.png");
 
-    //this.load.image("titleVideo", "./assets/videos/titleVideo.mp4");
+    // audio
+    this.load.audio("collect", "./assets/sounds/collect.wav");
+    this.load.audio("enemyGrunt", "./assets/sounds/enemyGrunt.wav");
+    this.load.audio("girlOuch", "./assets/sounds/girlOuch.mp3");
+    this.load.audio("mcGrunt", "./assets/sounds/mcGrunt.mp3");
+    this.load.audio("neighborhoodBackgroundMusic", "./assets/sounds/neighborhoodBackground.wav");
+    this.load.audio("nerfShoot", "./assets/sounds/nerfGunShot.wav");
+    this.load.audio("jump", "./assets/sounds/jump.wav");
+    this.load.audio("alleyBackgroundMusic", "./assets/sounds/alleyBackground.ogg");
+    this.load.audio("parkBackgroundMusic", "./assets/sounds/parkMusic.wav");
+    this.load.audio("toyShopBackgroundMusic", "./assets/sounds/toyShopBackground.wav");
+    this.load.audio("carHorn", "./assets/sounds/carHorn.wav");
+    this.load.audio("alarm", "./assets/sounds/alarm.wav");
 
+    // spritesheets
     this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheet.png", {
       frameWidth:545/3,
       frameHeight: 790/3
@@ -64,19 +78,10 @@ export default class BootScene extends Phaser.Scene {
       frameWidth: 200,
       frameHeight: 150
     });
-
-    this.load.audio("collect", "./assets/sounds/collect.wav");
-    this.load.audio("enemyGrunt", "./assets/sounds/enemyGrunt.wav");
-    this.load.audio("girlOuch", "./assets/sounds/girlOuch.mp3");
-    this.load.audio("mcGrunt", "./assets/sounds/mcGrunt.mp3");
-    this.load.audio("neighborhoodBackgroundMusic", "./assets/sounds/neighborhoodBackground.wav");
-    this.load.audio("nerfShoot", "./assets/sounds/nerfGunShot.wav");
-    this.load.audio("jump", "./assets/sounds/jump.wav");
-    this.load.audio("alleyBackgroundMusic", "./assets/sounds/alleyBackground.ogg");
-    this.load.audio("parkBackgroundMusic", "./assets/sounds/parkMusic.wav");
-    this.load.audio("toyShopBackgroundMusic", "./assets/sounds/toyShopBackground.wav");
-    this.load.audio("carHorn", "./assets/sounds/carHorn.wav");
-    this.load.audio("alarm", "./assets/sounds/alarm.mp3");
+    /*this.load.spritesheet("title", "./assets/spritesheet/title.png", {
+      frameWidth: 2224,
+      frameHeight: 1668
+    }); */
   }
 
 
@@ -115,8 +120,12 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     });
+    /*this.anims.create({
+      key: "title",
+      frames: this.anims.generateFrameNumbers("title", {start: 0, end: 39}),
+      frameRate: 10,
+    });*/
 
-    this.scene.start('PreGameScene');
-
+    this.scene.start('TitleScene');
   }
 }
