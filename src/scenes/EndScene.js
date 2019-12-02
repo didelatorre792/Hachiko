@@ -19,25 +19,62 @@ export default class EndScene extends Phaser.Scene {
     this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     //this.add.text(this.centerX - 160, this.centerY - 40, "Congratulations! You found Hachikō.", 40);
     if (this.itemsCollected == 0) {
+      console.log("nothing");
       this.cameras.main.setBackgroundColor(0x9F2B30);
       this.add.text(this.centerX - 305, this.centerY, "You didn't get any of his things, so he doesn't remember you");
       this.add.text(this.centerX - 220, this.centerY + 80, "TRY AGAIN TO GET HACHIKŌ TO COME HOME WITH YOU");
       this.add.text(this.centerX - 128, this.centerY + 200, "Press ENTER to restart")
+
+      this.add.image(80, 100, "player").setScale(.5);
+
+      var Nohachiko = this.add.image(600, 150, "hachiko").setScale(.25);
+
+      this.tweens.add({
+        targets: Nohachiko,
+        x: 1000,
+        ease: 'Linear',
+        delay: 600,
+        duration:3000,
+        yoyo: false
+      });
+
     } else if (this.itemsCollected == 8) {
       this.cameras.main.setBackgroundColor(0xECCE00);
       this.add.image(this.centerX, 160, "hachiko").setScale();
       this.add.text(this.centerX - 175, this.centerY, "You collected all of Hachikō's things!", 40);
       this.add.text(this.centerX - 230, this.centerY + 80, "You got an A+ and Hachikō is coming home with you!");
       this.add.text(this.centerX - 128, this.centerY + 200, "Press ENTER to restart")
+
+      this.add.image(300, 100, "player").setScale(.5);
+
+      this.Yeshachiko = this.add.image(350, 150, "hachiko").setScale(.25);
+
     } else {
       this.cameras.main.setBackgroundColor(0xEC9284);
       this.add.text(this.centerX - 170, this.centerY, "You collected "+this.itemsCollected+" of HACHIKŌ's things!", 40);
       var scoreArray = ["F", "D+", "D", "C", "C+", "B", "B+", "A", "A+"];
-      this.add.text(this.centerX - 115, this.centerY + 80, "You got a "+scoreArray[this.itemsCollected]+". TRY AGAIN!");
+      this.add.text(this.centerX - 115, this.centerY + 80, "You got a "+scoreArray[this.itemsCollected]+" TRY AGAIN!");
       this.add.text(this.centerX - 128, this.centerY + 200, "Press ENTER to restart")
+
+      this.add.image(80, 100, "player").setScale(.5);
+
+      //var Tweenhachiko = this.add.sprite(600, 150, "hachiko").setScale(.25).flipX = true;
+      var Tweenhachiko = this.add.sprite(600, 150, "hachiko").setScale(.25);
+
+      this.tweens.add({
+        targets: Tweenhachiko,
+        x: 580,
+        ease: 'Linear',
+        delay: 300,
+        duration:500,
+        yoyo: true,
+        repeat: 6
+      });
+      //this.Twiko(this.Tweenhachiko);
+
     }
 
-    console.log(this.deathScene);
+    //console.log(this.deathScene);
 
   }
 
@@ -64,9 +101,17 @@ export default class EndScene extends Phaser.Scene {
       }
     }
 
-    // else if (Phaser.Input.Keyboard.JustDown(this.enter)) {
-    //
-    // }
+
+  }
+
+  Nochiko(hachiko){
+    console.log("no chiko");
+
+    console.log(hachiko, "position");
+  }
+
+  Twiko(hachiko){
+    console.log("little chiko");
 
   }
 

@@ -32,12 +32,11 @@ export default class NeighborhoodScene extends Phaser.Scene {
       start: 0.1,
       duration: 0.3
     });
-    this.alarmSound = this.sound.add("alarm", {volume: 0.05});
+    this.alarmSound = this.sound.add("alarm", {volume: 0.001});
     this.alarmSound.addMarker({
       name: "alarmSound",
       start: 0,
       duration: 0.5,
-      volume: 0.05
     });
 
     //camera

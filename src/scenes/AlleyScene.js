@@ -406,7 +406,7 @@ export default class AlleyScene extends Phaser.Scene {
     var angle = betweenPoints(e, this.player);
     var velocityFromRotation = this.physics.velocityFromRotation;
     var velocity = new Phaser.Math.Vector2();
-    velocityFromRotation(angle, 400, velocity);
+    velocityFromRotation(angle, 500, velocity);
     var bullet = this.enemyBullets.get();
     bullet.setAngle(Phaser.Math.RAD_TO_DEG * angle);
     //if (direction == 'Flip'){
