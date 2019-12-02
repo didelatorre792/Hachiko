@@ -44,6 +44,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("blocks", "./assets/images/toyBlocksOutlined.png");
     this.load.image("heart", "./assets/images/heart.png");
     this.load.image("brokenHeart", "./assets/images/brokenHeart.png");
+    this.load.image("lego", "./assets/images/legoOutlined.png");
 
     //this.load.video("titleVideo", "./assets/images/titleVideo.mp4");
 

@@ -75,12 +75,13 @@ export default class ToyShopScene extends Phaser.Scene {
 
     // assets
     this.collectables.create(635, 365, "dogToy3").setScale(.3).setSize(35, 35).setPosition(565, 315);
-    this.add.image(1740, 490, "blocks").setScale(0.1);
-    this.box1 = this.platforms.create(1710, 520, "box").setSize(60, 60); this.box1.alpha = 0;
-    this.box2 = this.platforms.create(1770, 520, "box").setSize(60, 60); this.box2.alpha = 0;
-    this.box3 = this.platforms.create(1740, 460, "box").setSize(60, 60); this.box3.alpha = 0;
-    this.platforms.create(1870, 390, "boxCopy");
-    this.platforms.create(1970, 300, "boxCopy");
+    this.add.image(1790, 490, "blocks").setScale(0.1);
+    this.box1 = this.platforms.create(1760, 520, "box").setSize(60, 60); this.box1.alpha = 0;
+    this.box2 = this.platforms.create(1820, 520, "box").setSize(60, 60); this.box2.alpha = 0;
+    this.box3 = this.platforms.create(1790, 460, "box").setSize(60, 60); this.box3.alpha = 0;
+    this.add.image(1970, 350, "lego").setScale(.07);
+    this.box4 = this.platforms.create(1970, 355, "box").setSize(80, 60); this.box4.alpha = 0;
+    //this.platforms.create(1970, 300, "boxCopy");
     this.platforms.create(2340, 235, "boxCopy3")
     this.collectables.create(2385, 410, "dogToy2").setScale(.3).setSize(15, 25).setPosition(2350, 375);
 
