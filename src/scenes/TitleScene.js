@@ -6,11 +6,11 @@ export default class TutorialScene extends Phaser.Scene {
 
   create() {
     this.background = this.add.image(400, 300, "tutorial").setScale(2)
-    this.add.video(400, 300, "titleVideo");
+    //this.add.image(400, 300, "titleVideo");
   }
 
   update(){
-    this.titleVideo.play(true)
+    //this.titleVideo.play(true)
     this.time.addEvent({
       delay:6000,
       callback:this.delay,
@@ -22,7 +22,7 @@ export default class TutorialScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scene.start('PreGameScene');
+    this.scene.start('NeighborhoodScene');
   }
 
 

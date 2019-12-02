@@ -46,7 +46,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("brokenHeart", "./assets/images/brokenHeart.png");
     this.load.image("lego", "./assets/images/legoOutlined.png");
 
-    //this.load.video("titleVideo", "./assets/images/titleVideo.mp4");
+    //this.load.image("titleVideo", "./assets/videos/titleVideo.mp4");
 
     this.load.spritesheet("player", "./assets/spritesheet/playerSpriteSheet.png", {
       frameWidth:545/3,
@@ -116,7 +116,7 @@ export default class BootScene extends Phaser.Scene {
       repeat: -1
     });
 
-    this.scene.start('ToyShopScene');
+    this.scene.start('PreGameScene');
 
   }
 }

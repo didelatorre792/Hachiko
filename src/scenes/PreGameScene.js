@@ -10,81 +10,75 @@ export default class PreGameScene extends Phaser.Scene {
 
   create(){
     //camera
-    this.scrollCam = this.cameras.main.setBounds(0, 0, 9390, 600);
-    this.scrollCam.scrollX = 9390;
+    this.scrollCam = this.cameras.main.setBounds(0, 0, 12890, 600);
+    this.scrollCam.scrollX = 12890;
 
 
-    //building the scene
-    this.background = this.add.image(4695, 300, "background");
-    this.background.alpha = 0.5;
+    //building the scene, before 4695
+    this.neighborhood = this.add.image(1750, 300, "neighborhood"); //3500 wide
+    //this.neighbrohood.alpha = 0.5;
+    this.alley = this.add.image(5200, 300, "alley"); //3400 wide
+    //this.alley.alpha = 0.5;
+    this.toyShop = this.add.image(8650, 300, "toyShop"); //3500 wide
+    //this.toyShop.alpha = 0.5;
+    this.park = this.add.image(11645, 300, "park"); //2490 wide
+    //this.park.alpha = 0.5;
+
     //groups
     this.platforms = this.physics.add.staticGroup();
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.staticGroup();
+
     // neighborhood
-    this.car1 = this.add.image(1200, 490, "car1").setScale(.45);
-    this.box1 = this.platforms.create(1220, 494, "box").setSize(135); this.box1.alpha = 0;
-    this.mailbox1 = this.add.image(1842, 475, "mailbox").setScale(.08);
-    this.box2 = this.platforms.create(1837, 440, "box").setSize(40,10); this.box2.alpha = 0;
-    this.lamppost1 = this.add.image(2050, 408, "lamppost").setScale(.085);
-    this.box3 = this.platforms.create(1992, 300, "box").setSize(18, 8); this.box3.alpha = 0;
-    this.box4 = this.platforms.create(2110, 300, "box").setSize(18, 8); this.box4.alpha = 0;
+    this.lamppost1 = this.add.image(2450, 408, "lamppost").setScale(.085);
     this.car2 = this.add.image(2700, 490, "car2").setScale(.45);
-    this.box5 = this.platforms.create(2720, 494, "box").setSize(135); this.box5.alpha = 0;
     this.mailbox2 = this.add.image(2867, 475, "mailbox").setScale(.08);
-    this.box6 = this.platforms.create(2862, 440, "box").setSize(40, 10); this.box6.alpha = 0;
     this.lamppost2 = this.add.image(3000, 408, "lamppost").setScale(.085);
-    this.box7 = this.platforms.create(2942, 300, "box").setSize(18, 8); this.box7.alpha = 0;
-    this.box8 = this.platforms.create(3060, 300, "box").setSize(18, 8); this.box8.alpha = 0;
     this.collectables.create(2766, 120, "dogBone").setScale(.2).setSize(42, 15).setPosition(2670, 50);
     this.mailbox3 = this.add.image(3317, 485, "mailbox").setScale(.062);
-    this.box9 = this.platforms.create(3315, 457, "box").setSize(30, 10); this.box9.alpha = 0;
 
     // alley
-    this.trashcan1 = this.add.image(5150, 540, "trashcan").setScale(.08);
-    this.box10 = this.platforms.create(5150, 540, "box").setSize(40, 60); this.box10.alpha = 0;
-    this.trashcan2 = this.add.image(5220, 520, "trashcan").setScale(.12);
-    this.box11 = this.platforms.create(5220, 520, "box").setSize(60, 90); this.box11.alpha = 0;
-    this.sign1 = this.add.image(5350, 350, "sign1").setScale(.1);
-    this.box12 = this.platforms.create(5350, 364, "box").setSize(70, 30); this.box12.alpha = 0;
-    this.collectables.create(5882, 344, "dogCollar").setScale(.05).setSize(30, 25).setPosition(5610, 100);
-    this.collectables.create(6300, 1048, "dogToy").setScale(.04).setSize(29, 35).setPosition(5820, 530);
-    this.dumpster = this.add.image(5700, 480, "dumpster").setScale(.26);
-    this.box13 = this.platforms.create(5700, 520, "box").setSize(155, 110); this.box13.alpha = 0;
-    this.box14 = this.platforms.create(5700, 417, "box").setSize(120, 50); this.box14.alpha = 0;
-    this.trashcan3 = this.add.image(5950, 540, "trashcan").setScale(.08);
-    this.box15 = this.platforms.create(5950, 540, "box").setSize(40, 60); this.box15.alpha = 0;
-    this.sign2 = this.add.image(6130, 444, "sign2").setScale(.08);
-    this.box16 = this.platforms.create(6130, 455, "box").setSize(60, 20); this.box16.alpha = 0;
-    this.sign3 = this.add.image(6450, 270, "sign3").setScale(.1);
-    this.box17 = this.platforms.create(6450, 270, "box").setSize(100, 25); this.box17.alpha = 0;
-    this.collectables.create(6840, 105, "dogBowl").setScale(.2).setSize(42, 25).setPosition(6750, 15);
+    this.trashcan1 = this.add.image(4950, 540, "trashcan").setScale(.08);
+    this.trashcan2 = this.add.image(5020, 520, "trashcan").setScale(.12);
+    this.sign1 = this.add.image(5150, 350, "sign1").setScale(.1);
+    this.collectables.create(5100, 1000, "dogToy").setScale(.04).setSize(29, 35).setPosition(5620, 530);
+    this.dumpster = this.add.image(5500, 480, "dumpster").setScale(.26);
+    this.trashcan3 = this.add.image(5750, 540, "trashcan").setScale(.08);
+    this.sign2 = this.add.image(5930, 444, "sign2").setScale(.08);
+    this.sign3 = this.add.image(6250, 370, "sign3").setScale(.1);
+    this.collectables.create(6640, 305, "dogBowl").setScale(.2).setSize(42, 25).setPosition(3050, 240);
+    this.makeEnemy(5100, 530, .3);
     this.makeEnemy(5600, 530, .3);
-    this.makeEnemy(5890, 525, .3);
+    this.makeEnemy(5890, 515, .3);
     this.makeEnemy(6350, 505, .3);
+    this.makeEnemy(6600, 505, .3);
+
+    // toy shop scene
+    this.collectables.create(7535, 365, "dogToy3").setScale(.3).setSize(35, 35).setPosition(7465, 315);
+    this.add.image(8690, 490, "blocks").setScale(0.1);
+    this.add.image(8870, 350, "lego").setScale(.07);
+    this.platforms.create(9240, 235, "boxCopy3")
+    this.collectables.create(9285, 410, "dogToy2").setScale(.3).setSize(15, 25).setPosition(9250, 375);
 
     // park
-    this.collectables.create(7817, 525, "dogPicture").setScale(0.07).setSize(50, 70).setPosition(7480, 50);
-    this.trashcan4 = this.add.image(7550, 545, "trashcan").setScale(.12);
-    this.box17 = this.platforms.create(7550, 543, "box").setSize(60, 90); this.box17.alpha = 0;
-    this.lamppost3 = this.add.image(7700, 463, "lamppost").setScale(.097);
-    this.box18 = this.platforms.create(7633, 340, "box").setSize(22, 9); this.box18.alpha = 0;
-    this.box19 = this.platforms.create(7768, 340, "box").setSize(22, 9); this.box19.alpha = 0;
-    this.bench = this.add.image(7900, 470, "bench").setScale(.5);
-    this.box20 = this.platforms.create(7896, 470, "box").setSize(202, 5); this.box20.alpha = 0;
-    this.tree = this.add.image(8200, 350, "tree").setScale(.35);
-    this.box21 = this.platforms.create(8200, 340, "box").setSize(250, 5); this.box21.alpha = 0;
-
-    // boss
-    this.makeEnemy(8950, 470, .7);
-
-    this.hachiko = this.add.image(9000, 540, "hachiko").setScale(.2);
+    this.collectables.create(11032, 250, "dogPicture").setScale(0.1).setSize(35, 45).setPosition(10880, 50);
+    this.trashcan4 = this.add.image(10850, 485, "trashcan").setScale(.12);
+    this.lamppost3 = this.add.image(11000, 403, "lamppost").setScale(.097);
+    this.bench = this.add.image(11600, 470, "bench").setScale(.5);
+    this.tree = this.add.image(12100, 350, "tree").setScale(.35);
+    this.platforms.create(12100, 340, "boxCopy4");
+    this.collectables.create(12805, 600, "dogToy4").setScale(0.02).setSize(20, 20).setPosition(1900, 100);
+    this.makeEnemy(11400, 490, .3);
+    this.makeEnemy(12050, 290, .3);
+    this.makeEnemy(12550, 490, .3);
+    this.makeEnemy(12600, 430, .7);
+    this.hachiko = this.add.image(12700, 520, "hachiko").setScale(.2);
 
     //player
-    this.player = this.add.sprite(250, 510, "player").setScale(.3);
+    this.player = this.add.sprite(350, 550, "player").setScale(.3);
 
     //gun
-    this.nerf = this.add.sprite(280, 520, "nerf");
+    this.nerf = this.add.sprite(380, 560, "nerf");
     this.nerf.setScale(.03);
 
     this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
@@ -93,8 +87,7 @@ export default class PreGameScene extends Phaser.Scene {
 
   update (time, delta) {
     //Scrolling screen
-    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 9390, 550);
-    //this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 3000, 550);
+    this.physics.world.setBounds(this.scrollCam.worldView.x, 0, 12890, 550);
 
     this.time.addEvent({
       delay:800,
@@ -115,32 +108,32 @@ export default class PreGameScene extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay:13000,
+      delay:14000,
       callback:this.story1,
       callbackScope: this,
     });
 
 
     this.time.addEvent({
-      delay:15000,
+      delay:16000,
       callback:this.story2,
       callbackScope: this,
     });
 
     this.time.addEvent({
-      delay:16000,
+      delay:17000,
       callback:this.story3,
       callbackScope: this,
     });
 
     this.time.addEvent({
-      delay:17000,
+      delay:18000,
       callback:this.story4,
       callbackScope: this,
     });
 
     this.time.addEvent({
-      delay:18000,
+      delay:19000,
       callback:this.story5,
       callbackScope: this,
     });
@@ -154,18 +147,18 @@ export default class PreGameScene extends Phaser.Scene {
   }
 
   text1(){
-    this.add.text(9020, 400, "Hachikō").setStyle({fontSize: "30px", color: "#fff"});
-    this.add.image(9040, 475, "arrow1").setScale(.15);
+    this.add.text(12720, 380, "Hachikō").setStyle({fontSize: "30px", color: "#fff"});
+    this.add.image(12740, 455, "arrow1").setScale(.15);
   }
 
   text2(){
-    this.add.text(8735, 290, "Leader of thugs holding \nHachikō captive").setStyle({fontSize: "20px", color: "#fff"});
-    this.add.image(8860, 375, "arrow2").setScale(.15);
+    this.add.text(12375, 270, "Leader of thugs holding \nHachikō captive").setStyle({fontSize: "20px", color: "#fff"});
+    this.add.image(12500, 355, "arrow2").setScale(.15);
   }
 
   story1(){
-    this.add.text(140, 410, "You").setStyle({fontSize: "23px", color: "#fff"});
-    this.add.image(190, 460, "arrow2").setScale(.1);
+    this.add.text(240, 450, "You").setStyle({fontSize: "23px", color: "#fff"});
+    this.add.image(290, 500, "arrow2").setScale(.1);
   }
 
   story2(){
@@ -184,12 +177,9 @@ export default class PreGameScene extends Phaser.Scene {
     this.add.text(270, 350, "Press enter to start.").setStyle({fontSize: "20px", color: "#fff"});
   }
 
-  //sceneChange(){
-  //  this.scene.start('NeighborhoodScene');
-  //}
 
   delay(){
-    this.scrollCam.scrollX -= 35;
+    this.scrollCam.scrollX -= 40;
   }
 
   //creating thugs
