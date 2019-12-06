@@ -89,6 +89,13 @@ export default class ParkScene extends Phaser.Scene {
     this.platforms.create(1700, 340, "boxCopy4");
     this.collectables.create(2405, 600, "dogToy4").setScale(0.02).setSize(20, 20).setPosition(1900, 100);
 
+    // boss heart display
+    this.bossHealth = 3;
+    this.bossHeart1 = this.add.image(2325, 320, "bossHeart").setScale(0.06)//.setScrollFactor(0);
+    this.bossHeart2 = this.add.image(2340, 320, "bossHeart").setScale(0.06);
+    this.bossHeart3 = this.add.image(2355, 320, "bossHeart").setScale(0.06);
+    this.bossHeart4 = this.add.image(2370, 320, "bossHeart").setScale(0.06);
+
     // display collectables
     this.add.image(200, 20, "dogCollar").setScale(.05).setScrollFactor(0).setTint(0);
     this.add.image(250, 15, "dogBone").setScale(.2).setScrollFactor(0).setTint(0);
@@ -142,7 +149,6 @@ export default class ParkScene extends Phaser.Scene {
 
     this.hachiko = this.add.image(2300, 520, "hachiko").setScale(.2);
     this.box22 = this.hachikoGroup.create(2300, 520, "box").setSize(22, 9); this.box22.alpha = 0;
-    //this.hachiko.setCollideWorldBounds(true);
 
     //gun
     this.nerf = this.add.sprite(this.player.x + 10 ,520, "nerf");
@@ -377,7 +383,7 @@ export default class ParkScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scrollCam.scrollX += .8;
+    this.scrollCam.scrollX += 2;
     if(this.player.x < this.scrollCam.scrollX - 100){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.parkMusic.stop(this.parkMusicConfig);
@@ -492,8 +498,24 @@ export default class ParkScene extends Phaser.Scene {
     bullet.disableBody(true, true);
     //only kill them if they are on screen
     if (bullet.x < this.scrollCam.scrollX + 800) {
-      //console.log("true hit", bullet.x, this.scrollCam.scrollX + 800);
-      enemy.disableBody(true, true);
+      console.log(bullet.x);
+      // hit normal thugs
+      if (bullet.x < 2250) {
+        enemy.disableBody(true, true);
+      };
+      // hit boss and he's on his last life
+      if (bullet.x > 2250 && this.bossHealth == 0) {
+        this.bossHeart1.destroy();
+        enemy.disableBody(true, true);
+      };
+      // hit boss but he still has life
+      if (bullet.x > 2250 && this.bossHealth > 0) {
+        console.log(this.bossHealth);
+        if (this.bossHealth == 3) {this.bossHeart4.destroy()};
+        if (this.bossHealth == 2) {this.bossHeart3.destroy()};
+        if (this.bossHealth == 1) {this.bossHeart2.destroy()};
+        this.bossHealth -= 1;
+      };
       this.enemyGrunt.play();
     };
   }

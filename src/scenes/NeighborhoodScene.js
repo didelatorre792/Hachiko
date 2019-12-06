@@ -189,7 +189,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     }
     //Scrolling screen
     this.physics.world.setBounds(0, 0, this.scrollCam.scrollX + 800, 550);
-    this.scrollCam.scrollX += .7;
+    this.scrollCam.scrollX += 2;
 
 
     // warning for player is going off screen

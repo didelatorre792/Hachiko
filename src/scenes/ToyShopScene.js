@@ -393,7 +393,7 @@ export default class ToyShopScene extends Phaser.Scene {
   }
 
   delay(){
-    this.scrollCam.scrollX +=.9;
+    this.scrollCam.scrollX +=2;
     if(this.player.x < this.scrollCam.scrollX - 75){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.toyShopMusic.stop(this.toyShopMusicConfig);

@@ -43,7 +43,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("arrow3", "./assets/images/arrow3.png");
     this.load.image("blocks", "./assets/images/toyBlocksOutlined.png");
     this.load.image("heart", "./assets/images/heart.png");
-    this.load.image("brokenHeart", "./assets/images/brokenHeart.png");
+    this.load.image("bossHeart", "./assets/images/bossHeart.png");
     this.load.image("lego", "./assets/images/legoOutlined.png");
     this.load.image("titlePic", "./assets/images/heart copy.png");
 
@@ -126,6 +126,6 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 10,
     });*/
 
-    this.scene.start('TitleScene');
+    this.scene.start('ParkScene');
   }
 }

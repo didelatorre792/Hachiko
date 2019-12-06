@@ -391,7 +391,7 @@ export default class AlleyScene extends Phaser.Scene {
 
   delay(){
     console.log("enter delay");
-    this.scrollCam.scrollX +=.8;
+    this.scrollCam.scrollX +=2;
     if(this.player.x < this.scrollCam.scrollX - 75){
       //console.log("Out of bounds", this.scrollCam.scrollX, this.player.x);
       this.alleyMusic.stop(this.alleyMusicConfig)
