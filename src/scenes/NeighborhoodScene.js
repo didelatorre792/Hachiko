@@ -53,6 +53,33 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.group();
 
+    //particles (set scale does NOT work)
+    var particles = this.add.particles("spark");
+
+    this.emitter = particles.createEmitter({
+      x: 1910,
+      y: 250,
+      angle:{min: 290, max:250},
+      speed: 150,
+      gravityY: 200,
+      lifespan:{min: 300, max: 650},
+      on: true,
+      active: true,
+      blendMode: "ADD"
+    });
+
+    this.emitter2 = particles.createEmitter({
+      x: 2670,
+      y: 50,
+      angle:{min: 290, max:250},
+      speed: 150,
+      gravityY: 200,
+      lifespan:{min: 300, max: 650},
+      on: true,
+      active: true,
+      blendMode: "ADD"
+    });
+
     //tutorial
     this.add.text(400, 450, "Use         to move").setStyle({fontSize: "30px", color: "#fff"});
     this.add.image(538, 450, "arrows");
@@ -88,6 +115,7 @@ export default class NeighborhoodScene extends Phaser.Scene {
     this.box9 = this.platforms.create(3315, 457, "box").setSize(30, 10); this.box9.alpha = 0;
     this.add.text(3390, 400, "This way").setStyle({fontSize: "20px", color: "#fff"});
     this.add.image(3450, 450, "arrow3").setScale(.08);
+
 
     // bullet display
     this.bullet10 = this.add.image(718, 40, "bulletVertical").setScrollFactor(0);
@@ -343,6 +371,15 @@ export default class NeighborhoodScene extends Phaser.Scene {
       //console.log("scene switch")
       //console.log("player x in scene 1: ", this.player.x)
     }
+
+    if(this.dogCollarCollect == true){
+      //this.emitter.on = false;
+      this.emitter.stop();
+    }
+
+    if(this.dogBoneCollect == true){
+      this.emitter2.stop();
+    }
   }
 
   //shooting the gun
@@ -391,4 +428,5 @@ export default class NeighborhoodScene extends Phaser.Scene {
   removei() {
     this.i -= 1;
   }
+
 }

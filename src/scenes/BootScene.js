@@ -47,6 +47,9 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("lego", "./assets/images/legoOutlined.png");
     this.load.image("titlePic", "./assets/images/heart copy.png");
 
+    this.load.image("spark", "./assets/images/spark.png");
+    this.load.image("spark2", "./assets/images/spark2.png");
+
     // audio
     this.load.audio("collect", "./assets/sounds/collect.wav");
     this.load.audio("enemyGrunt", "./assets/sounds/enemyGrunt.wav");
@@ -126,6 +129,6 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 10,
     });*/
 
-    this.scene.start('ParkScene');
+    this.scene.start('NeighborhoodScene');
   }
 }
