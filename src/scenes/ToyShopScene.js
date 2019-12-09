@@ -73,6 +73,34 @@ export default class ToyShopScene extends Phaser.Scene {
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.group();
 
+    //particles (set scale does NOT work)
+    var particles = this.add.particles("spark");
+
+    this.emitter = particles.createEmitter({
+      x: 565,
+      y: 315,
+      angle:{min: 290, max:250},
+      speed: 150,
+      gravityY: 200,
+      lifespan:{min: 300, max: 650},
+      on: true,
+      active: true,
+      blendMode: "ADD"
+    });
+
+    this.emitter2 = particles.createEmitter({
+      x: 2350,
+      y: 375,
+      angle:{min: 290, max:250},
+      speed: 150,
+      gravityY: 200,
+      lifespan:{min: 300, max: 650},
+      on: true,
+      active: true,
+      blendMode: "ADD"
+    });
+
+
     // assets
     this.collectables.create(635, 365, "dogToy3").setScale(.3).setSize(35, 35).setPosition(565, 315);
     this.add.image(1790, 490, "blocks").setScale(0.1);
@@ -390,6 +418,14 @@ export default class ToyShopScene extends Phaser.Scene {
       this.scene.start('ParkScene', {health: this.health, itemsCollected: this.itemsCollected, dogCollarCollect: this.dogCollarCollect, dogBoneCollect: this.dogBoneCollect, dogToyCollect: this.dogToyCollect, dogToy2Collect: this.dogToy2Collect, dogToy3Collect: this.dogToy3Collect, dogBowlCollect: this.dogBowlCollect, y: this.y});
       //console.log("scene switch 2")
     };
+
+    if(this.dogToy3Collect == true){
+      this.emitter.stop();
+    }
+
+    if(this.dogToy2Collect == true){
+      this.emitter2.stop();
+    }
   }
 
   delay(){

@@ -70,6 +70,33 @@ export default class AlleyScene extends Phaser.Scene {
     this.collectables = this.physics.add.staticGroup();
     this.enemyGroup = this.physics.add.staticGroup();
 
+    //particles (set scale does NOT work)
+    var particles = this.add.particles("spark");
+
+    this.emitter = particles.createEmitter({
+      x: 2120,
+      y: 530,
+      angle:{min: 290, max:250},
+      speed: 150,
+      gravityY: 200,
+      lifespan:{min: 300, max: 650},
+      on: true,
+      active: true,
+      blendMode: "ADD"
+    });
+
+    this.emitter2 = particles.createEmitter({
+      x: 3050,
+      y: 240,
+      angle:{min: 290, max:250},
+      speed: 150,
+      gravityY: 200,
+      lifespan:{min: 300, max: 650},
+      on: true,
+      active: true,
+      blendMode: "ADD"
+    });
+
     // Tutorial
     this.makeEnemy(1100, 600, .3, 50, 100, 1000, 500);
     this.add.text(300, 370, "Press space to shoot").setStyle({fontSize: "30px", color: "#fff"});
@@ -387,6 +414,14 @@ export default class AlleyScene extends Phaser.Scene {
     //     }
     //   }.bind(this)//for can't read property 'physics' of undefined
     // );
+
+    if(this.dogToyCollect == true){
+      this.emitter.stop();
+    }
+
+    if(this.dogBowlCollect == true){
+      this.emitter2.stop();
+    }
   }
 
   delay(){
