@@ -76,6 +76,33 @@ export default class ParkScene extends Phaser.Scene {
     this.enemyGroup = this.physics.add.staticGroup();
     this.hachikoGroup = this.physics.add.staticGroup();
 
+    //particles (set scale does NOT work)
+    var particles = this.add.particles("spark");
+
+    this.emitter = particles.createEmitter({
+      x: 480,
+      y: 50,
+      angle:{min: 290, max:250},
+      speed: 150,
+      gravityY: 200,
+      lifespan:{min: 300, max: 650},
+      on: true,
+      active: true,
+      blendMode: "ADD"
+    });
+
+    this.emitter2 = particles.createEmitter({
+      x: 1900,
+      y: 100,
+      angle:{min: 290, max:250},
+      speed: 150,
+      gravityY: 200,
+      lifespan:{min: 300, max: 650},
+      on: true,
+      active: true,
+      blendMode: "ADD"
+    });
+
     //park
     this.collectables.create(632, 250, "dogPicture").setScale(0.1).setSize(35, 45).setPosition(480, 50);
     this.trashcan4 = this.add.image(450, 485, "trashcan").setScale(.12);
@@ -380,6 +407,14 @@ export default class ParkScene extends Phaser.Scene {
       }.bind(this)//for can't read property 'physics' of undefined
 
     );
+
+    if(this.docPictureCollect == true){
+      this.emitter.stop();
+    }
+
+    if(this.dogToy4Collect == true){
+      this.emitter2.stop();
+    }
   }
 
   delay(){
@@ -476,9 +511,11 @@ export default class ParkScene extends Phaser.Scene {
   //this.collectedText.text = "Memories: " + this.itemsCollected;
   if (this.player.x < 500 && this.player.x > 450) {
     this.add.image(500, 25, "dogPicture").setScale(0.1).setScrollFactor(0);
+    this.docPictureCollect = true;
   }
   if (this.player.x > 1800) {
     this.add.image(550, 25, "dogToy4").setScale(0.02).setScrollFactor(0);
+    this.dogToy4Collect = true;
   }
   this.collectSound.play("collectSound");
   }
