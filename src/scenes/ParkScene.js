@@ -525,7 +525,7 @@ export default class ParkScene extends Phaser.Scene {
     //if (this.player.x > 7397 && this.player.x < 7403){
       this.parkMusic.stop();
       this.alarmSound.stop();
-      //console.log("got hachiko");
+      this.deathScene = "Park";
       this.scene.start('EndScene', {itemsCollected: this.itemsCollected});
     }
   //}

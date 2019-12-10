@@ -6,7 +6,7 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
     this.add.image(400, 325, "titlePic").setScale(1.1);
-    var Tweenhachiko = this.add.sprite(600, 500, "hachiko").setScale(1);
+    var Tweenhachiko = this.add.sprite(600, 430, "hachiko").setScale(.8);
 
     this.tweens.add({
       targets: Tweenhachiko,
@@ -15,26 +15,15 @@ export default class TitleScene extends Phaser.Scene {
       delay: 300,
       duration:1000,
       yoyo: true,
-      repeat: 6
+      repeat: -1
     });
-    //this.add.image(400, 300, "titleVideo");
+    this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+    this.add.text(300, 550, "Press Enter to start");
   }
 
   update(){
-    //this.titleVideo.play(true)
-    this.time.addEvent({
-      delay:6000,
-      callback:this.delay,
-      callbackScope: this,
-    });
-
-
-
+    var cursors = this.input.keyboard.createCursorKeys()
+    if (Phaser.Input.Keyboard.JustDown(this.enter)){
+      this.scene.start("PreGameScene")};
   }
-
-  delay(){
-    this.scene.start('PreGameScene');
-  }
-
-
 }

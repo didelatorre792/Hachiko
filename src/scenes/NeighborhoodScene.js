@@ -224,10 +224,8 @@ export default class NeighborhoodScene extends Phaser.Scene {
     if (this.i == 0 && (this.player.x < this.scrollCam.scrollX + 60) && (this.player.x > this.scrollCam.scrollX + 58)) {
       this.i += 1;
       this.alarmSound.play("alarmSound");
-      // this.flashCamera = this.cameras.add(0, 0, 800, 600);
-      // this.flashCamera.flash(1000, 50, 10, 10, 10, 10);
       this.text2 = this.add.text(this.scrollCam.scrollX + 300, 300, "MOVE RIGHT").setStyle({fontSize: "50px", color: "#f44A48"});
-      this.time.addEvent({delay:200, callback: this.warning, callbackScope: this}); // destroy text
+      this.time.addEvent({delay:300, callback: this.warning, callbackScope: this}); // destroy text
       // so the warning only happens every so often
       this.time.addEvent({
         delay:450,

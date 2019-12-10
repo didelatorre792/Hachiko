@@ -54,9 +54,9 @@ export default class EndScene extends Phaser.Scene {
 
     } else {
       this.add.image(400, 300, "board").setScale(1).setDepth(0);
-      this.add.text(this.centerX - 170, this.centerY, "You collected "+this.itemsCollected+" of HACHIKŌ's things!", 40).setStyle({color: "#000"});
+      this.add.text(this.centerX - 170, this.centerY, "You collected "+this.itemsCollected+" of Hachikō's things!", 40).setStyle({color: "#000"});
       var scoreArray = ["an F", "a D+", "a D", "a C", "a C+", "a B", "a B+","an A-", "an A"];
-      this.add.text(this.centerX - 115, this.centerY + 40, "You got "+scoreArray[this.itemsCollected]+" TRY AGAIN!").setStyle({color: "#000"});
+      this.add.text(this.centerX - 110, this.centerY + 40, "You got "+scoreArray[this.itemsCollected]+" TRY AGAIN!").setStyle({color: "#000"});
       this.add.text(this.centerX - 128, this.centerY + 80, "Press ENTER to restart level").setStyle({color: "#000"});
       this.add.text(this.centerX - 115, this.centerY + 200, "Press ESC to restart game").setStyle({color: "#000"});
       this.add.image(80, 100, "player").setScale(.5);
