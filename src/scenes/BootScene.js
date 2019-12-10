@@ -8,7 +8,6 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("park", "./assets/images/2.0/park3.0.png");
     this.load.image("toyShop", "./assets/images/toyShop.png")
     this.load.image("arrows", "./assets/images/arrows.png");
-    //this.load.image("spacebar", "./assets/images/spacebar.png");
     this.load.image("car1", "./assets/images/carOutlined.png");
     this.load.image("car2", "./assets/images/car12Outlined.png");
     this.load.image("mailbox", "./assets/images/mailboxOutlined.png");
@@ -45,7 +44,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image("heart", "./assets/images/heart.png");
     this.load.image("bossHeart", "./assets/images/bossHeart.png");
     this.load.image("lego", "./assets/images/legoOutlined.png");
-    this.load.image("titlePic", "./assets/images/heart copy.png");
+    this.load.image("titlePic", "./assets/images/titlePic.png");
 
     this.load.image("spark", "./assets/images/spark.png");
     this.load.image("spark2", "./assets/images/spark2.png");
@@ -81,10 +80,6 @@ export default class BootScene extends Phaser.Scene {
       frameWidth: 186,
       frameHeight: 304/4
     });
-    /*this.load.spritesheet("title", "./assets/spritesheet/title.png", {
-      frameWidth: 2224,
-      frameHeight: 1668
-    }); */
   }
 
 
@@ -123,12 +118,6 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     });
-    /*this.anims.create({
-      key: "title",
-      frames: this.anims.generateFrameNumbers("title", {start: 0, end: 39}),
-      frameRate: 10,
-    });*/
-
-    this.scene.start('ToyShopScene');
+    this.scene.start('TitleScene');
   }
 }
