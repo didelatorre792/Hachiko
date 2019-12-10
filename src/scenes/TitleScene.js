@@ -18,7 +18,7 @@ export default class TitleScene extends Phaser.Scene {
       repeat: -1
     });
     this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-    this.add.text(300, 550, "Press Enter to start");
+    this.add.text(300, 550, "Press enter to start.");
   }
 
   update(){
