@@ -16,6 +16,11 @@ export default class EndScene extends Phaser.Scene {
   }
 
   create(){
+    WebFont.load({
+      google: {
+        families: ["Permanent Marker"]
+      }
+    });
     this.itemsCollected = 0;
     this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
@@ -23,8 +28,8 @@ export default class EndScene extends Phaser.Scene {
     if (this.itemsCollected == 0) {
       console.log("nothing");
       this.cameras.main.setBackgroundColor(0x9F2B30);
-      this.add.text(this.centerX - 305, this.centerY, "You didn't get any of his things, so he doesn't remember you");
-      this.add.text(this.centerX - 220, this.centerY + 40, "TRY AGAIN TO GET HACHIKŌ TO COME HOME WITH YOU");
+      this.add.text(this.centerX - 305, this.centerY, "You didn't get any of his things, so he doesn't remember you","Permanent Marker");
+      this.add.text(this.centerX - 220, this.centerY + 40, "TRY AGAIN TO GET HACHIKŌ TO COME HOME WITH YOU", "Permanent Marker");
       this.add.text(this.centerX - 128, this.centerY + 80, "Press ENTER to restart level");
       this.add.text(this.centerX - 115, this.centerY + 200, "Press ESC to restart game");
 
@@ -43,7 +48,7 @@ export default class EndScene extends Phaser.Scene {
 
     } else if (this.itemsCollected == 8) {
       this.cameras.main.setBackgroundColor(0xECCE00);
-      this.add.text(this.centerX - 175, this.centerY, "You collected all of Hachikō's things!", 40);
+      this.add.text(this.centerX - 175, this.centerY, "You collected all of Hachikō's things!", 40, "Permanent Marker");
       this.add.text(this.centerX - 230, this.centerY + 40, "You got an A+ and Hachikō is coming home with you!");
       this.add.text(this.centerX - 128, this.centerY + 80, "Press ENTER to restart level");
       this.add.text(this.centerX - 115, this.centerY + 200, "Press ESC to restart game");
