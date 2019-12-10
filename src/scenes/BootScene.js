@@ -74,12 +74,12 @@ export default class BootScene extends Phaser.Scene {
       frameHeight: 790/3
     });
     this.load.spritesheet("movingCar", "./assets/spritesheet/movingCar.png", {
-      frameWidth: 200,
-      frameHeight: 150
+      frameWidth: 186,
+      frameHeight: 304/4
     });
     this.load.spritesheet("movingCar2", "./assets/spritesheet/movingCar2.png", {
-      frameWidth: 200,
-      frameHeight: 150
+      frameWidth: 186,
+      frameHeight: 304/4
     });
     /*this.load.spritesheet("title", "./assets/spritesheet/title.png", {
       frameWidth: 2224,
@@ -129,6 +129,6 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 10,
     });*/
 
-    this.scene.start('NeighborhoodScene');
+    this.scene.start('ToyShopScene');
   }
 }
