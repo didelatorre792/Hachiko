@@ -2,8 +2,8 @@ export default class BootScene extends Phaser.Scene {
 
   preload () {
     // assets
-    this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
-    
+
+    this.load.image("board", "./assets/images/2.0/board.png");
     this.load.image("background", "./assets/images/2.0/finalbackground.png");
     this.load.image("neighborhood", "./assets/images/2.0/neighbourhood3.0.jpg");
     this.load.image("alley", "./assets/images/2.0/alley.png");
@@ -120,6 +120,6 @@ export default class BootScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     });
-    this.scene.start('NeighborhoodScene');
+    this.scene.start('TitleScene');
   }
 }
